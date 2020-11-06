@@ -50,56 +50,56 @@ contract Contents is IContents{
         len --;
     }
 
-/*
-    function getHolderInfo(uint256 contentId, uint256 _num) external view returns(uint256, address, uint256){
-        return(
-        _shareInfo[contentId].contentId,
-        _shareInfo[contentId].holderAddress[_num],
-        _shareInfo[contentId].holderPortion[_num]
-        );
-    }
-*/
+    /*
+       function getHolderInfo(uint256 contentId, uint256 _num) external view returns(uint256, address, uint256){
+       return(
+       _shareInfo[contentId].contentId,
+       _shareInfo[contentId].holderAddress[_num],
+       _shareInfo[contentId].holderPortion[_num]
+       );
+       }
+     */
     function getHolderId(uint256 contentId, uint256 _num) external view returns(uint256){
         return(
-        _shareInfo[contentId].contentId
+            _shareInfo[contentId].contentId
         );
     }
 
     function getHolderAddress(uint256 contentId, uint256 _num) external view returns( address){
         return(
-        _shareInfo[contentId].holderAddress[_num]
+            _shareInfo[contentId].holderAddress[_num]
         );
     }
 
     function getHolderPortion(uint256 contentId, uint256 _num) external view returns( uint256){
         return(
-        _shareInfo[contentId].holderPortion[_num]
+            _shareInfo[contentId].holderPortion[_num]
         );
     }
 
     function getHolderLength(uint256 contentId) external view returns(uint256){
         return(
-        len
+            len
         );
     }
 
-/*
-    function getContentInfo(uint256 contentId) external view returns(string memory, uint256){
-        return(
-          _contentList[contentId].name,
-          _contentList[contentId].contentId
-          );
-    }
-*/
+    /*
+       function getContentInfo(uint256 contentId) external view returns(string memory, uint256){
+       return(
+       _contentList[contentId].name,
+       _contentList[contentId].contentId
+       );
+       }
+     */
     function getContentName(uint256 contentId) external view returns(string memory){
         return(
-          _contentList[contentId].name
-          );
+            _contentList[contentId].name
+        );
     }
 
     function getContentID(uint256 contentId) external view returns(uint256){
         return(
-          _contentList[contentId].contentId
-          );
+            _contentList[contentId].contentId
+        );
     }
 }
