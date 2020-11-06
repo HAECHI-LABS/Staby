@@ -50,15 +50,15 @@ contract Contents is IContents{
         len --;
     }
 
-    /*
-       function getHolderInfo(uint256 contentId, uint256 _num) external view returns(uint256, address, uint256){
-       return(
-       _shareInfo[contentId].contentId,
-       _shareInfo[contentId].holderAddress[_num],
-       _shareInfo[contentId].holderPortion[_num]
-       );
-       }
-     */
+
+    function getHolderInfo(uint256 contentId, uint256 _num) external view returns( address holder, uint256 portion){
+        return(
+            //_shareInfo[contentId].contentId,
+            _shareInfo[contentId].holderAddress[_num],
+            _shareInfo[contentId].holderPortion[_num]
+        );
+    }
+
     function getHolderId(uint256 contentId, uint256 _num) external view returns(uint256){
         return(
             _shareInfo[contentId].contentId

@@ -33,11 +33,10 @@ interface IContents {
      * @notice contentId 에 해당하는 지분관계를 보여줌
      * @dev
      * @param contentId : Content의 Id
-     * @return contentId : Content의 Id
      * @return holderAddress : 지분 소유자의 address
      * @return holderPortion : 소유자가 가지고있는 지분 persentage
      */
-//    function getHolderInfo(uint256 contentId, uint256 _num) external view returns(uint256, address, uint256);
+    function getHolderInfo(uint256 contentId, uint256 _num) external view returns( address, uint256);
 
 
     /**

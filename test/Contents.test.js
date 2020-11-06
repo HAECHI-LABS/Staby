@@ -10,7 +10,7 @@ contract ('Contents', accounts  =>{
 var id = new BN('0');
 var por = new BN('20');
 var porr = new BN('50');
-  const [owner, holder1, holder2, ...others] = accounts;
+const [owner, holder1, holder2, ...others] = accounts;
   //aa
 
   describe("createContent test", () => {
@@ -64,6 +64,14 @@ var porr = new BN('50');
       (await content.getHolderPortion(id, new BN('0'))).should.be.bignumber.equal('20');
       (await content.getHolderPortion(id, new BN('1'))).should.be.bignumber.equal('50');
 
+    });
+      it("Holder Info", async () => {
+      //  await content.createContent('TEST1', 0, {from : owner});
+        //await content.updateHolders(id, holder, por, {from : owner});
+
+        console.log(await content.getHolderInfo(id, new BN('0')));
+        ((await content.getHolderInfo(id, new BN('0'))).portion).should.be.equal('20');
+        ((await content.getHolderInfo(id, new BN('1'))).portion).should.be.equal('50');
     });
   });
 
