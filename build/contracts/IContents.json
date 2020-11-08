@@ -68,6 +68,37 @@
           "internalType": "uint256",
           "name": "contentId",
           "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_num",
+          "type": "uint256"
+        }
+      ],
+      "name": "getHolderInfo",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "contentId",
+          "type": "uint256"
         }
       ],
       "name": "getContentName",
@@ -203,30 +234,30 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"_contentId\",\"type\":\"uint256\"}],\"name\":\"createContent\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_contentId\",\"type\":\"uint256\"}],\"name\":\"deleteHolders\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"}],\"name\":\"getContentID\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"}],\"name\":\"getContentName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_num\",\"type\":\"uint256\"}],\"name\":\"getHolderAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_num\",\"type\":\"uint256\"}],\"name\":\"getHolderId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"}],\"name\":\"getHolderLength\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_num\",\"type\":\"uint256\"}],\"name\":\"getHolderPortion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_contentId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_Holder\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_portion\",\"type\":\"uint256\"}],\"name\":\"updateHolders\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"createContent(string,uint256)\":{\"details\":\"@param _name : Content \\uc774\\ub984\",\"params\":{\"_contentId\":\": Content\\uc758 Id\"}},\"deleteHolders(uint256)\":{\"details\":\"@param _contentId : Content\\uc758 Id\"},\"getContentID(uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"return\":\"_contentList[contentId].contentId : content\\uc758 ID\"},\"getContentName(uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"return\":\"_contentList[contentId].name : content\\uc758 \\uc774\\ub984\"},\"getHolderAddress(uint256,uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"params\":{\"_num\":\": Holder\\uc758 index\"},\"return\":\"_shareInfo[contentId].holderAddress[_num] : Holder\\uc758 address\"},\"getHolderId(uint256,uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"params\":{\"_num\":\": Holder\\uc758 index\"},\"return\":\"_shareInfo[contentId].contentId : Holder\\uc758 Id\"},\"getHolderLength(uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"return\":\"len : Holder\\uc758 \\uc218\"},\"getHolderPortion(uint256,uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"params\":{\"_num\":\": Holder\\uc758 index\"},\"return\":\"_shareInfo[contentId].holderPortion[_num] : Holder\\uc758 portion\"},\"updateHolders(uint256,address,uint256)\":{\"details\":\"@param _contentId : Content\\uc758 Id\",\"params\":{\"_Holder\":\": \\uc9c0\\ubd84 \\uc18c\\uc720\\uc790\\uc758 address\",\"_portion\":\": \\uc18c\\uc720\\uc790\\uac00 \\uac00\\uc9c0\\uace0\\uc788\\ub294 \\uc9c0\\ubd84 persentage\"}}}},\"userdoc\":{\"methods\":{\"createContent(string,uint256)\":{\"notice\":\"Content creation\"},\"deleteHolders(uint256)\":{\"notice\":\"contentId \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 \\uc9c0\\ubd84\\uad00\\uacc4 \\uc0ad\\uc81c\"},\"getContentID(uint256)\":{\"notice\":\"contentId \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 content\\uc758 ID\"},\"getContentName(uint256)\":{\"notice\":\"contentId \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 content\\uc758 \\uc774\\ub984\"},\"getHolderAddress(uint256,uint256)\":{\"notice\":\"contentId \\uc640 holder index \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 holder\\uc758 address\"},\"getHolderId(uint256,uint256)\":{\"notice\":\"contentId \\uc640 holder index \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 holder\\uc758 ID\"},\"getHolderLength(uint256)\":{\"notice\":\"contentId\\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 holder\\uc758 \\uc218\"},\"getHolderPortion(uint256,uint256)\":{\"notice\":\"contentId \\uc640 holder index \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 holder\\uc758 portion\"},\"updateHolders(uint256,address,uint256)\":{\"notice\":\"Content\\uc758 \\uc9c0\\ubd84\\uad00\\uacc4\\ub97c \\uc5c5\\ub370\\uc774\\ud2b8.\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/WOOK/Development/haechilabs/Staby/contracts/IContents.sol\":\"IContents\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/WOOK/Development/haechilabs/Staby/contracts/IContents.sol\":{\"keccak256\":\"0xc8e4813899534f04cb98cba60cc9bcb544aceea770c46d7ce6519f1c50f43297\",\"urls\":[\"bzz-raw://b0c1105ffd24d29c56e05dd5f9f74c6df7edfdaca8e0b9ece1cbc79da74cffd6\",\"dweb:/ipfs/QmZ4ipXdyP8VxBu5PwV33D5GjHpF9NnzjR7eXPQDemSPAp\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"_contentId\",\"type\":\"uint256\"}],\"name\":\"createContent\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_contentId\",\"type\":\"uint256\"}],\"name\":\"deleteHolders\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"}],\"name\":\"getContentID\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"}],\"name\":\"getContentName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_num\",\"type\":\"uint256\"}],\"name\":\"getHolderAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_num\",\"type\":\"uint256\"}],\"name\":\"getHolderId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_num\",\"type\":\"uint256\"}],\"name\":\"getHolderInfo\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"}],\"name\":\"getHolderLength\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"contentId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_num\",\"type\":\"uint256\"}],\"name\":\"getHolderPortion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_contentId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_Holder\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_portion\",\"type\":\"uint256\"}],\"name\":\"updateHolders\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"createContent(string,uint256)\":{\"details\":\"@param _name : Content \\uc774\\ub984\",\"params\":{\"_contentId\":\": Content\\uc758 Id\"}},\"deleteHolders(uint256)\":{\"details\":\"@param _contentId : Content\\uc758 Id\"},\"getContentID(uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"return\":\"_contentList[contentId].contentId : content\\uc758 ID\"},\"getContentName(uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"return\":\"_contentList[contentId].name : content\\uc758 \\uc774\\ub984\"},\"getHolderAddress(uint256,uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"params\":{\"_num\":\": Holder\\uc758 index\"},\"return\":\"_shareInfo[contentId].holderAddress[_num] : Holder\\uc758 address\"},\"getHolderId(uint256,uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"params\":{\"_num\":\": Holder\\uc758 index\"},\"return\":\"_shareInfo[contentId].contentId : Holder\\uc758 Id\"},\"getHolderInfo(uint256,uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"return\":\"holderAddress : \\uc9c0\\ubd84 \\uc18c\\uc720\\uc790\\uc758 addressholderPortion : \\uc18c\\uc720\\uc790\\uac00 \\uac00\\uc9c0\\uace0\\uc788\\ub294 \\uc9c0\\ubd84 persentage\"},\"getHolderLength(uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"return\":\"len : Holder\\uc758 \\uc218\"},\"getHolderPortion(uint256,uint256)\":{\"details\":\"@param contentId : Content\\uc758 Id\",\"params\":{\"_num\":\": Holder\\uc758 index\"},\"return\":\"_shareInfo[contentId].holderPortion[_num] : Holder\\uc758 portion\"},\"updateHolders(uint256,address,uint256)\":{\"details\":\"@param _contentId : Content\\uc758 Id\",\"params\":{\"_Holder\":\": \\uc9c0\\ubd84 \\uc18c\\uc720\\uc790\\uc758 address\",\"_portion\":\": \\uc18c\\uc720\\uc790\\uac00 \\uac00\\uc9c0\\uace0\\uc788\\ub294 \\uc9c0\\ubd84 persentage\"}}}},\"userdoc\":{\"methods\":{\"createContent(string,uint256)\":{\"notice\":\"Content creation\"},\"deleteHolders(uint256)\":{\"notice\":\"contentId \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 \\uc9c0\\ubd84\\uad00\\uacc4 \\uc0ad\\uc81c\"},\"getContentID(uint256)\":{\"notice\":\"contentId \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 content\\uc758 ID\"},\"getContentName(uint256)\":{\"notice\":\"contentId \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 content\\uc758 \\uc774\\ub984\"},\"getHolderAddress(uint256,uint256)\":{\"notice\":\"contentId \\uc640 holder index \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 holder\\uc758 address\"},\"getHolderId(uint256,uint256)\":{\"notice\":\"contentId \\uc640 holder index \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 holder\\uc758 ID\"},\"getHolderInfo(uint256,uint256)\":{\"notice\":\"contentId \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 \\uc9c0\\ubd84\\uad00\\uacc4\\ub97c \\ubcf4\\uc5ec\\uc90c\"},\"getHolderLength(uint256)\":{\"notice\":\"contentId\\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 holder\\uc758 \\uc218\"},\"getHolderPortion(uint256,uint256)\":{\"notice\":\"contentId \\uc640 holder index \\uc5d0 \\ud574\\ub2f9\\ud558\\ub294 holder\\uc758 portion\"},\"updateHolders(uint256,address,uint256)\":{\"notice\":\"Content\\uc758 \\uc9c0\\ubd84\\uad00\\uacc4\\ub97c \\uc5c5\\ub370\\uc774\\ud2b8.\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/WOOK/Development/haechilabs/Staby/contracts/IContents.sol\":\"IContents\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/WOOK/Development/haechilabs/Staby/contracts/IContents.sol\":{\"keccak256\":\"0x34b9ec4d8763faa08d93f18b5200e0032f0c8a13a68520b9e50d8e54d70fe86a\",\"urls\":[\"bzz-raw://6ca580dbb5e2ce2d531cd751df8e134ade993788e8fbfc7e496166e1df2044b3\",\"dweb:/ipfs/QmUkKWBwp47c5Q5UYD7nk5fpdx3gWGGK8hvZNrwR2Dz3nZ\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.5.0;\n\ninterface IContents {\n\n    /**\n     * @notice Content creation\n     * @dev\n     * @param _name : Content 이름\n     * @param _contentId : Content의 Id\n     */\n    function createContent(string calldata _name, uint256 _contentId) external;\n\n\n    /**\n     * @notice Content의 지분관계를 업데이트.\n     * @dev\n     * @param _contentId : Content의 Id\n     * @param _Holder : 지분 소유자의 address\n     * @param _portion : 소유자가 가지고있는 지분 persentage\n     */\n    function updateHolders(uint256 _contentId, address _Holder, uint _portion) external;\n\n\n     /**\n     * @notice contentId 에 해당하는 지분관계 삭제\n     * @dev\n     * @param _contentId : Content의 Id\n     */\n    function deleteHolders(uint256 _contentId) external;\n\n\n    /**\n     * @notice contentId 에 해당하는 지분관계를 보여줌\n     * @dev\n     * @param contentId : Content의 Id\n     * @return contentId : Content의 Id\n     * @return holderAddress : 지분 소유자의 address\n     * @return holderPortion : 소유자가 가지고있는 지분 persentage\n     */\n//    function getHolderInfo(uint256 contentId, uint256 _num) external view returns(uint256, address, uint256);\n\n\n    /**\n     * @notice contentId 에 해당하는 Content 정보를 보여줌\n     * @dev\n     * @param contentId : Content의 Id\n     * @return name : Content의 이름\n     * @return contentId : Content의 Id\n     */\n  //  function getContentInfo(uint256 contentId) external view returns(string memory, uint256);\n\n\n  /**\n   * @notice contentId 에 해당하는 content의 이름\n   * @dev\n   * @param contentId : Content의 Id\n   * @return _contentList[contentId].name : content의 이름\n   */\n    function getContentName(uint256 contentId) external view returns(string memory);\n\n    /**\n     * @notice contentId 에 해당하는 content의 ID\n     * @dev\n     * @param contentId : Content의 Id\n     * @return _contentList[contentId].contentId : content의 ID\n     */\n    function getContentID(uint256 contentId) external view returns(uint256);\n\n    /**\n     * @notice contentId 와 holder index 에 해당하는 holder의 ID\n     * @dev\n     * @param contentId : Content의 Id\n     * @param _num : Holder의 index\n     * @return _shareInfo[contentId].contentId : Holder의 Id\n     */\n    function getHolderId(uint256 contentId, uint256 _num) external view returns(uint256);\n\n    /**\n     * @notice contentId 와 holder index 에 해당하는 holder의 address\n     * @dev\n     * @param contentId : Content의 Id\n     * @param _num : Holder의 index\n     * @return _shareInfo[contentId].holderAddress[_num] : Holder의 address\n     */\n    function getHolderAddress(uint256 contentId, uint256 _num) external view returns( address);\n\n    /**\n     * @notice contentId 와 holder index 에 해당하는 holder의 portion\n     * @dev\n     * @param contentId : Content의 Id\n     * @param _num : Holder의 index\n     * @return _shareInfo[contentId].holderPortion[_num] : Holder의 portion\n     */\n    function getHolderPortion(uint256 contentId, uint256 _num) external view returns( uint256);\n\n    /**\n     * @notice contentId에 해당하는 holder의 수\n     * @dev\n     * @param contentId : Content의 Id\n     * @return len : Holder의 수\n     */\n    function getHolderLength(uint256 contentId) external view returns(uint256);\n\n}\n",
+  "source": "pragma solidity ^0.5.6;\n\ninterface IContents {\n\n    /**\n     * @notice Content creation\n     * @dev\n     * @param _name : Content 이름\n     * @param _contentId : Content의 Id\n     */\n    function createContent(string calldata _name, uint256 _contentId) external;\n\n\n    /**\n     * @notice Content의 지분관계를 업데이트.\n     * @dev\n     * @param _contentId : Content의 Id\n     * @param _Holder : 지분 소유자의 address\n     * @param _portion : 소유자가 가지고있는 지분 persentage\n     */\n    function updateHolders(uint256 _contentId, address _Holder, uint _portion) external;\n\n\n     /**\n     * @notice contentId 에 해당하는 지분관계 삭제\n     * @dev\n     * @param _contentId : Content의 Id\n     */\n    function deleteHolders(uint256 _contentId) external;\n\n\n    /**\n     * @notice contentId 에 해당하는 지분관계를 보여줌\n     * @dev\n     * @param contentId : Content의 Id\n     * @return holderAddress : 지분 소유자의 address\n     * @return holderPortion : 소유자가 가지고있는 지분 persentage\n     */\n    function getHolderInfo(uint256 contentId, uint256 _num) external view returns( address, uint256);\n\n\n    /**\n     * @notice contentId 에 해당하는 Content 정보를 보여줌\n     * @dev\n     * @param contentId : Content의 Id\n     * @return name : Content의 이름\n     * @return contentId : Content의 Id\n     */\n  //  function getContentInfo(uint256 contentId) external view returns(string memory, uint256);\n\n\n  /**\n   * @notice contentId 에 해당하는 content의 이름\n   * @dev\n   * @param contentId : Content의 Id\n   * @return _contentList[contentId].name : content의 이름\n   */\n    function getContentName(uint256 contentId) external view returns(string memory);\n\n    /**\n     * @notice contentId 에 해당하는 content의 ID\n     * @dev\n     * @param contentId : Content의 Id\n     * @return _contentList[contentId].contentId : content의 ID\n     */\n    function getContentID(uint256 contentId) external view returns(uint256);\n\n    /**\n     * @notice contentId 와 holder index 에 해당하는 holder의 ID\n     * @dev\n     * @param contentId : Content의 Id\n     * @param _num : Holder의 index\n     * @return _shareInfo[contentId].contentId : Holder의 Id\n     */\n    function getHolderId(uint256 contentId, uint256 _num) external view returns(uint256);\n\n    /**\n     * @notice contentId 와 holder index 에 해당하는 holder의 address\n     * @dev\n     * @param contentId : Content의 Id\n     * @param _num : Holder의 index\n     * @return _shareInfo[contentId].holderAddress[_num] : Holder의 address\n     */\n    function getHolderAddress(uint256 contentId, uint256 _num) external view returns( address);\n\n    /**\n     * @notice contentId 와 holder index 에 해당하는 holder의 portion\n     * @dev\n     * @param contentId : Content의 Id\n     * @param _num : Holder의 index\n     * @return _shareInfo[contentId].holderPortion[_num] : Holder의 portion\n     */\n    function getHolderPortion(uint256 contentId, uint256 _num) external view returns( uint256);\n\n    /**\n     * @notice contentId에 해당하는 holder의 수\n     * @dev\n     * @param contentId : Content의 Id\n     * @return len : Holder의 수\n     */\n    function getHolderLength(uint256 contentId) external view returns(uint256);\n\n}\n",
   "sourcePath": "/Users/WOOK/Development/haechilabs/Staby/contracts/IContents.sol",
   "ast": {
     "absolutePath": "/Users/WOOK/Development/haechilabs/Staby/contracts/IContents.sol",
     "exportedSymbols": {
       "IContents": [
-        291
+        448
       ]
     },
-    "id": 292,
+    "id": 449,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 221,
+        "id": 367,
         "literals": [
           "solidity",
           "^",
           "0.5",
-          ".0"
+          ".6"
         ],
         "nodeType": "PragmaDirective",
         "src": "0:23:1"
@@ -237,9 +268,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 291,
+        "id": 448,
         "linearizedBaseContracts": [
-          291
+          448
         ],
         "name": "IContents",
         "nodeType": "ContractDefinition",
@@ -247,22 +278,22 @@
           {
             "body": null,
             "documentation": "@notice Content creation\n@dev\n@param _name : Content 이름\n@param _contentId : Content의 Id",
-            "id": 228,
+            "id": 374,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "createContent",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 226,
+              "id": 372,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 223,
+                  "id": 369,
                   "name": "_name",
                   "nodeType": "VariableDeclaration",
-                  "scope": 228,
+                  "scope": 374,
                   "src": "213:21:1",
                   "stateVariable": false,
                   "storageLocation": "calldata",
@@ -271,7 +302,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 222,
+                    "id": 368,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "213:6:1",
@@ -285,10 +316,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 225,
+                  "id": 371,
                   "name": "_contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 228,
+                  "scope": 374,
                   "src": "236:18:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -297,7 +328,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 224,
+                    "id": 370,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "236:7:1",
@@ -313,12 +344,12 @@
               "src": "212:43:1"
             },
             "returnParameters": {
-              "id": 227,
+              "id": 373,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "264:0:1"
             },
-            "scope": 291,
+            "scope": 448,
             "src": "190:75:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -327,22 +358,22 @@
           {
             "body": null,
             "documentation": "@notice Content의 지분관계를 업데이트.\n@dev\n@param _contentId : Content의 Id\n@param _Holder : 지분 소유자의 address\n@param _portion : 소유자가 가지고있는 지분 persentage",
-            "id": 237,
+            "id": 383,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "updateHolders",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 235,
+              "id": 381,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 230,
+                  "id": 376,
                   "name": "_contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 237,
+                  "scope": 383,
                   "src": "544:18:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -351,7 +382,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 229,
+                    "id": 375,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "544:7:1",
@@ -365,10 +396,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 232,
+                  "id": 378,
                   "name": "_Holder",
                   "nodeType": "VariableDeclaration",
-                  "scope": 237,
+                  "scope": 383,
                   "src": "564:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -377,7 +408,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 231,
+                    "id": 377,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "564:7:1",
@@ -392,10 +423,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 234,
+                  "id": 380,
                   "name": "_portion",
                   "nodeType": "VariableDeclaration",
-                  "scope": 237,
+                  "scope": 383,
                   "src": "581:13:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -404,7 +435,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 233,
+                    "id": 379,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "581:4:1",
@@ -420,12 +451,12 @@
               "src": "543:52:1"
             },
             "returnParameters": {
-              "id": 236,
+              "id": 382,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "604:0:1"
             },
-            "scope": 291,
+            "scope": 448,
             "src": "521:84:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -434,22 +465,22 @@
           {
             "body": null,
             "documentation": "@notice contentId 에 해당하는 지분관계 삭제\n@dev\n@param _contentId : Content의 Id",
-            "id": 242,
+            "id": 388,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "deleteHolders",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 240,
+              "id": 386,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 239,
+                  "id": 385,
                   "name": "_contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 242,
+                  "scope": 388,
                   "src": "767:18:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -458,7 +489,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 238,
+                    "id": 384,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "767:7:1",
@@ -474,12 +505,12 @@
               "src": "766:20:1"
             },
             "returnParameters": {
-              "id": 241,
+              "id": 387,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "795:0:1"
             },
-            "scope": 291,
+            "scope": 448,
             "src": "744:52:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -487,24 +518,24 @@
           },
           {
             "body": null,
-            "documentation": "@notice contentId 에 해당하는 content의 이름\n@dev\n@param contentId : Content의 Id\n@return _contentList[contentId].name : content의 이름",
-            "id": 249,
+            "documentation": "@notice contentId 에 해당하는 지분관계를 보여줌\n@dev\n@param contentId : Content의 Id\n@return holderAddress : 지분 소유자의 address\n@return holderPortion : 소유자가 가지고있는 지분 persentage",
+            "id": 399,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
-            "name": "getContentName",
+            "name": "getHolderInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 245,
+              "id": 393,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 244,
+                  "id": 390,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 249,
-                  "src": "1752:17:1",
+                  "scope": 399,
+                  "src": "1099:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -512,10 +543,36 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 243,
+                    "id": 389,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1752:7:1",
+                    "src": "1099:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 392,
+                  "name": "_num",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 399,
+                  "src": "1118:12:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 391,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1118:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -525,19 +582,127 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1751:19:1"
+              "src": "1098:33:1"
             },
             "returnParameters": {
-              "id": 248,
+              "id": 398,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 247,
+                  "id": 395,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 249,
-                  "src": "1793:13:1",
+                  "scope": 399,
+                  "src": "1155:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 394,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1155:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 397,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 399,
+                  "src": "1164:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 396,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1164:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1153:19:1"
+            },
+            "scope": 448,
+            "src": "1076:97:1",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "@notice contentId 에 해당하는 content의 이름\n@dev\n@param contentId : Content의 Id\n@return _contentList[contentId].name : content의 이름",
+            "id": 406,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getContentName",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 402,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 401,
+                  "name": "contentId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 406,
+                  "src": "1701:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 400,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1701:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1700:19:1"
+            },
+            "returnParameters": {
+              "id": 405,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 404,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 406,
+                  "src": "1742:13:1",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -545,10 +710,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 246,
+                    "id": 403,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1793:6:1",
+                    "src": "1742:6:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -558,10 +723,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1792:15:1"
+              "src": "1741:15:1"
             },
-            "scope": 291,
-            "src": "1728:80:1",
+            "scope": 448,
+            "src": "1677:80:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -569,23 +734,23 @@
           {
             "body": null,
             "documentation": "@notice contentId 에 해당하는 content의 ID\n@dev\n@param contentId : Content의 Id\n@return _contentList[contentId].contentId : content의 ID",
-            "id": 256,
+            "id": 413,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getContentID",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 252,
+              "id": 409,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 251,
+                  "id": 408,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 256,
-                  "src": "2025:17:1",
+                  "scope": 413,
+                  "src": "1974:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -593,10 +758,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 250,
+                    "id": 407,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2025:7:1",
+                    "src": "1974:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -606,19 +771,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2024:19:1"
+              "src": "1973:19:1"
             },
             "returnParameters": {
-              "id": 255,
+              "id": 412,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 254,
+                  "id": 411,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 256,
-                  "src": "2066:7:1",
+                  "scope": 413,
+                  "src": "2015:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -626,10 +791,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 253,
+                    "id": 410,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2066:7:1",
+                    "src": "2015:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -639,10 +804,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2065:9:1"
+              "src": "2014:9:1"
             },
-            "scope": 291,
-            "src": "2003:72:1",
+            "scope": 448,
+            "src": "1952:72:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -650,23 +815,23 @@
           {
             "body": null,
             "documentation": "@notice contentId 와 holder index 에 해당하는 holder의 ID\n@dev\n@param contentId : Content의 Id\n@param _num : Holder의 index\n@return _shareInfo[contentId].contentId : Holder의 Id",
-            "id": 265,
+            "id": 422,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getHolderId",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 261,
+              "id": 418,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 258,
+                  "id": 415,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 265,
-                  "src": "2341:17:1",
+                  "scope": 422,
+                  "src": "2290:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -674,10 +839,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 257,
+                    "id": 414,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2341:7:1",
+                    "src": "2290:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -688,11 +853,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 260,
+                  "id": 417,
                   "name": "_num",
                   "nodeType": "VariableDeclaration",
-                  "scope": 265,
-                  "src": "2360:12:1",
+                  "scope": 422,
+                  "src": "2309:12:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -700,10 +865,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 259,
+                    "id": 416,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2360:7:1",
+                    "src": "2309:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -713,19 +878,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2340:33:1"
+              "src": "2289:33:1"
             },
             "returnParameters": {
-              "id": 264,
+              "id": 421,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 263,
+                  "id": 420,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 265,
-                  "src": "2396:7:1",
+                  "scope": 422,
+                  "src": "2345:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -733,10 +898,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 262,
+                    "id": 419,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2396:7:1",
+                    "src": "2345:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -746,10 +911,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2395:9:1"
+              "src": "2344:9:1"
             },
-            "scope": 291,
-            "src": "2320:85:1",
+            "scope": 448,
+            "src": "2269:85:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -757,23 +922,23 @@
           {
             "body": null,
             "documentation": "@notice contentId 와 holder index 에 해당하는 holder의 address\n@dev\n@param contentId : Content의 Id\n@param _num : Holder의 index\n@return _shareInfo[contentId].holderAddress[_num] : Holder의 address",
-            "id": 274,
+            "id": 431,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getHolderAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 270,
+              "id": 427,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 267,
+                  "id": 424,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 274,
-                  "src": "2696:17:1",
+                  "scope": 431,
+                  "src": "2645:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -781,10 +946,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 266,
+                    "id": 423,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2696:7:1",
+                    "src": "2645:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -795,11 +960,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 269,
+                  "id": 426,
                   "name": "_num",
                   "nodeType": "VariableDeclaration",
-                  "scope": 274,
-                  "src": "2715:12:1",
+                  "scope": 431,
+                  "src": "2664:12:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -807,10 +972,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 268,
+                    "id": 425,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2715:7:1",
+                    "src": "2664:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -820,19 +985,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2695:33:1"
+              "src": "2644:33:1"
             },
             "returnParameters": {
-              "id": 273,
+              "id": 430,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 272,
+                  "id": 429,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 274,
-                  "src": "2752:7:1",
+                  "scope": 431,
+                  "src": "2701:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -840,10 +1005,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 271,
+                    "id": 428,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2752:7:1",
+                    "src": "2701:7:1",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -854,10 +1019,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2750:10:1"
+              "src": "2699:10:1"
             },
-            "scope": 291,
-            "src": "2670:91:1",
+            "scope": 448,
+            "src": "2619:91:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -865,23 +1030,23 @@
           {
             "body": null,
             "documentation": "@notice contentId 와 holder index 에 해당하는 holder의 portion\n@dev\n@param contentId : Content의 Id\n@param _num : Holder의 index\n@return _shareInfo[contentId].holderPortion[_num] : Holder의 portion",
-            "id": 283,
+            "id": 440,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getHolderPortion",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 279,
+              "id": 436,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 276,
+                  "id": 433,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 283,
-                  "src": "3052:17:1",
+                  "scope": 440,
+                  "src": "3001:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -889,10 +1054,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 275,
+                    "id": 432,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3052:7:1",
+                    "src": "3001:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -903,11 +1068,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 278,
+                  "id": 435,
                   "name": "_num",
                   "nodeType": "VariableDeclaration",
-                  "scope": 283,
-                  "src": "3071:12:1",
+                  "scope": 440,
+                  "src": "3020:12:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -915,10 +1080,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 277,
+                    "id": 434,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3071:7:1",
+                    "src": "3020:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -928,19 +1093,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3051:33:1"
+              "src": "3000:33:1"
             },
             "returnParameters": {
-              "id": 282,
+              "id": 439,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 281,
+                  "id": 438,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 283,
-                  "src": "3108:7:1",
+                  "scope": 440,
+                  "src": "3057:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -948,10 +1113,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 280,
+                    "id": 437,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3108:7:1",
+                    "src": "3057:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -961,10 +1126,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3106:10:1"
+              "src": "3055:10:1"
             },
-            "scope": 291,
-            "src": "3026:91:1",
+            "scope": 448,
+            "src": "2975:91:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -972,23 +1137,23 @@
           {
             "body": null,
             "documentation": "@notice contentId에 해당하는 holder의 수\n@dev\n@param contentId : Content의 Id\n@return len : Holder의 수",
-            "id": 290,
+            "id": 447,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getHolderLength",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 286,
+              "id": 443,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 285,
+                  "id": 442,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 290,
-                  "src": "3306:17:1",
+                  "scope": 447,
+                  "src": "3255:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -996,10 +1161,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 284,
+                    "id": 441,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3306:7:1",
+                    "src": "3255:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1009,19 +1174,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3305:19:1"
+              "src": "3254:19:1"
             },
             "returnParameters": {
-              "id": 289,
+              "id": 446,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 288,
+                  "id": 445,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 290,
-                  "src": "3347:7:1",
+                  "scope": 447,
+                  "src": "3296:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1029,10 +1194,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 287,
+                    "id": 444,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3347:7:1",
+                    "src": "3296:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1042,38 +1207,38 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3346:9:1"
+              "src": "3295:9:1"
             },
-            "scope": 291,
-            "src": "3281:75:1",
+            "scope": 448,
+            "src": "3230:75:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 292,
-        "src": "25:3334:1"
+        "scope": 449,
+        "src": "25:3283:1"
       }
     ],
-    "src": "0:3360:1"
+    "src": "0:3309:1"
   },
   "legacyAST": {
     "absolutePath": "/Users/WOOK/Development/haechilabs/Staby/contracts/IContents.sol",
     "exportedSymbols": {
       "IContents": [
-        291
+        448
       ]
     },
-    "id": 292,
+    "id": 449,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 221,
+        "id": 367,
         "literals": [
           "solidity",
           "^",
           "0.5",
-          ".0"
+          ".6"
         ],
         "nodeType": "PragmaDirective",
         "src": "0:23:1"
@@ -1084,9 +1249,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 291,
+        "id": 448,
         "linearizedBaseContracts": [
-          291
+          448
         ],
         "name": "IContents",
         "nodeType": "ContractDefinition",
@@ -1094,22 +1259,22 @@
           {
             "body": null,
             "documentation": "@notice Content creation\n@dev\n@param _name : Content 이름\n@param _contentId : Content의 Id",
-            "id": 228,
+            "id": 374,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "createContent",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 226,
+              "id": 372,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 223,
+                  "id": 369,
                   "name": "_name",
                   "nodeType": "VariableDeclaration",
-                  "scope": 228,
+                  "scope": 374,
                   "src": "213:21:1",
                   "stateVariable": false,
                   "storageLocation": "calldata",
@@ -1118,7 +1283,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 222,
+                    "id": 368,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "213:6:1",
@@ -1132,10 +1297,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 225,
+                  "id": 371,
                   "name": "_contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 228,
+                  "scope": 374,
                   "src": "236:18:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1144,7 +1309,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 224,
+                    "id": 370,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "236:7:1",
@@ -1160,12 +1325,12 @@
               "src": "212:43:1"
             },
             "returnParameters": {
-              "id": 227,
+              "id": 373,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "264:0:1"
             },
-            "scope": 291,
+            "scope": 448,
             "src": "190:75:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1174,22 +1339,22 @@
           {
             "body": null,
             "documentation": "@notice Content의 지분관계를 업데이트.\n@dev\n@param _contentId : Content의 Id\n@param _Holder : 지분 소유자의 address\n@param _portion : 소유자가 가지고있는 지분 persentage",
-            "id": 237,
+            "id": 383,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "updateHolders",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 235,
+              "id": 381,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 230,
+                  "id": 376,
                   "name": "_contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 237,
+                  "scope": 383,
                   "src": "544:18:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1198,7 +1363,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 229,
+                    "id": 375,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "544:7:1",
@@ -1212,10 +1377,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 232,
+                  "id": 378,
                   "name": "_Holder",
                   "nodeType": "VariableDeclaration",
-                  "scope": 237,
+                  "scope": 383,
                   "src": "564:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1224,7 +1389,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 231,
+                    "id": 377,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "564:7:1",
@@ -1239,10 +1404,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 234,
+                  "id": 380,
                   "name": "_portion",
                   "nodeType": "VariableDeclaration",
-                  "scope": 237,
+                  "scope": 383,
                   "src": "581:13:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1251,7 +1416,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 233,
+                    "id": 379,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "581:4:1",
@@ -1267,12 +1432,12 @@
               "src": "543:52:1"
             },
             "returnParameters": {
-              "id": 236,
+              "id": 382,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "604:0:1"
             },
-            "scope": 291,
+            "scope": 448,
             "src": "521:84:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1281,22 +1446,22 @@
           {
             "body": null,
             "documentation": "@notice contentId 에 해당하는 지분관계 삭제\n@dev\n@param _contentId : Content의 Id",
-            "id": 242,
+            "id": 388,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "deleteHolders",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 240,
+              "id": 386,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 239,
+                  "id": 385,
                   "name": "_contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 242,
+                  "scope": 388,
                   "src": "767:18:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1305,7 +1470,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 238,
+                    "id": 384,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "767:7:1",
@@ -1321,12 +1486,12 @@
               "src": "766:20:1"
             },
             "returnParameters": {
-              "id": 241,
+              "id": 387,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "795:0:1"
             },
-            "scope": 291,
+            "scope": 448,
             "src": "744:52:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1334,24 +1499,24 @@
           },
           {
             "body": null,
-            "documentation": "@notice contentId 에 해당하는 content의 이름\n@dev\n@param contentId : Content의 Id\n@return _contentList[contentId].name : content의 이름",
-            "id": 249,
+            "documentation": "@notice contentId 에 해당하는 지분관계를 보여줌\n@dev\n@param contentId : Content의 Id\n@return holderAddress : 지분 소유자의 address\n@return holderPortion : 소유자가 가지고있는 지분 persentage",
+            "id": 399,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
-            "name": "getContentName",
+            "name": "getHolderInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 245,
+              "id": 393,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 244,
+                  "id": 390,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 249,
-                  "src": "1752:17:1",
+                  "scope": 399,
+                  "src": "1099:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1359,10 +1524,36 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 243,
+                    "id": 389,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1752:7:1",
+                    "src": "1099:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 392,
+                  "name": "_num",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 399,
+                  "src": "1118:12:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 391,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1118:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1372,19 +1563,127 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1751:19:1"
+              "src": "1098:33:1"
             },
             "returnParameters": {
-              "id": 248,
+              "id": 398,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 247,
+                  "id": 395,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 249,
-                  "src": "1793:13:1",
+                  "scope": 399,
+                  "src": "1155:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 394,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1155:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 397,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 399,
+                  "src": "1164:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 396,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1164:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1153:19:1"
+            },
+            "scope": 448,
+            "src": "1076:97:1",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "@notice contentId 에 해당하는 content의 이름\n@dev\n@param contentId : Content의 Id\n@return _contentList[contentId].name : content의 이름",
+            "id": 406,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getContentName",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 402,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 401,
+                  "name": "contentId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 406,
+                  "src": "1701:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 400,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1701:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1700:19:1"
+            },
+            "returnParameters": {
+              "id": 405,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 404,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 406,
+                  "src": "1742:13:1",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -1392,10 +1691,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 246,
+                    "id": 403,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1793:6:1",
+                    "src": "1742:6:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -1405,10 +1704,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1792:15:1"
+              "src": "1741:15:1"
             },
-            "scope": 291,
-            "src": "1728:80:1",
+            "scope": 448,
+            "src": "1677:80:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1416,23 +1715,23 @@
           {
             "body": null,
             "documentation": "@notice contentId 에 해당하는 content의 ID\n@dev\n@param contentId : Content의 Id\n@return _contentList[contentId].contentId : content의 ID",
-            "id": 256,
+            "id": 413,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getContentID",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 252,
+              "id": 409,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 251,
+                  "id": 408,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 256,
-                  "src": "2025:17:1",
+                  "scope": 413,
+                  "src": "1974:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1440,10 +1739,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 250,
+                    "id": 407,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2025:7:1",
+                    "src": "1974:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1453,19 +1752,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2024:19:1"
+              "src": "1973:19:1"
             },
             "returnParameters": {
-              "id": 255,
+              "id": 412,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 254,
+                  "id": 411,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 256,
-                  "src": "2066:7:1",
+                  "scope": 413,
+                  "src": "2015:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1473,10 +1772,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 253,
+                    "id": 410,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2066:7:1",
+                    "src": "2015:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1486,10 +1785,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2065:9:1"
+              "src": "2014:9:1"
             },
-            "scope": 291,
-            "src": "2003:72:1",
+            "scope": 448,
+            "src": "1952:72:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1497,23 +1796,23 @@
           {
             "body": null,
             "documentation": "@notice contentId 와 holder index 에 해당하는 holder의 ID\n@dev\n@param contentId : Content의 Id\n@param _num : Holder의 index\n@return _shareInfo[contentId].contentId : Holder의 Id",
-            "id": 265,
+            "id": 422,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getHolderId",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 261,
+              "id": 418,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 258,
+                  "id": 415,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 265,
-                  "src": "2341:17:1",
+                  "scope": 422,
+                  "src": "2290:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1521,10 +1820,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 257,
+                    "id": 414,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2341:7:1",
+                    "src": "2290:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1535,11 +1834,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 260,
+                  "id": 417,
                   "name": "_num",
                   "nodeType": "VariableDeclaration",
-                  "scope": 265,
-                  "src": "2360:12:1",
+                  "scope": 422,
+                  "src": "2309:12:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1547,10 +1846,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 259,
+                    "id": 416,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2360:7:1",
+                    "src": "2309:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1560,19 +1859,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2340:33:1"
+              "src": "2289:33:1"
             },
             "returnParameters": {
-              "id": 264,
+              "id": 421,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 263,
+                  "id": 420,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 265,
-                  "src": "2396:7:1",
+                  "scope": 422,
+                  "src": "2345:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1580,10 +1879,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 262,
+                    "id": 419,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2396:7:1",
+                    "src": "2345:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1593,10 +1892,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2395:9:1"
+              "src": "2344:9:1"
             },
-            "scope": 291,
-            "src": "2320:85:1",
+            "scope": 448,
+            "src": "2269:85:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1604,23 +1903,23 @@
           {
             "body": null,
             "documentation": "@notice contentId 와 holder index 에 해당하는 holder의 address\n@dev\n@param contentId : Content의 Id\n@param _num : Holder의 index\n@return _shareInfo[contentId].holderAddress[_num] : Holder의 address",
-            "id": 274,
+            "id": 431,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getHolderAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 270,
+              "id": 427,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 267,
+                  "id": 424,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 274,
-                  "src": "2696:17:1",
+                  "scope": 431,
+                  "src": "2645:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1628,10 +1927,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 266,
+                    "id": 423,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2696:7:1",
+                    "src": "2645:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1642,11 +1941,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 269,
+                  "id": 426,
                   "name": "_num",
                   "nodeType": "VariableDeclaration",
-                  "scope": 274,
-                  "src": "2715:12:1",
+                  "scope": 431,
+                  "src": "2664:12:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1654,10 +1953,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 268,
+                    "id": 425,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2715:7:1",
+                    "src": "2664:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1667,19 +1966,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2695:33:1"
+              "src": "2644:33:1"
             },
             "returnParameters": {
-              "id": 273,
+              "id": 430,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 272,
+                  "id": 429,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 274,
-                  "src": "2752:7:1",
+                  "scope": 431,
+                  "src": "2701:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1687,10 +1986,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 271,
+                    "id": 428,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2752:7:1",
+                    "src": "2701:7:1",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1701,10 +2000,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2750:10:1"
+              "src": "2699:10:1"
             },
-            "scope": 291,
-            "src": "2670:91:1",
+            "scope": 448,
+            "src": "2619:91:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1712,23 +2011,23 @@
           {
             "body": null,
             "documentation": "@notice contentId 와 holder index 에 해당하는 holder의 portion\n@dev\n@param contentId : Content의 Id\n@param _num : Holder의 index\n@return _shareInfo[contentId].holderPortion[_num] : Holder의 portion",
-            "id": 283,
+            "id": 440,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getHolderPortion",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 279,
+              "id": 436,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 276,
+                  "id": 433,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 283,
-                  "src": "3052:17:1",
+                  "scope": 440,
+                  "src": "3001:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1736,10 +2035,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 275,
+                    "id": 432,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3052:7:1",
+                    "src": "3001:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1750,11 +2049,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 278,
+                  "id": 435,
                   "name": "_num",
                   "nodeType": "VariableDeclaration",
-                  "scope": 283,
-                  "src": "3071:12:1",
+                  "scope": 440,
+                  "src": "3020:12:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1762,10 +2061,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 277,
+                    "id": 434,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3071:7:1",
+                    "src": "3020:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1775,19 +2074,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3051:33:1"
+              "src": "3000:33:1"
             },
             "returnParameters": {
-              "id": 282,
+              "id": 439,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 281,
+                  "id": 438,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 283,
-                  "src": "3108:7:1",
+                  "scope": 440,
+                  "src": "3057:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1795,10 +2094,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 280,
+                    "id": 437,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3108:7:1",
+                    "src": "3057:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1808,10 +2107,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3106:10:1"
+              "src": "3055:10:1"
             },
-            "scope": 291,
-            "src": "3026:91:1",
+            "scope": 448,
+            "src": "2975:91:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -1819,23 +2118,23 @@
           {
             "body": null,
             "documentation": "@notice contentId에 해당하는 holder의 수\n@dev\n@param contentId : Content의 Id\n@return len : Holder의 수",
-            "id": 290,
+            "id": 447,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getHolderLength",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 286,
+              "id": 443,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 285,
+                  "id": 442,
                   "name": "contentId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 290,
-                  "src": "3306:17:1",
+                  "scope": 447,
+                  "src": "3255:17:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1843,10 +2142,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 284,
+                    "id": 441,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3306:7:1",
+                    "src": "3255:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1856,19 +2155,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3305:19:1"
+              "src": "3254:19:1"
             },
             "returnParameters": {
-              "id": 289,
+              "id": 446,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 288,
+                  "id": 445,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 290,
-                  "src": "3347:7:1",
+                  "scope": 447,
+                  "src": "3296:7:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1876,10 +2175,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 287,
+                    "id": 444,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "3347:7:1",
+                    "src": "3296:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1889,20 +2188,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "3346:9:1"
+              "src": "3295:9:1"
             },
-            "scope": 291,
-            "src": "3281:75:1",
+            "scope": 448,
+            "src": "3230:75:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 292,
-        "src": "25:3334:1"
+        "scope": 449,
+        "src": "25:3283:1"
       }
     ],
-    "src": "0:3360:1"
+    "src": "0:3309:1"
   },
   "compiler": {
     "name": "solc",
@@ -1910,7 +2209,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.1",
-  "updatedAt": "2020-11-06T02:19:27.381Z",
+  "updatedAt": "2020-11-07T17:22:32.888Z",
   "devdoc": {
     "methods": {
       "createContent(string,uint256)": {
@@ -1943,6 +2242,10 @@
           "_num": ": Holder의 index"
         },
         "return": "_shareInfo[contentId].contentId : Holder의 Id"
+      },
+      "getHolderInfo(uint256,uint256)": {
+        "details": "@param contentId : Content의 Id",
+        "return": "holderAddress : 지분 소유자의 addressholderPortion : 소유자가 가지고있는 지분 persentage"
       },
       "getHolderLength(uint256)": {
         "details": "@param contentId : Content의 Id",
@@ -1983,6 +2286,9 @@
       },
       "getHolderId(uint256,uint256)": {
         "notice": "contentId 와 holder index 에 해당하는 holder의 ID"
+      },
+      "getHolderInfo(uint256,uint256)": {
+        "notice": "contentId 에 해당하는 지분관계를 보여줌"
       },
       "getHolderLength(uint256)": {
         "notice": "contentId에 해당하는 holder의 수"
