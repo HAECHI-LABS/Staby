@@ -1,6 +1,11 @@
 pragma solidity ^0.5.17;
+pragma experimental ABIEncoderV2;
+
+
 
 import "./interface/IContents.sol";
+import "./library/SafeMath.sol";
+
 
 contract Contents is IContents {
 
@@ -8,24 +13,34 @@ contract Contents is IContents {
 
     mapping (uint256 => Contents) internal _contentList;
 
-    event ContentsCreation (string name, uint indexed contentId );
+    event ContentsCreation (string name, uint256 indexed contentId );
+
+    event addShareInfo (uint256 indexed contentId, string[] nickName, address[] holderAddress, uint256[] holderPortion );
+
+    event deleteShareInfo ( uint256 indexed contentId );
+
+    event ContentActivation ( uint256 indexed contentId );
+
+    event ContentDisabled ( uint256 indexed contentId );
 
 
+    using SafeMath for uint256;
+
+    uint256 one = 1;
 
     uint256 counterContent = 0;
 
-    // Contents 구조체
     struct Contents {
-        string name; // Content 이름
-        uint256 contentId; // Content ID
-        bool active;    // 활성상태
+        string name;
+        uint256 contentId;
+        bool active;
     }
 
-    // 지분정보 구조체
     struct shareHolders {
-        uint256 contentId;  // Content ID
-        address[] holderAddress;  // 지분 소유자 address
-        uint256[] holderPortion;  // 소유한 지분
+        uint256 contentId;
+        string[] holderName;
+        address[] holderAddress;
+        uint256[] holderPortion;
     }
 
     function createContent(string calldata _name) external {
@@ -36,39 +51,42 @@ contract Contents is IContents {
         });
         _contentList[counterContent] = Content;
         emit ContentsCreation(_name, counterContent);
-        counterContent += 1;
+        counterContent = counterContent.add(one);
     }
 
-    function addHolders(uint256 _contentId, address[] calldata _Holder, uint256[] calldata _portion) external {
-        require(_Holder.length == _portion.length, 'holder and portion are not match');
+    function addHolders(uint256 _contentId, string[] calldata _holderName, address[] calldata _holderAddress, uint256[] calldata _holderPortion) external {
+        require(_holderAddress.length == _holderPortion.length, 'holder and portion are not match');
         uint256 counter = 0;
-        for(uint i = 0 ; i < _portion.length ; i++) counter += _portion[i];
+        for(uint i = 0 ; i < _holderPortion.length ; i++) counter = _holderPortion[i].add(counter);
         require(counter == 10 , 'portion sum is not 10');
-        for(uint i = 0 ; i < _Holder.length; i++){
-            address holder = _Holder[i];
-            uint256 portion = _portion[i];
-            _shareInfo[_contentId].holderAddress.push(holder);
-            _shareInfo[_contentId].holderPortion.push(portion);
+        for(uint i = 0 ; i < _holderAddress.length; i++){
+            string memory holderName = _holderName[i];
+            address holderAddress = _holderAddress[i];
+            uint256 holderPortion = _holderPortion[i];
+            _shareInfo[_contentId].holderName.push(holderName);
+            _shareInfo[_contentId].holderAddress.push(holderAddress);
+            _shareInfo[_contentId].holderPortion.push(holderPortion);
         }
+        emit addShareInfo(_contentId, _holderName, _holderAddress, _holderPortion);
     }
 
 
     function deleteHolders(uint256 _contentId) external {
         require(_shareInfo[_contentId].holderAddress.length == _shareInfo[_contentId].holderPortion.length, 'holder and portion are not match');
+        _shareInfo[_contentId].holderName.length = 0;
         _shareInfo[_contentId].holderAddress.length = 0;
         _shareInfo[_contentId].holderPortion.length = 0;
-/*
-        for(uint i = 0 ; i < _shareInfo[_contentId].holderAddress.length+1; i++){
-            delete _shareInfo[_contentId].holderAddress[i];
-            delete _shareInfo[_contentId].holderPortion[i];
-        }
-        */
+        emit deleteShareInfo(_contentId);
     }
 
-    function getHolderInfo(uint256 _contentId, uint256 _num) external view returns( address holder, uint256 portion){
+
+    function getHolderInfo(uint256 _contentId, uint256 _num) external view returns(string memory holderName, address holderAddress, uint256 holderPortion){
         require(_shareInfo[_contentId].holderAddress.length != 0, 'no holder');
-        require(_shareInfo[_contentId].holderAddress.length != 0, 'no portion');
+        require(_shareInfo[_contentId].holderPortion.length != 0, 'no portion');
+        require(_shareInfo[_contentId].holderName.length != 0, 'no name');
+
         return(
+            _shareInfo[_contentId].holderName[_num],
             _shareInfo[_contentId].holderAddress[_num],
             _shareInfo[_contentId].holderPortion[_num]
         );
@@ -78,6 +96,7 @@ contract Contents is IContents {
     function getHolderNum(uint256 _contentId) external view returns( uint256 holderNum ){
         require(_shareInfo[_contentId].holderAddress.length != 0, 'no holder');
         require(_shareInfo[_contentId].holderAddress.length != 0, 'no portion');
+        require(_shareInfo[_contentId].holderName.length != 0, 'no name');
         return(
             _shareInfo[_contentId].holderAddress.length
         );
@@ -96,10 +115,12 @@ contract Contents is IContents {
     function activateContent(uint256 _contentId) external {
         require(_contentList[_contentId].active);
         _contentList[_contentId].active = false;
+        emit ContentActivation(_contentId);
     }
 
     function disableContent(uint256 _contentId) external {
         require(!_contentList[_contentId].active);
         _contentList[_contentId].active = true;
+        emit ContentDisabled(_contentId);
     }
 }

@@ -16,6 +16,9 @@ contract ('RewardMinter', accounts  =>{
     var por3 = new BN('5');
     var contentFee1 = new BN('10000');
     var contentFee2 = new BN('30000');
+    var supervisor = "Supervisor";
+    var actor = "Actor";
+    var author = "Author";
     const [owner, holder1, holder2, holder3, ...others] = accounts;
     //aa
 
@@ -53,23 +56,24 @@ contract ('RewardMinter', accounts  =>{
       beforeEach(async function(){
         this.rewardMinter = await RewardMinterFactory.new({from: owner});
 
-        await rewardMinter.addHolders(firstId, [holder1,holder2,holder3], [por1,por2, por3], {from : owner});
-        await rewardMinter.addHolders(secondId, [holder1,holder2,holder3], [por2, por3, por1], {from : owner});
+        await rewardMinter.addHolders(firstId, ["Actor", "Supervisor", "Manager"], [holder1,holder2,holder3], [por1,por2, por3], {from : owner});
+        await rewardMinter.addHolders(secondId, ["Actor", "Supervisor", "Manager"], [holder1,holder2,holder3], [por2, por3, por1], {from : owner});
       });
 
       it("", async () => {
         console.log("Info after Add Holders");
         console.log("Content 1");
         console.log("Holder");
-        console.log((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holder, ": ", (await rewardMinter.getHolderInfo(firstId, new BN('0'))).portion.words[0]);
-        console.log((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holder, ": ", (await rewardMinter.getHolderInfo(firstId, new BN('1'))).portion.words[0]);
-        console.log((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holder, ": ", (await rewardMinter.getHolderInfo(firstId, new BN('2'))).portion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderName, ": ",(await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderPortion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderName, ": ",(await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderPortion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderName, ": ",(await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderPortion.words[0]);
         console.log("")
         console.log("Content 2");
         console.log("Holder");
-        console.log((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holder, ": ", (await rewardMinter.getHolderInfo(secondId, new BN('0'))).portion.words[0]);
-        console.log((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holder, ": ", (await rewardMinter.getHolderInfo(secondId, new BN('1'))).portion.words[0]);
-        console.log((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holder, ": ", (await rewardMinter.getHolderInfo(secondId, new BN('2'))).portion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderName, ": ",(await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderPortion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderName, ": ",(await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderPortion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderName, ": ",(await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderPortion.words[0]);
+        console.log("")
         console.log("")
         console.log("")
         console.log("")
@@ -86,23 +90,23 @@ contract ('RewardMinter', accounts  =>{
       //  await rewardMinter.deleteHolders(firstId, {from : owner});
         await rewardMinter.deleteHolders(firstId, {from : owner});
         await rewardMinter.deleteHolders(secondId, {from : owner});
-        await rewardMinter.addHolders(firstId, [holder1,holder2,holder3], [por3,por2, por1], {from : owner});
-        await rewardMinter.addHolders(secondId, [holder1,holder2,holder3], [por1, por3, por2], {from : owner});
+        await rewardMinter.addHolders(firstId,["Actor", "Supervisor", "Manager"], [holder1,holder2,holder3], [por3,por2, por1], {from : owner});
+        await rewardMinter.addHolders(secondId, ["Actor", "Supervisor", "Manager"], [holder1,holder2,holder3], [por1, por3, por2], {from : owner});
       });
 
       it("", async () => {
         console.log("Info after Update Holders");
         console.log("Content 1");
         console.log("Holder");
-        console.log((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holder, ": ", (await rewardMinter.getHolderInfo(firstId, new BN('0'))).portion.words[0]);
-        console.log((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holder, ": ", (await rewardMinter.getHolderInfo(firstId, new BN('1'))).portion.words[0]);
-        console.log((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holder, ": ", (await rewardMinter.getHolderInfo(firstId, new BN('2'))).portion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderName, ": ",(await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderPortion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderName, ": ",(await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderPortion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderName, ": ",(await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderPortion.words[0]);
         console.log("")
         console.log("Content 2");
         console.log("Holder");
-        console.log((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holder, ": ", (await rewardMinter.getHolderInfo(secondId, new BN('0'))).portion.words[0]);
-        console.log((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holder, ": ", (await rewardMinter.getHolderInfo(secondId, new BN('1'))).portion.words[0]);
-        console.log((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holder, ": ", (await rewardMinter.getHolderInfo(secondId, new BN('2'))).portion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderName, ": ",(await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderPortion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderName, ": ",(await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderPortion.words[0]);
+        console.log((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderName, ": ",(await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderPortion.words[0]);
         console.log("")
         console.log("")
         console.log("")
@@ -142,21 +146,19 @@ contract ('RewardMinter', accounts  =>{
           await rewardMinter.activateContent(secondId, {from : owner});
           await rewardMinter.pay(firstId, contentFee1, {from : owner});
           console.log("Info after payment1");
-          console.log((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holder, ": ", (await rewardMinter.getHolderInfo(secondId, new BN('0'))).portion.words[0], ": ", (await rewardMinter.balanceOf(holder1)).words[0]);
-          console.log((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holder, ": ", (await rewardMinter.getHolderInfo(secondId, new BN('1'))).portion.words[0], ": ", (await rewardMinter.balanceOf(holder2)).words[0]);
-          console.log((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holder, ": ", (await rewardMinter.getHolderInfo(secondId, new BN('2'))).portion.words[0], ": ", (await rewardMinter.balanceOf(holder3)).words[0]);
+          console.log((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderName, ": ",(await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderPortion.words[0], ": ", (await rewardMinter.balanceOf(holder1)).words[0]);
+          console.log((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderName, ": ",(await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderPortion.words[0], ": ", (await rewardMinter.balanceOf(holder2)).words[0]);
+          console.log((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderName, ": ",(await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderPortion.words[0], ": ", (await rewardMinter.balanceOf(holder3)).words[0]);
           console.log("")
           console.log("")
-          console.log("")
-
         });
 
         it("Content Information", async () => {
           await rewardMinter.pay(secondId, contentFee2, {from : owner});
           console.log("Info after payment2");
-          console.log((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holder, ": ", (await rewardMinter.getHolderInfo(firstId, new BN('0'))).portion.words[0], ": ", (await rewardMinter.balanceOf(holder1)).words[0]);
-          console.log((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holder, ": ", (await rewardMinter.getHolderInfo(firstId, new BN('1'))).portion.words[0], ": ", (await rewardMinter.balanceOf(holder2)).words[0]);
-          console.log((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holder, ": ", (await rewardMinter.getHolderInfo(firstId, new BN('2'))).portion.words[0], ": ", (await rewardMinter.balanceOf(holder3)).words[0]);
+          console.log((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderName, ": ",(await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderPortion.words[0], ": ", (await rewardMinter.balanceOf(holder1)).words[0]);
+          console.log((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderName, ": ",(await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderPortion.words[0], ": ", (await rewardMinter.balanceOf(holder2)).words[0]);
+          console.log((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderName, ": ",(await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderAddress, ", ", (await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderPortion.words[0], ": ", (await rewardMinter.balanceOf(holder3)).words[0]);
           console.log("")
           console.log("")
           console.log("")

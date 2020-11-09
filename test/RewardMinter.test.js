@@ -14,6 +14,9 @@ contract ('RewardMinter', accounts  =>{
     var por3 = new BN('5');
     var contentFee1 = new BN('10000');
     var contentFee2 = new BN('30000');
+    var supervisor = "Supervisor";
+    var actor = "Actor";
+    var author = "Author";
     const [owner, holder1, holder2, holder3, ...others] = accounts;
 
 
@@ -67,36 +70,45 @@ contract ('RewardMinter', accounts  =>{
       });
 
       it("#holder and #portion should same", async () => {
-        await expectRevert.unspecified(rewardMinter.addHolders(firstId, [holder1,holder2,holder3], [por1,por2], {from : owner}));
+        await expectRevert.unspecified(rewardMinter.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por2], {from : owner}));
       });
 
       it("portion sum should be 10", async () => {
-        await expectRevert.unspecified(rewardMinter.addHolders(firstId, [holder1,holder2,holder3], [por1,por1, por3], {from : owner}));
+        await expectRevert.unspecified(rewardMinter.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por1, por3], {from : owner}));
       });
 
       describe("Vaild Case", () => {
 
         beforeEach(async function(){
-          await rewardMinter.addHolders(firstId, [holder1,holder2,holder3], [por1,por2, por3], {from : owner});
-          await rewardMinter.addHolders(secondId, [holder1,holder2,holder3], [por2, por3, por1], {from : owner});
+          await rewardMinter.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por2, por3], {from : owner});
+          await rewardMinter.addHolders(secondId, [supervisor, actor, author],[holder1,holder2,holder3], [por2, por3, por1], {from : owner});
         });
 
-        it("Holder Address = _Holder", async () => {
-          ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holder).should.be.equal(holder1);
-          ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holder).should.be.equal(holder2);
-          ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holder).should.be.equal(holder3);
-          ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holder).should.be.equal(holder1);
-          ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holder).should.be.equal(holder2);
-          ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holder).should.be.equal(holder3);
+        it("Holder nickName = holderName", async () => {
+          ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderName).should.be.equal("Supervisor");
+          ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderName).should.be.equal("Actor");
+          ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderName).should.be.equal("Author");
+          ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderName).should.be.equal("Supervisor");
+          ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderName).should.be.equal("Actor");
+          ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderName).should.be.equal("Author");
         });
 
-        it("Holder Portion = _portion", async () => {
-          ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).portion).should.be.bignumber.equal(new BN('2'));
-          ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).portion).should.be.bignumber.equal(new BN('3'));
-          ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).portion).should.be.bignumber.equal(new BN('5'));
-          ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).portion).should.be.bignumber.equal(new BN('3'));
-          ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).portion).should.be.bignumber.equal(new BN('5'));
-          ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).portion).should.be.bignumber.equal(new BN('2'));
+        it("Holder Address = holderAddress", async () => {
+          ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderAddress).should.be.equal(holder1);
+          ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderAddress).should.be.equal(holder2);
+          ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderAddress).should.be.equal(holder3);
+          ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderAddress).should.be.equal(holder1);
+          ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderAddress).should.be.equal(holder2);
+          ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderAddress).should.be.equal(holder3);
+        });
+
+        it("Holder Portion = holderPortion", async () => {
+          ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('2'));
+          ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('3'));
+          ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('5'));
+          ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('3'));
+          ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('5'));
+          ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('2'));
         });
       });
     });
@@ -107,26 +119,35 @@ contract ('RewardMinter', accounts  =>{
         this.rewardMinter = await RewardMinterFactory.new({from: owner});
         await rewardMinter.deleteHolders(firstId, {from : owner});
         await rewardMinter.deleteHolders(secondId, {from : owner});
-        await rewardMinter.addHolders(firstId, [holder1,holder2,holder3], [por3,por2, por1], {from : owner});
-        await rewardMinter.addHolders(secondId, [holder1,holder2,holder3], [por1, por3, por2], {from : owner});
+        await rewardMinter.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por3,por2, por1], {from : owner});
+        await rewardMinter.addHolders(secondId, [supervisor, actor, author], [holder1,holder2,holder3], [por1, por3, por2], {from : owner});
       });
 
-      it("Holder Address = _Holder", async () => {
-        ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holder).should.be.equal(holder1);
-        ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holder).should.be.equal(holder2);
-        ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holder).should.be.equal(holder3);
-        ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holder).should.be.equal(holder1);
-        ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holder).should.be.equal(holder2);
-        ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holder).should.be.equal(holder3);
+      it("Holder nickName = holderName", async () => {
+        ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderName).should.be.equal("Supervisor");
+        ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderName).should.be.equal("Actor");
+        ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderName).should.be.equal("Author");
+        ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderName).should.be.equal("Supervisor");
+        ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderName).should.be.equal("Actor");
+        ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderName).should.be.equal("Author");
       });
 
-      it("Holder Portion = _portion", async () => {
-        ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).portion).should.be.bignumber.equal(new BN('5'));
-        ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).portion).should.be.bignumber.equal(new BN('3'));
-        ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).portion).should.be.bignumber.equal(new BN('2'));
-        ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).portion).should.be.bignumber.equal(new BN('2'));
-        ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).portion).should.be.bignumber.equal(new BN('5'));
-        ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).portion).should.be.bignumber.equal(new BN('3'));
+      it("Holder Address = holderAddress", async () => {
+        ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderAddress).should.be.equal(holder1);
+        ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderAddress).should.be.equal(holder2);
+        ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderAddress).should.be.equal(holder3);
+        ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderAddress).should.be.equal(holder1);
+        ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderAddress).should.be.equal(holder2);
+        ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderAddress).should.be.equal(holder3);
+      });
+
+      it("Holder Portion = holderPortion", async () => {
+        ((await rewardMinter.getHolderInfo(firstId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('5'));
+        ((await rewardMinter.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('3'));
+        ((await rewardMinter.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('2'));
+        ((await rewardMinter.getHolderInfo(secondId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('2'));
+        ((await rewardMinter.getHolderInfo(secondId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('5'));
+        ((await rewardMinter.getHolderInfo(secondId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('3'));
       });
 
     });
