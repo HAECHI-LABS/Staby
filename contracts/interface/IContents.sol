@@ -1,7 +1,9 @@
 pragma solidity ^0.5.17;
 
 interface IContents {
-
+    function denominator() external view returns(uint256);
+    //TODO natspec
+    function contentCounter() external view returns(uint256);
     /**
      * @notice Content creation
      * @dev

@@ -2,8 +2,11 @@ pragma solidity ^0.5.17;
 
 import "./interface/IContents.sol";
 import "./library/SafeMath.sol";
+import "./library/Ownable.sol";
 
-contract Contents is IContents {
+// TODO Convention !!!!
+// TODO Ownable !
+contract Contents is IContents, Ownable {
 
     mapping (uint256 => ShareHolders) internal _shareInfo;
     mapping (uint256 => Contents) internal _contentList;
@@ -16,7 +19,8 @@ contract Contents is IContents {
 
     using SafeMath for uint256;
 
-    uint256 counterContent = 0;
+    uint256 internal _contentCounter = 0;
+    uint256 constant private DENOMINATOR = 10;
 
     struct Contents {
         string name;
@@ -31,14 +35,25 @@ contract Contents is IContents {
         uint256[] holderPortion;
     }
 
-    function createContent(string calldata _name) external {
+    function denominator() external view returns(uint256) {
+        return DENOMINATOR;
+    }
+
+    function contentCounter() external view returns(uint256){
+      return _contentCounter;
+    }
+
+    // onlyOwner
+    function createContent(string calldata _name) external onlyOwner {
         _createContent(_name);
     }
 
+    // onlyOwner
     function addHolders(uint256 _contentId, bytes32[] calldata _holderName, address[] calldata _holderAddress, uint256[] calldata _holderPortion) external {
         _addHolders(_contentId, _holderName, _holderAddress, _holderPortion);
     }
 
+    // onlyOwner
     function deleteHolders(uint256 _contentId) external {
         _deleteHolders(_contentId);
     }
@@ -64,7 +79,7 @@ contract Contents is IContents {
     }
 
     function getContentInfo(uint256 _contentId) external view returns(string memory name, uint256 contentId, bool active){
-        require(_contentId < counterContent, 'content is not exist');
+        require(_contentId < _contentCounter, 'content is not exist');
         return(
             _contentList[_contentId].name,
             _contentList[_contentId].contentId,
@@ -72,12 +87,14 @@ contract Contents is IContents {
         );
     }
 
+    // onlyOwner
     function activateContent(uint256 _contentId) external {
         require(_contentList[_contentId].active);
         _contentList[_contentId].active = false;
         emit ContentActivation(_contentId);
     }
 
+    // onlyOwner
     function disableContent(uint256 _contentId) external {
         require(!_contentList[_contentId].active);
         _contentList[_contentId].active = true;
@@ -87,19 +104,19 @@ contract Contents is IContents {
     function _createContent(string memory _name) internal {
         Contents memory Content = Contents({
             name : _name,
-            contentId : counterContent,
+            contentId : _contentCounter,
             active : false
         });
-        _contentList[counterContent] = Content;
-        emit ContentsCreation(_name, counterContent);
-        counterContent = counterContent.add(1);
+        _contentList[_contentCounter] = Content;
+        emit ContentsCreation(_name, _contentCounter);
+        _contentCounter = _contentCounter.add(1);
     }
 
     function _addHolders(uint256 _contentId, bytes32[] memory _holderName, address[] memory _holderAddress, uint256[] memory _holderPortion) internal {
         require(_holderAddress.length == _holderPortion.length, 'holder and portion are not match');
         uint256 counter = 0;
         for(uint i = 0 ; i < _holderPortion.length ; i++) counter = _holderPortion[i].add(counter);
-        require(counter == 10 , 'portion sum is not 10');
+        require(counter == DENOMINATOR , 'portion sum is not equal to denominator');
         for(uint i = 0 ; i < _holderAddress.length; i++){
             bytes32 holderName = _holderName[i];
             address holderAddress = _holderAddress[i];
