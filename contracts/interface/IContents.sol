@@ -1,5 +1,4 @@
 pragma solidity ^0.5.17;
-pragma experimental ABIEncoderV2;
 
 interface IContents {
 
@@ -18,7 +17,7 @@ interface IContents {
      * @param _holderAddress : 지분 소유자의 address
      * @param _holderPortion : 소유자가 가지고있는 지분 persentage
      */
-    function addHolders(uint256 _contentId, string[] calldata _holderName, address[] calldata _holderAddress, uint256[] calldata _holderPortion) external;
+    function addHolders(uint256 _contentId, bytes32[] calldata _holderName, address[] calldata _holderAddress, uint256[] calldata _holderPortion) external;
 
 
      /**
@@ -38,7 +37,7 @@ interface IContents {
      * @return holderAddress : 지분 소유자의 address
      * @return holderPortion : 소유자가 가지고있는 지분 비율
      */
-     function getHolderInfo(uint256 _contentId, uint256 _num) external view returns(string memory, address, uint256);
+     function getHolderInfo(uint256 _contentId, uint256 _num) external view returns(bytes32, address, uint256);
 
     /**
      * @notice contentId 에 해당하는 지분 소유자의 수를 보여줌
