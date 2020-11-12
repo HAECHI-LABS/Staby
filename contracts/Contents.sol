@@ -4,18 +4,11 @@ import "./interface/IContents.sol";
 import "./library/SafeMath.sol";
 import "./library/Ownable.sol";
 
-// TODO Convention !!!!
-// TODO Ownable !
+
 contract Contents is IContents, Ownable {
 
     mapping (uint256 => ShareHolders) internal _shareInfo;
     mapping (uint256 => Contents) internal _contentList;
-
-    event ContentsCreation (string name, uint256 indexed contentId );
-    event addShareInfo (uint256 indexed contentId, bytes32[] nickName, address[] holderAddress, uint256[] holderPortion );
-    event deleteShareInfo ( uint256 indexed contentId );
-    event ContentActivation ( uint256 indexed contentId );
-    event ContentDisabled ( uint256 indexed contentId );
 
     using SafeMath for uint256;
 
@@ -34,6 +27,8 @@ contract Contents is IContents, Ownable {
         address[] holderAddress;
         uint256[] holderPortion;
     }
+
+    constructor() public {}
 
     function denominator() external view returns(uint256) {
         return DENOMINATOR;

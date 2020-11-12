@@ -1,11 +1,22 @@
 pragma solidity ^0.5.17;
 
 interface IContents {
-    function denominator() external view returns(uint256);
-    //TODO natspec
-    function contentCounter() external view returns(uint256);
+
+
     /**
-     * @notice Content creation
+     * @notice Denominator 반환.
+     * @return DENOMINATOR : 10
+    */
+    function denominator() external view returns(uint256);
+
+    /**
+     * @notice Content의 개수를 확인하는 함수.
+     * @return _contentCounter : Content 수
+     */
+    function contentCounter() external view returns(uint256);
+
+    /**
+     * @notice Content 생성 함수.
      * @dev
      * @param _name : Content 이름
      */
@@ -17,7 +28,7 @@ interface IContents {
      * @param _contentId : Content의 Id
      * @param _holderName : 지분 소유자의 닉네임
      * @param _holderAddress : 지분 소유자의 address
-     * @param _holderPortion : 소유자가 가지고있는 지분 persentage
+     * @param _holderPortion : 소유자가 가지고있는 지분
      */
     function addHolders(uint256 _contentId, bytes32[] calldata _holderName, address[] calldata _holderAddress, uint256[] calldata _holderPortion) external;
 
@@ -29,6 +40,15 @@ interface IContents {
      */
     function deleteHolders(uint256 _contentId) external;
 
+    /**
+     * @notice Content의 지분관계 update.
+     * @dev
+     * @param _contentId : Content의 Id
+     * @param _holderName : 지분 소유자의 닉네임
+     * @param _holderAddress : 지분 소유자의 address
+     * @param _holderPortion : 소유자가 가지고 있는 지분
+     */
+     function updateHolders(uint256 _contentId, bytes32[] calldata _holderName, address[] calldata _holderAddress, uint256[] calldata _holderPortion) external;
 
     /**
      * @notice contentId 에 해당하는 지분관계를 보여줌
@@ -71,5 +91,13 @@ interface IContents {
      * @dev
      * @param contentId : Content의 Id
      */
-     function disableContent(uint256 _contentId) external;
+     function deactivateContent(uint256 _contentId) external;
+
+
+     event ContentsCreation (string name, uint256 indexed contentId );
+     event addShareInfo (uint256 indexed contentId, bytes32[] nickName, address[] holderAddress, uint256[] holderPortion );
+     event deleteShareInfo ( uint256 indexed contentId );
+     event ContentActivation ( uint256 indexed contentId );
+     event ContentDisabled ( uint256 indexed contentId );
+
 }

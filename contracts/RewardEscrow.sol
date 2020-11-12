@@ -5,7 +5,7 @@ import "./interface/IERC20.sol";
 import "./interface/IRewardMinter.sol";
 import "./library/SafeMath.sol";
 
-contract RewardEscrow is IRewardMinter {
+contract RewardEscrow is IRewardEscrow {
 
     using SafeMath for uint256;
 
@@ -33,39 +33,47 @@ contract RewardEscrow is IRewardMinter {
     function paymentsHistory(uint256 _contentId) external view returns(uint256[] memory){
         return _paymentsHistory[_contentId];
     }
-    
+
     function paymentsHistoryLength(uint256 _contentId) external view returns(uint256){
         return _paymentsHistory[_contentId].length;
     }
-    
+
     function paymentsHistory(uint256 _contentId, uint256 _idx) external view returns(uint256){
         return _paymentsHistory[_contentId][_idx];
     }
-    
+
     function withdrawalHistory(address _withdrawer) external view returns(uint256[] memory){
         return _withdrawalHistory[_withdrawer];
     }
-    
+
     function withdrawalHistoryLength(address _withdrawer) external view returns(uint256){
         return _withdrawalHistory[_withdrawer].length;
     }
-    
+
     function withdrawalHistory(address _withdrawer, uint256 _idx) external view returns(uint256){
         return _withdrawalHistory[_withdrawer][_idx];
     }
 
     // 두번 호출 되면 이상할텐데 ?
     // 두번 호출됐는지 확인 할 수 있는 무언가가 필요하겠다!
-    function pay(uint256 _contentId, uint256 _amount) external {
-        _rewardToken.transferFrom(msg.sender, address(this), _amount);
+    function pay(uint256 _contentId, uint256 _amount, address _address) external {
+        _rewardToken.transferFrom(msg.sender, _address, _amount);
         uint256 length = _contents.getHolderNum(_contentId);
         uint256 den = _contents.denominator();
         for(uint256 i = 0; i < length; i++){
             (/*holderName*/,address holder, uint256 portion) = _contents.getHolderInfo(_contentId, i);
-            _rewards[holder] = _rewards[holder].add(_amount * portion / den);
+            _rewards[holder] = _rewards[holder].add(_amount.mul(portion).div(den));
         }
         _paymentsHistory[_contentId].push(_amount);
         emit Payment(_contentId, _amount);
+    }
+
+    function getReward(address _holder) external view returns(uint256 balance){
+            return(_rewards[_holder]);
+    }
+
+    function getAddress() external view returns(address ADDR) {
+            return(address(this));
     }
 
     // owner가 다 해도 돼?
@@ -75,6 +83,7 @@ contract RewardEscrow is IRewardMinter {
         uint256 amount = _rewards[_withdrawer];
         //_rewardToken.transfer(_withdrawer, _amount);
         _rewardToken.burn(amount);
+        _rewards[_withdrawer] = 0;
         _withdrawalHistory[_withdrawer].push(amount);
         emit Withdraw(_withdrawer);
     }
