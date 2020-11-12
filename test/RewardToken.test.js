@@ -31,6 +31,7 @@ contract('RewardToken', function(account)  {
 
   describe('ERC20 Spec', function() {
     beforeEach(async function() {
+      await this.token.mint(owner, amount.muln(100), {from:owner});
       await this.token.transfer(sender, amount, {from:owner});
     });
 

@@ -11,7 +11,7 @@ let contents;
 let token;
 let reward;
 
-contract.only('RewardEscrow', accounts  =>{
+contract('RewardEscrow', accounts  =>{
     const balanceOfReceiver = new BN('2000000');
     const balanceOfSender = new BN('6000000');
     const firstId = new BN('0');
