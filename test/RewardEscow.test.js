@@ -39,12 +39,6 @@ contract ('RewardEscrow', accounts  =>{
         beforeEach(async () => {
             await token.mint(owner, balanceOfSender, {from : owner});
             await token.mint(reward.address, balanceOfReceiver, {from : owner});
-            console.log(await(contents.getHolderNum(firstId)));
-            console.log(await(contents.denominator()));
-            console.log(await(contents.getHolderInfo(firstId, firstId)));
-            console.log(await(reward.getAddress()));
-        });
-       it("test", async () => {
             await reward.pay(firstId, contentFee1, reward.address, {from : owner});
             await reward.pay(secondId, contentFee2, reward.address, {from : owner});
         });
