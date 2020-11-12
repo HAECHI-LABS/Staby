@@ -67,7 +67,7 @@ interface IContents {
      * @param contentId : Content의 Id
      * @return holderNum : 지분 소유자의 수
      */
-     function getHolderNum(uint256 _contentId) external view returns( uint256 holderNum );
+     function getHolderNum(uint256 _contentId) external view returns(uint256);
 
     /**
      * @notice contentId 에 해당하는 Content 정보를 보여줌
@@ -77,7 +77,7 @@ interface IContents {
      * @return contentId : Content의 Id
      * @return contentId : Content의 활성 지표
      */
-     function getContentInfo(uint256 _contentId) external view returns(string memory name, uint256 contentId, bool active);
+     function getContentInfo(uint256 _contentId) external view returns(string memory, uint256, bool);
 
     /**
      * @notice contentId 에 해당하는 Content를 활성화
@@ -94,10 +94,5 @@ interface IContents {
      function deactivateContent(uint256 _contentId) external;
 
 
-     event ContentsCreation (string name, uint256 indexed contentId );
-     event addShareInfo (uint256 indexed contentId, bytes32[] nickName, address[] holderAddress, uint256[] holderPortion );
-     event deleteShareInfo ( uint256 indexed contentId );
-     event ContentActivation ( uint256 indexed contentId );
-     event ContentDisabled ( uint256 indexed contentId );
 
 }

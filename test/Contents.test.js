@@ -109,7 +109,7 @@ contract ('Contents', accounts  =>{
                 await contents.addHolders(firstId, [supervisor, actor, author], [holder1, holder2, holder3], [por1, por2, por3], {from : owner});
             });
 
-            it("Holder length should be 0 after deleteHolders()", async() => {
+            it("No holder after deleteHolders()", async() => {
                 await contents.deleteHolders(firstId, {from : owner});
                 (await contents.getHolderNum(firstId)).should.be.bignumber.equal(new BN('0'));
             });
@@ -117,6 +117,7 @@ contract ('Contents', accounts  =>{
      });
 
     describe("updateHolders test", () => {
+
         beforeEach(async () => {
           await contents.addHolders(firstId,[supervisor, actor, author], [holder1, holder2, holder3], [por1, por2, por3], {from : owner});
         });
