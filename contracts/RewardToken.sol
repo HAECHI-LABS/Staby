@@ -49,6 +49,14 @@ contract RewardToken is
             "REW/transferFrom : Should not send to zero address"
         );
         _transfer(from, to, amount);
+        _approve(
+            from,
+            msg.sender,
+            _allowances[from][msg.sender].sub(
+                amount,
+                "REW/transferFrom : Cannot send more than allowance"
+            )
+        );
         success = true;
     }
 

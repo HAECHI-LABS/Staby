@@ -56,8 +56,8 @@ contract RewardEscrow is IRewardEscrow {
 
     // 두번 호출 되면 이상할텐데 ?
     // 두번 호출됐는지 확인 할 수 있는 무언가가 필요하겠다!
-    function pay(uint256 _contentId, uint256 _amount, address _address) external {
-        _rewardToken.transferFrom(msg.sender, _address, _amount);
+    function pay(uint256 _contentId, uint256 _amount) external {
+        _rewardToken.transferFrom(msg.sender, address(this), _amount);
         uint256 length = _contents.getHolderNum(_contentId);
         uint256 den = _contents.denominator();
         for(uint256 i = 0; i < length; i++){
@@ -68,12 +68,8 @@ contract RewardEscrow is IRewardEscrow {
         emit Payment(_contentId, _amount);
     }
 
-    function getReward(address _holder) external view returns(uint256 balance){
-            return(_rewards[_holder]);
-    }
-
-    function getAddress() external view returns(address ADDR) {
-            return(address(this));
+    function rewards(address _holder) external view returns(uint256 balance){
+        return(_rewards[_holder]);
     }
 
     // owner가 다 해도 돼?

@@ -11,9 +11,9 @@ let contents;
 let token;
 let reward;
 
-contract ('RewardEscrow', accounts  =>{
-    const balanceOfReceiver = new BN('20000');
-    const balanceOfSender = new BN('60000');
+contract.only('RewardEscrow', accounts  =>{
+    const balanceOfReceiver = new BN('2000000');
+    const balanceOfSender = new BN('6000000');
     const firstId = new BN('0');
     const secondId = new BN('1');
     const por1 = new BN('2');
@@ -28,25 +28,26 @@ contract ('RewardEscrow', accounts  =>{
     beforeEach(async () => {
         contents = await ContentsFactory.new({from : owner});
         token = await ERC20Factory.new( {from : owner});
-        reward = await RewardFactory.new(token.address, contents.address, {from : owner});
+        reward = await RewardFactory.new(contents.address, token.address,{from : owner});
         await contents.createContent("CONTENT1", {from : owner});
         await contents.createContent("CONTENT2", {from : owner});
         await contents.addHolders(firstId, [supervisor, actor, author], [holder1, holder2, holder3], [por1, por2, por3], {from : owner});
         await contents.addHolders(secondId, [supervisor, actor, author], [holder1, holder2, holder3], [por2, por3, por1], {from : owner});
+        await token.mint(owner, balanceOfSender, {from : owner});
+        await token.mint(reward.address, balanceOfReceiver, {from : owner});
+        await token.approve(reward.address, balanceOfSender, {from : owner});
     });
 
     describe("#pay()", () => {
         beforeEach(async () => {
-            await token.mint(owner, balanceOfSender, {from : owner});
-            await token.mint(reward.address, balanceOfReceiver, {from : owner});
-            await reward.pay(firstId, contentFee1, reward.address, {from : owner});
-            await reward.pay(secondId, contentFee2, reward.address, {from : owner});
+            await reward.pay(firstId, contentFee1, {from : owner});
+            await reward.pay(secondId, contentFee2, {from : owner});
         });
 
         it("Appropriate token been distributed", async () => {
-            (await reward.getReward(holder1)).should.be.bignumber.equal(new BN("14000"));
-            (await reward.getReward(holder2)).should.be.bignumber.equal(new BN("23000"));
-            (await reward.getReward(holder3)).should.be.bignumber.equal(new BN("13000"));
+            (await reward.rewards(holder1)).should.be.bignumber.equal(new BN("14000"));
+            (await reward.rewards(holder2)).should.be.bignumber.equal(new BN("23000"));
+            (await reward.rewards(holder3)).should.be.bignumber.equal(new BN("13000"));
         });
 
         it("msg.sender's balance should decrease", async () => {
@@ -59,52 +60,40 @@ contract ('RewardEscrow', accounts  =>{
 
         it("Appropriate value should be stored in paymentHistory", async () => {
             await reward.pay(firstId, contentFee2, {from : owner});
-            ((await reward.paymentsHistory(firstId)).firstId).should.be.bignumber.equal(contentFee2);
-            ((await reward.paymentsHistory(firstId)).secondId).should.be.bignumber.equal(contentFee1);
+            ((await reward.paymentsHistory(firstId))[0]).should.be.bignumber.equal(contentFee1);
+            ((await reward.paymentsHistory(firstId))[1]).should.be.bignumber.equal(contentFee2);
             (await reward.paymentsHistoryLength(firstId)).should.be.bignumber.equal(new BN('2'));
-            (await reward.paymentsHistory(firstId, new BN('0'))).should.be.bignumber.equal(contentFee2);
-            (await reward.paymentsHistory(firstId, new BN('1'))).should.be.bignumber.equal(contentFee1);
+            (await reward.methods["paymentsHistory(uint256,uint256)"](firstId, new BN('0'))).should.be.bignumber.equal(contentFee1);
+            (await reward.methods["paymentsHistory(uint256,uint256)"](firstId, new BN('1'))).should.be.bignumber.equal(contentFee2);
         });
-
-
     });
-
 
     describe("#withdraw()", () => {
           beforeEach(async () => {
-              await token.mint(owner, balanceOfSender);
-              await token.mint(reward.address, balanceOfReceiver);
               await reward.pay(firstId, contentFee1, {from : owner});
-              await reward.pay(firstId, contentFee2, {from : owner});
+              await reward.pay(secondId, contentFee2, {from : owner});
               await reward.withdraw(holder1, {from : owner});
               await reward.withdraw(holder3, {from : owner});
           });
 
           it("Appropriate token been erased", async () => {
-              _rewards[holder1].should.be.bignumber.equal(new BN("0"));
-              _rewards[holder2].should.be.bignumber.equal(new BN("23000"));
-              _rewards[holder3].should.be.bignumber.equal(new BN("0"));
+              (await reward.rewards(holder1)).should.be.bignumber.equal(new BN("0"));
+              (await reward.rewards(holder2)).should.be.bignumber.equal(new BN("23000"));
+              (await reward.rewards(holder3)).should.be.bignumber.equal(new BN("0"));
           });
 
           it("contract's balance should decrease", async () => {
-              (await token.balanceOf(reward.address)).should.be.bignumber.equal(blanaceOfReceiver.add(contentFee1).add(contentFee2).sub(new BN('27000')));
+              (await token.balanceOf(reward.address)).should.be.bignumber.equal(balanceOfReceiver.add(contentFee1).add(contentFee2).sub(new BN('27000')));
           });
 
           it("Appropriate value should be stored in withdrawalHistory", async () => {
               await reward.pay(firstId, contentFee2, {from : owner});
               await reward.withdraw(holder1, {from : owner});
-              ((await reward.withdrawalHistory(holder1)).firstId).should.be.bignumber.equal(new BN('8000'));
-              ((await reward.withdrawalHistory(holder1)).secondId).should.be.bignumber.equal(new BN('14000'));
+              ((await reward.withdrawalHistory(holder1))[1]).should.be.bignumber.equal(new BN('8000'));
+              ((await reward.withdrawalHistory(holder1))[0]).should.be.bignumber.equal(new BN('14000'));
               (await reward.withdrawalHistoryLength(holder1)).should.be.bignumber.equal(new BN('2'));
-              (await reward.withdrawalHistory(holder1, new BN('0'))).should.be.bignumber.equal(new BN('8000'));
-              (await reward.withdrawalHistory(holder1, new BN('1'))).should.be.bignumber.equal(new BN('14000'));
+              (await reward.withdrawalHistory(holder1, new BN('1'))).should.be.bignumber.equal(new BN('8000'));
+              (await reward.withdrawalHistory(holder1, new BN('0'))).should.be.bignumber.equal(new BN('14000'));
           });
-
-
       });
-
-
-
-
-
 });
