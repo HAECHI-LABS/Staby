@@ -25,110 +25,86 @@ contract ('Contents', accounts  =>{
         await contents.createContent("CONTENT2", {from : owner});
     });
 
-    describe("createContent test", () => {
+    describe("#createContent()", () => {
         it("Content's name should be eaual _name", async () => {
-          ((await contents.getContentInfo(firstId)).name).should.be.equal("CONTENT1");
-          ((await contents.getContentInfo(secondId)).name).should.be.equal("CONTENT2");
+            ((await contents.getContentInfo(firstId)).name).should.be.equal("CONTENT1");
+            ((await contents.getContentInfo(secondId)).name).should.be.equal("CONTENT2");
         });
 
         it("Content's ID should be equal _contentId", async () => {
-          ((await contents.getContentInfo(firstId)).contentId).should.be.bignumber.equal('0');
-          ((await contents.getContentInfo(secondId)).contentId).should.be.bignumber.equal('1');
+            ((await contents.getContentInfo(firstId)).contentId).should.be.bignumber.equal('0');
+            ((await contents.getContentInfo(secondId)).contentId).should.be.bignumber.equal('1');
         });
 
         it("Content's active should be equal false", async () => {
-          ((await contents.getContentInfo(firstId)).active).should.be.equal(false);
-          ((await contents.getContentInfo(secondId)).active).should.be.equal(false);
+            ((await contents.getContentInfo(firstId)).active).should.be.equal(false);
+            ((await contents.getContentInfo(secondId)).active).should.be.equal(false);
+        });
+
+        it("Should increase _contentCounter", async () => {
+            (await contents.getContentCounter()).should.be.bignumber.equal('2');
         });
     });
 
-    describe("Add holders test", () => {
-
-        beforeEach(async () => {
+    describe("#addHolders()", () => {
+        it("Should fail if #holderAddress != #holderPortion != #holderName", async () => {
+            await expectRevert.unspecified(contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por2], {from : owner}));
+            await expectRevert.unspecified(contents.addHolders(firstId, [supervisor, actor, author], [holder2,holder3], [por1,por2], {from : owner}));
         });
 
-        it("should fail if #holderAddress != #holderPortion", async () => {
-          await expectRevert.unspecified(contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por2], {from : owner}));
-        });
-
-         it("should fail if #holderAddress != #holderName", async () => {
-          await expectRevert.unspecified(contents.addHolders(firstId, [supervisor, actor, author], [holder2,holder3], [por1,por2], {from : owner}));
-        });
-
-        it("should fail if portion sum is not 10", async () => {
-          await expectRevert.unspecified(contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por1, por3], {from : owner}));
+        it("Should fail if portion sum is not 10", async () => {
+            await expectRevert.unspecified(contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por1, por3], {from : owner}));
         });
 
         describe("Vaild Case", () => {
-
             beforeEach(async () => {
-              await contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por2, por3], {from : owner});
-              await contents.addHolders(secondId, [supervisor, actor, author],[holder1,holder2,holder3], [por2, por3, por1], {from : owner});
+                await contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por2, por3], {from : owner});
+                await contents.addHolders(secondId, [supervisor, actor, author],[holder1,holder2,holder3], [por2, por3, por1], {from : owner});
             });
 
-            it("Holder name = holderName", async () => {
-              web3.utils.hexToUtf8(((await contents.getHolderInfo(firstId, new BN('0'))).holderName)).should.be.equal("Supervisor");
-              web3.utils.hexToUtf8(((await contents.getHolderInfo(firstId, new BN('1'))).holderName)).should.be.equal("Actor");
-              web3.utils.hexToUtf8(((await contents.getHolderInfo(firstId, new BN('2'))).holderName)).should.be.equal("Author");
-              web3.utils.hexToUtf8(((await contents.getHolderInfo(secondId, new BN('0'))).holderName)).should.be.equal("Supervisor");
-              web3.utils.hexToUtf8(((await contents.getHolderInfo(secondId, new BN('1'))).holderName)).should.be.equal("Actor");
-              web3.utils.hexToUtf8(((await contents.getHolderInfo(secondId, new BN('2'))).holderName)).should.be.equal("Author");
+            it("Holder name should be equal holderName", async () => {
+                web3.utils.hexToUtf8(((await contents.getHolderInfo(firstId, new BN('0'))).holderName)).should.be.equal("Supervisor");
+                web3.utils.hexToUtf8(((await contents.getHolderInfo(firstId, new BN('1'))).holderName)).should.be.equal("Actor");
+                web3.utils.hexToUtf8(((await contents.getHolderInfo(firstId, new BN('2'))).holderName)).should.be.equal("Author");
             });
 
-            it("Holder Address = holderAddress", async () => {
-              ((await contents.getHolderInfo(firstId, new BN('0'))).holderAddress).should.be.equal(holder1);
-              ((await contents.getHolderInfo(firstId, new BN('1'))).holderAddress).should.be.equal(holder2);
-              ((await contents.getHolderInfo(firstId, new BN('2'))).holderAddress).should.be.equal(holder3);
-              ((await contents.getHolderInfo(secondId, new BN('0'))).holderAddress).should.be.equal(holder1);
-              ((await contents.getHolderInfo(secondId, new BN('1'))).holderAddress).should.be.equal(holder2);
-              ((await contents.getHolderInfo(secondId, new BN('2'))).holderAddress).should.be.equal(holder3);
+            it("Holder Address should be equal holderAddress", async () => {
+                ((await contents.getHolderInfo(firstId, new BN('0'))).holderAddress).should.be.equal(holder1);
+                ((await contents.getHolderInfo(firstId, new BN('1'))).holderAddress).should.be.equal(holder2);
+                ((await contents.getHolderInfo(firstId, new BN('2'))).holderAddress).should.be.equal(holder3);
             });
 
-            it("Holder Portion = holderPortion", async () => {
-              ((await contents.getHolderInfo(firstId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('2'));
-              ((await contents.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('3'));
-              ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('5'));
-              ((await contents.getHolderInfo(secondId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('3'));
-              ((await contents.getHolderInfo(secondId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('5'));
-              ((await contents.getHolderInfo(secondId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('2'));
+            it("Holder Portion should be equal holderPortion", async () => {
+                ((await contents.getHolderInfo(firstId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('2'));
+                ((await contents.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('3'));
+                ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('5'));
             });
-          });
-      });
+        });
+    });
 
-     describe("delete holders test", () => {
-
+    describe("#deleteHolders()", () => {
         beforeEach(async () => {
+            await contents.addHolders(firstId, [supervisor, actor, author], [holder1, holder2, holder3], [por1, por2, por3], {from : owner});
         });
 
-        it("should fail if #holderAddress != #holderPortion", async () => {
-          await expectRevert.unspecified(contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por2], {from : owner}));
+        it("No holder after deleteHolders()", async() => {
+            await contents.deleteHolders(firstId, {from : owner});
+            (await contents.getHolderNum(firstId)).should.be.bignumber.equal(new BN('0'));
         });
+    });
 
-        describe("Valid Case", () => {
-            beforeEach(async () => {
-                await contents.addHolders(firstId, [supervisor, actor, author], [holder1, holder2, holder3], [por1, por2, por3], {from : owner});
-            });
-
-            it("No holder after deleteHolders()", async() => {
-                await contents.deleteHolders(firstId, {from : owner});
-                (await contents.getHolderNum(firstId)).should.be.bignumber.equal(new BN('0'));
-            });
-        });
-     });
-
-    describe("updateHolders test", () => {
-
+    describe("#updateHolders()", () => {
         beforeEach(async () => {
-          await contents.addHolders(firstId,[supervisor, actor, author], [holder1, holder2, holder3], [por1, por2, por3], {from : owner});
+            await contents.addHolders(firstId,[supervisor, actor, author], [holder1, holder2, holder3], [por1, por2, por3], {from : owner});
         });
 
-        it("should fail if #holder is 0", async () => {
+        it("Should fail if #holder is 0", async () => {
             await expectRevert.unspecified(contents.updateHolders(secondId, [supervisor, actor, author], [holder1,holder2,holder3], [por1, por2, por3], {from : owner}));
         });
 
         describe("Valid Case", () => {
             beforeEach(async () => {
-               await contents.updateHolders(firstId, [actor, author, supervisor], [holder1, holder2, holder3], [por1, por3, por2], {from : owner});
+                await contents.updateHolders(firstId, [actor, author, supervisor], [holder1, holder2, holder3], [por1, por3, por2], {from : owner});
             });
 
             it("Holder Name should be equal holderName", async () => {
@@ -149,47 +125,103 @@ contract ('Contents', accounts  =>{
                 ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion.should.be.bignumber.equal(por2));
             });
         });
-      });
-
-    describe("activate/deactivateContent test", () => {
-          beforeEach(async () => {
-              await contents.deactivateContent(firstId, {from : owner});
-          });
-
-          it("Content Active should be true after deactivation", async () => {
-              ((await contents.getContentInfo(firstId)).active).should.be.equal(true);
-          });
-
-          it("Content Active should be false after activation",  async () => {
-              await contents.activateContent(firstId, {from : owner});
-              ((await contents.getContentInfo(firstId)).active.should.be.equal(false));
-          });
-      });
-
-    describe("contentCounter test", () =>{
-        it("should return appropriate contentCounetr", async () => {
-            (await contents.contentCounter()).should.be.bignumber.equal(new BN('2'));
-        });
     });
-    describe("denominator test", () => {
+
+    describe("#deactivateContent()", () => {
         beforeEach(async () => {
+            await contents.deactivateContent(firstId, {from : owner});
         });
 
-        it("should return appropriate denominator",  async () => {
-           (await contents.denominator()).should.be.bignumber.equal(new BN('10'));
+        it("Should fail deactivation if content is already deactivated", async () => {
+            await expectRevert.unspecified(contents.deactivateContent(firstId, {from : owner}));
+        });
+
+        it("Content Active should be true after deactivation", async () => {
+            ((await contents.getContentInfo(firstId)).active).should.be.equal(true);
         });
     });
 
-    describe("getHolderNum test", () => {
+    describe("#activateContent()", () => {
+        it("Should fail activation if content is already activated", async () => {
+            await expectRevert.unspecified(contents.activateContent(firstId, {from : owner}));
+        });
+
+        it("Content Active should be false after activation",  async () => {
+            await contents.deactivateContent(firstId, {from : owner});
+            await contents.activateContent(firstId, {from : owner});
+            ((await contents.getContentInfo(firstId)).active.should.be.equal(false));
+        });
+    });
+
+    describe("#getHolderInfo()", () => {
+        it("Should fail if no holders", async () => {
+            await expectRevert.unspecified(contents.getHolderInfo(firstId, 0, {from : owner}));
+        });
+
+        describe("Vaild Case", () => {
+            beforeEach(async () => {
+                await contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por2, por3], {from : owner});
+            });
+
+            it("Should return appropriate holderName", async () => {
+                web3.utils.hexToUtf8(((await contents.getHolderInfo(firstId, new BN('0'))).holderName)).should.be.equal("Supervisor");
+                web3.utils.hexToUtf8(((await contents.getHolderInfo(firstId, new BN('1'))).holderName)).should.be.equal("Actor");
+                web3.utils.hexToUtf8(((await contents.getHolderInfo(firstId, new BN('2'))).holderName)).should.be.equal("Author");
+            });
+
+            it("Should return appropriate holderAddress", async () => {
+                ((await contents.getHolderInfo(firstId, new BN('0'))).holderAddress).should.be.equal(holder1);
+                ((await contents.getHolderInfo(firstId, new BN('1'))).holderAddress).should.be.equal(holder2);
+                ((await contents.getHolderInfo(firstId, new BN('2'))).holderAddress).should.be.equal(holder3);
+            });
+
+            it("Should return appropriate holderPortion", async () => {
+                ((await contents.getHolderInfo(firstId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('2'));
+                ((await contents.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('3'));
+                ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('5'));
+            });
+        });
+    });
+
+    describe("#getContentInfo()", () => {
+        it("Should fail if contentId > contentCounter", async () => {
+            await expectRevert.unspecified(contents.getContentInfo(new BN('3'), {from : owner}));
+        });
+
+        describe("Valid Case", () => {
+            it("Should return appropriate contentName", async () => {
+                ((await contents.getContentInfo(firstId)).name).should.be.equal("CONTENT1");
+            });
+
+            it("Should return appropriate contentId", async () => {
+                ((await contents.getContentInfo(firstId)).contentId).should.be.bignumber.equal('0');
+            });
+
+            it("Should return appropriate contentActive", async () => {
+                ((await contents.getContentInfo(firstId)).active).should.be.equal(false);
+            });
+        });
+    });
+
+    describe("#getContentCounter()", () =>{
+        it("Should return appropriate contentCounetr", async () => {
+            (await contents.getContentCounter()).should.be.bignumber.equal(new BN('2'));
+        });
+    });
+
+    describe("#getDenominator()", () => {
+        it("Should return appropriate denominator",  async () => {
+           (await contents.getDenominator()).should.be.bignumber.equal(new BN('10'));
+        });
+    });
+
+    describe("#getHolderNum()", () => {
         beforeEach(async () => {
             await contents.addHolders(firstId, [supervisor, actor, author], [holder1, holder2, holder3], [por1, por2, por3], {from : owner});
         });
 
-        it("should return holder length",  async () => {
+        it("Should return appropriate holder length",  async () => {
             ((await contents.getHolderNum(firstId)).should.be.bignumber.equal(new BN('3')));
         });
-
     });
-
-
 });

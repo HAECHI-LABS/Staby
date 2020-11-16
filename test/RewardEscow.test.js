@@ -45,9 +45,9 @@ contract('RewardEscrow', accounts  =>{
         });
 
         it("Appropriate token been distributed", async () => {
-            (await reward.rewards(holder1)).should.be.bignumber.equal(new BN("14000"));
-            (await reward.rewards(holder2)).should.be.bignumber.equal(new BN("23000"));
-            (await reward.rewards(holder3)).should.be.bignumber.equal(new BN("13000"));
+            (await reward.getRewards(holder1)).should.be.bignumber.equal(new BN("14000"));
+            (await reward.getRewards(holder2)).should.be.bignumber.equal(new BN("23000"));
+            (await reward.getRewards(holder3)).should.be.bignumber.equal(new BN("13000"));
         });
 
         it("msg.sender's balance should decrease", async () => {
@@ -69,31 +69,31 @@ contract('RewardEscrow', accounts  =>{
     });
 
     describe("#withdraw()", () => {
-          beforeEach(async () => {
-              await reward.pay(firstId, contentFee1, {from : owner});
-              await reward.pay(secondId, contentFee2, {from : owner});
-              await reward.withdraw(holder1, {from : owner});
-              await reward.withdraw(holder3, {from : owner});
-          });
+        beforeEach(async () => {
+            await reward.pay(firstId, contentFee1, {from : owner});
+            await reward.pay(secondId, contentFee2, {from : owner});
+            await reward.withdraw(holder1, {from : owner});
+            await reward.withdraw(holder3, {from : owner});
+        });
 
-          it("Appropriate token been erased", async () => {
-              (await reward.rewards(holder1)).should.be.bignumber.equal(new BN("0"));
-              (await reward.rewards(holder2)).should.be.bignumber.equal(new BN("23000"));
-              (await reward.rewards(holder3)).should.be.bignumber.equal(new BN("0"));
-          });
+        it("Appropriate token been erased", async () => {
+            (await reward.getRewards(holder1)).should.be.bignumber.equal(new BN("0"));
+            (await reward.getRewards(holder2)).should.be.bignumber.equal(new BN("23000"));
+            (await reward.getRewards(holder3)).should.be.bignumber.equal(new BN("0"));
+        });
 
-          it("contract's balance should decrease", async () => {
-              (await token.balanceOf(reward.address)).should.be.bignumber.equal(balanceOfReceiver.add(contentFee1).add(contentFee2).sub(new BN('27000')));
-          });
+        it("contract's balance should decrease", async () => {
+            (await token.balanceOf(reward.address)).should.be.bignumber.equal(balanceOfReceiver.add(contentFee1).add(contentFee2).sub(new BN('27000')));
+        });
 
-          it("Appropriate value should be stored in withdrawalHistory", async () => {
-              await reward.pay(firstId, contentFee2, {from : owner});
-              await reward.withdraw(holder1, {from : owner});
-              ((await reward.withdrawalHistory(holder1))[1]).should.be.bignumber.equal(new BN('8000'));
-              ((await reward.withdrawalHistory(holder1))[0]).should.be.bignumber.equal(new BN('14000'));
-              (await reward.withdrawalHistoryLength(holder1)).should.be.bignumber.equal(new BN('2'));
-              (await reward.withdrawalHistory(holder1, new BN('1'))).should.be.bignumber.equal(new BN('8000'));
-              (await reward.withdrawalHistory(holder1, new BN('0'))).should.be.bignumber.equal(new BN('14000'));
-          });
-      });
+        it("Appropriate value should be stored in withdrawalHistory", async () => {
+            await reward.pay(firstId, contentFee2, {from : owner});
+            await reward.withdraw(holder1, {from : owner});
+            ((await reward.withdrawalHistory(holder1))[1]).should.be.bignumber.equal(new BN('8000'));
+            ((await reward.withdrawalHistory(holder1))[0]).should.be.bignumber.equal(new BN('14000'));
+            (await reward.withdrawalHistoryLength(holder1)).should.be.bignumber.equal(new BN('2'));
+            (await reward.withdrawalHistory(holder1, new BN('1'))).should.be.bignumber.equal(new BN('8000'));
+            (await reward.withdrawalHistory(holder1, new BN('0'))).should.be.bignumber.equal(new BN('14000'));
+        });
+    });
 });

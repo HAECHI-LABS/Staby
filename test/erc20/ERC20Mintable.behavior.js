@@ -14,6 +14,7 @@ function mint(owner, nonOwner, recipient, amount){
     });
 
     it('should fail if overflows', async function()  {
+      await this.token.mint(recipient, constants.MAX_UINT256, {from : owner});
       await expectRevert.unspecified(this.token.mint(recipient, constants.MAX_UINT256, { from: owner }));
     });
 

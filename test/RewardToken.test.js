@@ -43,6 +43,11 @@ contract('RewardToken', function(account)  {
   });
 
   describe('ERC20Lockable Spec', function(){
+    beforeEach(async function() {
+      await this.token.mint(owner, new BN('1000000'), {from : owner});
+      await this.token.transfer(sender, amount, {from : owner});
+    });
+
     ERC20Lockable.transferWithLockUp(owner, recipient, amount);
 
     ERC20Lockable.unlock(owner, recipient, amount);
@@ -57,6 +62,11 @@ contract('RewardToken', function(account)  {
   });
 
   describe('ERC20Burnable Spec', function(){
+     beforeEach(async function() {
+      await this.token.mint(owner, new BN('100000'), {from : owner});
+      await this.token.transfer(sender, amount, {from : owner});
+    });
+
     ERC20Burnable.burn(owner, amount, [Pausable.whenNotPaused]);
 
     ERC20Burnable.burnFrom(owner, spender, amount, [Pausable.whenNotPaused]);

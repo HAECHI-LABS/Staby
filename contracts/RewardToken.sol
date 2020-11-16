@@ -19,7 +19,6 @@ contract RewardToken is
     uint256 constant private _initial_supply = 0;
 
     constructor() public Ownable() {
-        _mint(msg.sender, _initial_supply * (10**uint256(_decimals)));
     }
 
     function transfer(address to, uint256 amount)
@@ -71,7 +70,26 @@ contract RewardToken is
         _approve(msg.sender, spender, amount);
         success = true;
     }
-
+   /* 
+    function mint(address receiver, uint256 amount)
+        external
+        onlyOwner
+        whenNotPaused
+        returns (bool success)
+    {
+        require(
+            receiver != address(0),
+            "ERC20Mintable/mint : Cannot mint to zero address"
+        );
+        require(
+            !_mintingFinished,
+            "ERC20Mintable/mint : Cannot mint after finished"
+        );
+        _mint(receiver, amount);
+        emit Mint(receiver, amount);
+        success = true;
+    }
+*/
     function name()  external view returns (string memory tokenName) {
         tokenName = _name;
     }

@@ -1,12 +1,15 @@
 pragma solidity 0.5.17;
 
+import "../library/SafeMath.sol";
 import "./ERC20.sol";
 import "../library/Pausable.sol";
+
 
 contract ERC20Mintable is ERC20, Pausable {
     event Mint(address indexed receiver, uint256 amount);
     event MintFinished();
 
+    using SafeMath for uint256;
     bool internal _mintingFinished;
     ///@notice mint token
     ///@dev only owner can call this function

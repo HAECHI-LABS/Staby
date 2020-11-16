@@ -15,34 +15,22 @@ contract Contents is IContents, Ownable {
     uint256 internal _contentCounter = 0;
     uint256 constant private DENOMINATOR = 10;
 
-    event ContentsCreation (string name, uint256 indexed contentId );
-    event AddShareInfo (uint256 indexed contentId, bytes32[] nickName, address[] holderAddress, uint256[] holderPortion );
-    event DeleteShareInfo ( uint256 indexed contentId );
-    event ContentActivation ( uint256 indexed contentId );
-    event ContentDeactivated ( uint256 indexed contentId );
-
+    // 컨텐츠에 대한 정보
     struct Contents {
-        string name;
-        uint256 contentId;
-        bool active;
+        string name;  // 컨텐츠 이름
+        uint256 contentId;  // 컨텐츠 ID
+        bool active;  // 컨텐츠 활성상태 (on : 0)
     }
 
+    // 지분에 대한 정보
     struct ShareHolders {
-        uint256 contentId;
-        bytes32[] holderName;
-        address[] holderAddress;
-        uint256[] holderPortion;
+        uint256 contentId;  // 컨텐츠 ID
+        bytes32[] holderName; // 지분 소유자 닉네임
+        address[] holderAddress;  // 지분 소유자 주소
+        uint256[] holderPortion;  // 지분 얼만큼 (0~10)
     }
 
     constructor() public {}
-
-    function denominator() external view returns(uint256) {
-        return DENOMINATOR;
-    }
-
-    function contentCounter() external view returns(uint256) {
-        return _contentCounter;
-    }
 
     function createContent(string calldata _name) external onlyOwner {
         _createContent(_name);
@@ -62,22 +50,12 @@ contract Contents is IContents, Ownable {
         _addHolders(_contentId, _holderName, _holderAddress, _holderPortion);
     }
 
-    function getHolderInfo(uint256 _contentId, uint256 _num) external view returns(bytes32 holderName, address holderAddress, uint256 holderPortion) {
-        require(_shareInfo[_contentId].holderAddress.length != 0, 'no holder');
-        require(_shareInfo[_contentId].holderPortion.length != 0, 'no portion');
-        require(_shareInfo[_contentId].holderName.length != 0, 'no name');
-        return(
-            _shareInfo[_contentId].holderName[_num],
-            _shareInfo[_contentId].holderAddress[_num],
-            _shareInfo[_contentId].holderPortion[_num]
-        );
+    function activateContent(uint256 _contentId) external onlyOwner {
+        _activateContent(_contentId);
     }
 
-    function getHolderNum(uint256 _contentId) external view returns( uint256 holderNum ) {
-        require(_shareInfo[_contentId].holderAddress.length == _shareInfo[_contentId].holderName.length, '#Address != #Name');
-        require(_shareInfo[_contentId].holderAddress.length == _shareInfo[_contentId].holderPortion.length, '#Address != #Portion');
-        if (_shareInfo[_contentId].holderAddress.length == 0) return 0;
-        else return(_shareInfo[_contentId].holderAddress.length);
+    function deactivateContent(uint256 _contentId) external onlyOwner {
+        _deactivateContent(_contentId);
     }
 
     function getContentInfo(uint256 _contentId) external view returns(string memory name, uint256 contentId, bool active) {
@@ -89,18 +67,26 @@ contract Contents is IContents, Ownable {
         );
     }
 
-    // onlyOwner
-    function activateContent(uint256 _contentId) external onlyOwner {
-        require(_contentList[_contentId].active, 'content is already activated');
-        _contentList[_contentId].active = false;
-        emit ContentActivation(_contentId);
+    function getHolderInfo(uint256 _contentId, uint256 _num) external view returns(bytes32 holderName, address holderAddress, uint256 holderPortion) {
+        require(_shareInfo[_contentId].holderAddress.length != 0, 'no holder');
+        return(
+            _shareInfo[_contentId].holderName[_num],
+            _shareInfo[_contentId].holderAddress[_num],
+            _shareInfo[_contentId].holderPortion[_num]
+        );
     }
 
+    function getHolderNum(uint256 _contentId) external view returns( uint256 holderNum ) {
+        if (_shareInfo[_contentId].holderAddress.length == 0) return 0;
+        else return(_shareInfo[_contentId].holderAddress.length);
+    }
 
-    function deactivateContent(uint256 _contentId) external onlyOwner {
-        require(!_contentList[_contentId].active, 'content is already deactivated');
-        _contentList[_contentId].active = true;
-        emit ContentDeactivated(_contentId);
+    function getDenominator() external view returns(uint256) {
+        return DENOMINATOR;
+    }
+
+    function getContentCounter() external view returns(uint256 contentCounter) {
+        return(_contentCounter);
     }
 
     function _createContent(string memory _name) internal onlyOwner {
@@ -115,7 +101,8 @@ contract Contents is IContents, Ownable {
     }
 
     function _addHolders(uint256 _contentId, bytes32[] memory _holderName, address[] memory _holderAddress, uint256[] memory _holderPortion) internal {
-        require(_holderAddress.length == _holderPortion.length, 'holder and portion are not match');
+        require(_holderAddress.length == _holderPortion.length, '#Address != #Portion');
+        require(_holderAddress.length == _holderName.length, '#Address != #Name');
         uint256 counter = 0;
         for(uint i = 0 ; i < _holderPortion.length ; i++) counter = _holderPortion[i].add(counter);
         require(counter == DENOMINATOR , 'portion sum is not equal to denominator');
@@ -131,10 +118,21 @@ contract Contents is IContents, Ownable {
     }
 
     function _deleteHolders(uint256 _contentId) internal {
-        require(_shareInfo[_contentId].holderAddress.length == _shareInfo[_contentId].holderPortion.length, 'holder and portion are not match');
         _shareInfo[_contentId].holderName.length = 0;
         _shareInfo[_contentId].holderAddress.length = 0;
         _shareInfo[_contentId].holderPortion.length = 0;
         emit DeleteShareInfo(_contentId);
+    }
+
+    function _activateContent(uint256 _contentId) internal {
+        require(_contentList[_contentId].active, 'content is already activated');
+        _contentList[_contentId].active = false;
+        emit ContentActivation(_contentId);
+    }
+
+    function _deactivateContent(uint256 _contentId) internal {
+        require(!_contentList[_contentId].active, 'content is already deactivated');
+        _contentList[_contentId].active = true;
+        emit ContentDeactivated(_contentId);
     }
 }

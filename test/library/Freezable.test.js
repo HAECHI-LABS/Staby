@@ -28,6 +28,7 @@ contract('Pausable', accounts => {
 
       it('target address freezed', async() => {
         await expectRevert(Freezable.whenNotFrozenMock(freezed), "Freezable : target is frozen");
+        (await Freezable.isFrozen(freezed)).should.be.equal(true);
       });
 
       it('should emit Freeze event', () => {
