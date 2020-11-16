@@ -5,8 +5,8 @@ interface IRewardEscrow {
     /**
     * @notice 홀더에게 수익 배분
     * @dev
-    * @param contentId : 수익을 배분할 컨텐츠의 ID
-    * @param amount : ID에 해당하는 컨텐츠에서 발생한 총 수익
+    * @param _contentId : 수익을 배분할 컨텐츠의 ID
+    * @param _amount : ID에 해당하는 컨텐츠에서 발생한 총 수익
     */
     function pay (uint256 _contentId, uint256 _amount) external;
 
@@ -76,7 +76,7 @@ interface IRewardEscrow {
     function getRewards(address _holder) external view returns(uint256);
 
     /**
-    * @notice 수익 배분 이벤트 
+    * @notice 수익 배분 이벤트
     */
     event Payment (uint256 indexed contentId, uint256 amount);
 

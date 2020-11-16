@@ -39,12 +39,17 @@ contract('RewardEscrow', accounts  =>{
     });
 
     describe("#pay()", () => {
+        it("Should fail if content is deactivated", async () => {
+            await contents.deactivateContent(firstId);
+            await expectRevert.unspecified(reward.pay(firstId, contentFee1,  {from : owner}));
+        });
+
         beforeEach(async () => {
             await reward.pay(firstId, contentFee1, {from : owner});
             await reward.pay(secondId, contentFee2, {from : owner});
         });
 
-        it("Appropriate token been distributed", async () => {
+        it("Appropriate balance of token should distributed", async () => {
             (await reward.getRewards(holder1)).should.be.bignumber.equal(new BN("14000"));
             (await reward.getRewards(holder2)).should.be.bignumber.equal(new BN("23000"));
             (await reward.getRewards(holder3)).should.be.bignumber.equal(new BN("13000"));
@@ -54,7 +59,7 @@ contract('RewardEscrow', accounts  =>{
             (await token.balanceOf(owner)).should.be.bignumber.equal(balanceOfSender.sub(contentFee1).sub(contentFee2));
         });
 
-        it("contract's balance should increase", async () => {
+        it("Contract's balance should increase", async () => {
             (await token.balanceOf(reward.address)).should.be.bignumber.equal(balanceOfReceiver.add(contentFee1).add(contentFee2));
         });
 
@@ -82,7 +87,7 @@ contract('RewardEscrow', accounts  =>{
             (await reward.getRewards(holder3)).should.be.bignumber.equal(new BN("0"));
         });
 
-        it("contract's balance should decrease", async () => {
+        it("Contract's balance should decrease", async () => {
             (await token.balanceOf(reward.address)).should.be.bignumber.equal(balanceOfReceiver.add(contentFee1).add(contentFee2).sub(new BN('27000')));
         });
 
