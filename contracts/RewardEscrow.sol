@@ -2,7 +2,7 @@ pragma solidity ^0.5.17;
 
 import "./interface/IContents.sol";
 import "./interface/IERC20.sol";
-import "./interface/IRewardMinter.sol";
+import "./interface/IRewardEscrow.sol";
 import "./library/SafeMath.sol";
 
 contract RewardEscrow is IRewardEscrow {
