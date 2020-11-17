@@ -76,7 +76,7 @@ interface IRewardEscrow {
     function getRewards(address _holder) external view returns(uint256);
 
     /**
-    * @notice 수익 배분 이벤트 
+    * @notice 수익 배분 이벤트
     */
     event Payment (uint256 indexed contentId, uint256 amount);
 
