@@ -87,25 +87,24 @@ async function payment(contentId, amount){
 
 async function printPaymentHistory(contentId){
     console.log("PaymentHistory of contentId : " + contentId);
-    const PaymentHistory = await reward.methods.paymentHistory(contentId).call();
+    const PaymentHistory = await reward.methods.paymentsHistory(contentId).call();
     console.log("\tContent# " + contentId + " : " + PaymentHistory);
 }
 
+
 async function latestContentId() {
     const contentId = ((new BN(await contents.methods.getContentCounter().call())).subn(1)).toNumber();
+    console.log("Latest Content ID : ", contentId);
     return contentId;
 }
 
-async function printLatestContentId() {
-    const contentId = await latestContentId();
-    console.log(contentId);
-}
 
 async function printReward(contentId) {
     const holderLength = (await contents.methods.getHolderNum(contentId).call());
-    console.log("reward of holder : " + holderAddress);
+    console.log("Reward of holder");
     for(let i = 0; i < holderLength; i++) {
-        const Reward = await reward.methods.getRrewards(i).call();
+        const holderInfo = await contents.methods.getHolderInfo(contentId,i).call();
+        const Reward = await reward.methods.getRewards(holderInfo.holderAddress).call();
         console.log("\tHolder#" + i + ": " + Reward);
     }
 }
@@ -117,7 +116,7 @@ async function withdrawal(holderAddress){
 async function printWithdrawalHistory(holderAddress){
     console.log("WithdrawalHistory of withdrawer : " + holderAddress);
     const WithdrawalHistory = await reward.methods.withdrawalHistory(holderAddress).call();
-    console.log("\tWithdrawer" + holderAddress + ": " + WithdrawalHistory);
+    console.log("\tHistory : " + WithdrawalHistory);
 }
 
 async function approve(address, amount) {
@@ -126,18 +125,41 @@ async function approve(address, amount) {
 }
 
 async function main() {
-    await createContentTest("Content####");
+    await createContent("Content");
     const contentId = await latestContentId();
     const holderNames = ["Supervisor", "Actor"];
     const addresses = [user_1, user_2];
+    const contentProfit_1 = 100000
+    const contentProfit_2 = 150000
 
     await addHolders(contentId, holderNames, addresses, [4,6]);
     await printHolders(contentId);
+    
     await updateHolders(contentId, holderNames, addresses, [3,7]);
     await printHolders(contentId);
 
+    await deactivateContent(contentId);
+    await activateContent(contentId);
+
+    await mint(owner, contentProfit_1);
+    await approve(escrowAddress, contentProfit_1);
+    await payment(contentId, contentProfit_1);
+
+    await mint(owner, contentProfit_2);
+    await approve(escrowAddress, contentProfit_2);
+    await payment(contentId, contentProfit_2);
+
+    await printReward(contentId);
+    await printPaymentHistory(contentId);
+
+    await withdrawal(user_1);
+
+    await printReward(contentId);
+    await printWithdrawalHistory(user_1);
+
 }
 
+/*
 function getEscrowAddress() {
     const address = escrowAddress;
     return address;
@@ -152,13 +174,14 @@ function getOwner() {
     const address = owner;
     return address;
 }
+*/ 
 
 const keyring = caver.wallet.keyring.createFromPrivateKey(privateKey_Owner);
 caver.wallet.add(keyring);
+main();
 
 module.exports = {
     createContent,
-    getAddresses,
     updateHolders,
     addHolders,
     printHolders,
@@ -170,10 +193,7 @@ module.exports = {
     printReward,
     withdrawal,
     printWithdrawalHistory,
-    printLatestContentId,
     mint,
-    getOwner,
-    getEscrowAddress,
     approve,
     printContent
 };
