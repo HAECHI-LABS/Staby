@@ -124,7 +124,7 @@
 #### → Returns
 | Name | Type |
 |:-:|:-:|
-|  Not specified  | `uint256` |
+|  length  | `uint256` |
 
 _paymentsHistory[_contentId].length : 컨텐츼 ID에 해당하는 컨텐츠의 수익배분 기록의 길이
 
@@ -146,7 +146,7 @@ _paymentsHistory[_contentId].length : 컨텐츼 ID에 해당하는 컨텐츠의 
 #### → Returns
 | Name | Type |
 |:-:|:-:|
-|  Not specified  | `uint256` |
+|  hitory  | `uint256` |
 
 _paymentsHistory[_contentId][_idx] : 컨텐츼 ID와 index에 해당하는 컨텐츠의 수익배분 기록
 
@@ -168,7 +168,7 @@ _paymentsHistory[_contentId][_idx] : 컨텐츼 ID와 index에 해당하는 컨�
 #### → Returns
 | Name | Type |
 |:-:|:-:|
-|  Not specified  | `uint256` |
+|  length  | `uint256` |
 
 _withdrawalHistory[_withdrawer].length : 사용자의 주소에 해당하는 토큰 출금 기록의 길이
 
@@ -191,7 +191,7 @@ _withdrawalHistory[_withdrawer].length : 사용자의 주소에 해당하는 토
 #### → Returns
 | Name | Type |
 |:-:|:-:|
-|  Not specified  | `uint256[]` |
+|  histories  | `uint256[]` |
 
 _withdrawalHistory[_withdrawer][_idx] : 사용자의 주소와 index에 해당하는 토큰 출금 기록
 
@@ -213,7 +213,7 @@ _withdrawalHistory[_withdrawer][_idx] : 사용자의 주소와 index에 해당�
 #### → Returns
 | Name | Type |
 |:-:|:-:|
-|  Not specified  | `uint256` |
+|  reward  | `uint256` |
 
 _rewrads[_holder] : 홀더가 받을 수익
 
