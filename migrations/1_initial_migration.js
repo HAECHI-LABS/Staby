@@ -11,8 +11,7 @@ module.exports = function(deployer) {
     });
   });
   */
-  deployer.deploy(Contents);
-  deployer.deploy(RewardToken);
-  deployer.deploy(RewardEscrow, Contents.address, RewardToken.address);
-
+  //deployer.deploy(Contents);
+  //deployer.deploy(RewardToken);
+  //deployer.deploy(RewardEscrow, Contents.address, RewardToken.address);
 };

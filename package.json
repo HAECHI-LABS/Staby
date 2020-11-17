@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "compile": "npx truffle compile",
-    "coverage": "npx truffle run coverage",
+    "coverage": "NODE_OPTIONS='--max-old-space-size=4096' npx truffle run coverage",
     "docs": "scripts/docs.sh",
     "lint": "npm run lint:js && npm run lint:sol",
     "lint:js": "eslint '*/**/*.{js,ts}' --quiet --fix",
     "lint:sol": "solhint --max-warnings 0 \"contracts/**/*.sol\"",
     "prettier": "prettier --write **/{**,.}/*.sol",
     "benchmark": "bsol --sol-dir contracts/",
-    "test": "scripts/test.sh",
+    "test": "NODE_OPTIONS='--max-old-space-size=4096' scripts/test.sh",
     "analyze": "slither ./contracts",
     "version": "scripts/version.sh"
   },
