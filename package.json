@@ -1,7 +1,7 @@
 {
-  "name": "mojito",
+  "name": "staby",
   "version": "1.0.0",
-  "description": "audit single repository",
+  "description": "staby smart contract repository",
   "main": "index.js",
   "scripts": {
     "compile": "npx truffle compile",
@@ -18,7 +18,7 @@
   },
   "authors": [
     "taek lee <leekt216@gmail.com>",
-    "yoonsung"
+    "wook <wooke1995@gmail.com>"
   ],
   "license": "ISC",
   "devDependencies": {
