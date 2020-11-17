@@ -79,13 +79,13 @@
 
 >홀더에게 수익 배분
 
-🔨`@param _contentId 수익을 배분할 컨텐츠의 ID` |  👀 `nonpayable`
+ 👀 `nonpayable`
 
 #### ⚙️ Parameters
 
 | Name | Type | Description |
 |:-:|:-:| - |
-| _contentId | `uint256` | undefined |
+| _contentId | `uint256` | 수익을 배분할 컨텐츠의 ID |
 | _amount | `uint256` | ID에 해당하는 컨텐츠에서 발생한 총 수익 |
 
 
@@ -96,7 +96,14 @@
 
 >사용자의 토큰 출금
 
-🔨`@param _withdrawer 토큰을 출금하는 사용자의 주소` |  👀 `nonpayable`
+ 👀 `nonpayable`
+
+#### ⚙️ Parameters
+
+| Name | Type | Description |
+|:-:|:-:| - |
+| _withdrawer | `address` | 토큰을 출금하는 사용자의 주소 |
+
 
 
 </dd>
@@ -105,7 +112,14 @@
 
 >컨텐츠 ID에 해당하는 컨텐츠의 수익배분 기록의 길이 불러옴
 
-🔨`@param _contentId 기록 불러올 컨텐츠의 ID` |  👀 `view`
+ 👀 `view`
+
+#### ⚙️ Parameters
+
+| Name | Type | Description |
+|:-:|:-:| - |
+| _contentId | `uint256` | 기록 불러올 컨텐츠의 ID |
+
 
 #### → Returns
 | Name | Type |
@@ -120,13 +134,13 @@ _paymentsHistory[_contentId].length : 컨텐츼 ID에 해당하는 컨텐츠의 
 
 >컨텐츠 ID와 index에 해당하는 컨텐츠의 수익배분 기록 불러옴
 
-🔨`@param _contentId 기록 불러올 컨텐츠의 ID` |  👀 `view`
+ 👀 `view`
 
 #### ⚙️ Parameters
 
 | Name | Type | Description |
 |:-:|:-:| - |
-| _contentId | `uint256` | undefined |
+| _contentId | `uint256` | 기록 불러올 컨텐츠의 ID |
 
 
 #### → Returns
@@ -142,7 +156,14 @@ _paymentsHistory[_contentId][_idx] : 컨텐츼 ID와 index에 해당하는 컨�
 
 >사용자의 주소에 해당하는 토큰 출금 기록의 길이 불러옴
 
-🔨`@param _withdrawer 기록의 길이를 불러올 사용자의 주소` |  👀 `view`
+ 👀 `view`
+
+#### ⚙️ Parameters
+
+| Name | Type | Description |
+|:-:|:-:| - |
+| _withdrawer | `address` | 기록의 길이를 불러올 사용자의 주소 |
+
 
 #### → Returns
 | Name | Type |
@@ -157,13 +178,13 @@ _withdrawalHistory[_withdrawer].length : 사용자의 주소에 해당하는 토
 
 >사용자의 주소와 index에 해당하는 토큰 출금 기록 불러옴
 
-🔨`@param _withdrawer 기록 불러올 사용자의 주소` |  👀 `view`
+ 👀 `view`
 
 #### ⚙️ Parameters
 
 | Name | Type | Description |
 |:-:|:-:| - |
-| _withdrawer | `address` | undefined |
+| _withdrawer | `address` | 기록 불러올 사용자의 주소 |
 | _idx | `uint256` | 기록 index |
 
 
@@ -180,7 +201,14 @@ _withdrawalHistory[_withdrawer][_idx] : 사용자의 주소와 index에 해당�
 
 >홀더가 받을 수익 불러옴
 
-🔨`@param _holder 수익을 배분받을 홀더의 주소` |  👀 `view`
+ 👀 `view`
+
+#### ⚙️ Parameters
+
+| Name | Type | Description |
+|:-:|:-:| - |
+| _holder | `address` | 수익을 배분받을 홀더의 주소 |
+
 
 #### → Returns
 | Name | Type |
