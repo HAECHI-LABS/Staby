@@ -14020,9 +14020,126 @@
     "name": "solc",
     "version": "0.5.17+commit.d19bba13.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "1001": {
+      "events": {
+        "0x7fdc3be55fd70578ec574721222c407924240629b4895267ce002eb5af323181": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "contentId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "bytes32[]",
+              "name": "nickName",
+              "type": "bytes32[]"
+            },
+            {
+              "indexed": false,
+              "internalType": "address[]",
+              "name": "holderAddress",
+              "type": "address[]"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256[]",
+              "name": "holderPortion",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "AddShareInfo",
+          "type": "event"
+        },
+        "0xbf6a6fb4ce843a3103874f63696a7008f788f7e74b5885c1a489110363db4d4b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "contentId",
+              "type": "uint256"
+            }
+          ],
+          "name": "ContentActivation",
+          "type": "event"
+        },
+        "0x87eca800c5aafd6414b5e7f7f64649c6a947da66c7fdcbaa2b856462d388e25b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "contentId",
+              "type": "uint256"
+            }
+          ],
+          "name": "ContentDeactivated",
+          "type": "event"
+        },
+        "0x512882de450b93ef9e78c553b2776dba213e405ae58f9920294d899d55ce631f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "contentId",
+              "type": "uint256"
+            }
+          ],
+          "name": "ContentsCreation",
+          "type": "event"
+        },
+        "0x1e1ba1f4aeda40b28c4217dc1b42780577e8817dba6b427eb9ac27789866dfa3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "contentId",
+              "type": "uint256"
+            }
+          ],
+          "name": "DeleteShareInfo",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "currentOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x29580d2C69A78D07fd849D973ec14e393cc5088E",
+      "transactionHash": "0x105b199fd87c7681aaecfaf0dae61ee264a11b1ab72a86198956e3b1336d1685"
+    }
+  },
   "schemaVersion": "3.3.2",
-  "updatedAt": "2020-11-17T06:54:26.571Z",
+  "updatedAt": "2020-11-17T07:06:35.996Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

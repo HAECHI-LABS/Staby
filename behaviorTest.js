@@ -4,9 +4,9 @@ const web3 = require('web3');
 const { expect } = require('chai');
 const { constants, expectEvent, expectRevert, BN, ether, time } = require('@openzeppelin/test-helpers');
 
-const contentsAddress = "0x8E96a72848E21b223554fFC40D202CdaaDd52f51";
-const tokenAddress = "0x75e4F0bA78A2355B1DdDc82826f02e8A3867891D";
-const escrowAddress = "0xcD71fa499299edF7Da9273fc5055740BF0A9C34d";
+const contentsAddress = "0x29580d2C69A78D07fd849D973ec14e393cc5088E";
+const tokenAddress = "0x88Bbe7a007Cf185575994c855CEDbd13bcc32213";
+const escrowAddress = "0xE000cE22D0BF35666ae3C23Ca011dBd750214149";
 
 const contentsABI = require('./build/contracts/Contents.json').abi;
 const tokenABI = require('./build/contracts/RewardToken.json').abi;
