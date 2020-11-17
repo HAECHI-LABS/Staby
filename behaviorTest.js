@@ -23,7 +23,7 @@ const privateKey_User2 = '0xabb811917f85e69f1e8420e85affe82f651bca934ca4ab2beaeb
 
 const contents = new caver.contract(contentsABI,contentsAddress);
 
-async function createContentTest(contentName) {
+async function createContent(contentName) {
     const receipt = await contents.methods.createContent(contentName).send({from:owner, gas:'0x4bfd200'});
     console.log("Create Content tx hash : " + receipt.transactionHash);
 }
@@ -52,10 +52,15 @@ async function updateHolders(contentId, names, addresses, portions){
     console.log("Update Holders tx hash : " + receipt.transactionHash);
 }
 
+async function latestContentId() {
+    const contentId = ((new BN(await contents.methods.getContentCounter().call())).subn(1)).toNumber();
+    return contentId;
+}
+
 
 async function main() {
     await createContentTest("Content####");
-    const contentId = ((new BN(await contents.methods.getContentCounter().call())).subn(1)).toNumber();
+    const contentId = await latestContentId();
     const holderNames = ["Supervisor", "Actor"];
     const addresses = [user_1, user_2];
 
@@ -74,9 +79,10 @@ const keyring = caver.wallet.keyring.createFromPrivateKey(privateKey_Owner);
 caver.wallet.add(keyring);
 
 module.exports = {
-  createContentTest,
+  createContent,
   getAddresses,
   updateHolders,
   addHolders,
   printHolders,
+  latestContentId,
 };
