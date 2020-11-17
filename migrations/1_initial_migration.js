@@ -2,7 +2,7 @@
 const Contents = artifacts.require("Contents");
 const RewardToken = artifacts.require("RewardToken");
 const RewardEscrow = artifacts.require("RewardEscrow");
-module.exports = function(deployer) {
+module.exports = async function(deployer) {
   //deployer.deploy(Migrations);
   /*
   deployer.deploy(Contents).then(function() {
@@ -11,7 +11,7 @@ module.exports = function(deployer) {
     });
   });
   */
-  //deployer.deploy(Contents);
-  //deployer.deploy(RewardToken);
-  //deployer.deploy(RewardEscrow, Contents.address, RewardToken.address);
+  await deployer.deploy(Contents);
+  await deployer.deploy(RewardToken);
+  await deployer.deploy(RewardEscrow, Contents.address, RewardToken.address);
 };
