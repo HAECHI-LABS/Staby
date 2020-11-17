@@ -22,6 +22,8 @@ const user_2 = '0x180c82da2bbe4196d9d13b3e69baaae4fa9435bf';
 const privateKey_User2 = '0xabb811917f85e69f1e8420e85affe82f651bca934ca4ab2beaeb36c2d97c2d13';
 
 const contents = new caver.contract(contentsABI,contentsAddress);
+const token = new caver.contract(tokenABI,tokenAddress);
+const reward = new caver.contract(escrowABI,escrowAddress);
 
 async function createContent(contentName) {
     const receipt = await contents.methods.createContent(contentName).send({from:owner, gas:'0x4bfd200'});
@@ -38,13 +40,25 @@ async function printHolders(contentId) {
     const holderLength = (await contents.methods.getHolderNum(contentId).call());
     console.log("Holder info of contentId : " + contentId);
     for(let i = 0; i < holderLength; i++) {
-      const holderInfo = await contents.methods.getHolderInfo(contentId,i).call();
-      console.log("\tHolder #" + i + " : " + web3.utils.hexToUtf8(holderInfo.holderName));
-      console.log("\tAddress : " + holderInfo.holderAddress);
-      console.log("\tPortion : " + holderInfo.holderPortion + "0%");
+        const holderInfo = await contents.methods.getHolderInfo(contentId,i).call();
+        console.log("\tHolder #" + i + " : " + web3.utils.hexToUtf8(holderInfo.holderName));
+        console.log("\tAddress : " + holderInfo.holderAddress);
+        console.log("\tPortion : " + holderInfo.holderPortion + "0%");
     }
 }
 
+async function printContent(contentId) {
+    console.log("Content info of contentId : " + contentId);
+    const contentInfo = await contents.methods.getContentInfo(contentId).call();
+    console.log("\tName : " + contentInfo.name);
+    console.log("\tID : " + contentInfo.contentId);
+    console.log("\tActive : " + contentInfo.active);
+}
+
+async function mint(address, amount) {
+    const receipt = await token.methods.mint(address, amount).send({from:owner, gas:'0x4bfd200'});
+    console.log("Mint tx hash : " + receipt.transactionHash);
+}
 
 async function updateHolders(contentId, names, addresses, portions){
     const byteNames = names.map(x => web3.utils.toHex(x).padEnd(66, '0'));
@@ -52,11 +66,64 @@ async function updateHolders(contentId, names, addresses, portions){
     console.log("Update Holders tx hash : " + receipt.transactionHash);
 }
 
+
+async function deactivateContent(contentId){
+    const receipt = await contents.methods.deactivateContent(contentId).send({from:owner, gas:'0x4bfd200'});
+    console.log("Deactivate Content tx hash : " + receipt.transactionHash);
+}
+
+
+async function activateContent(contentId){
+    const receipt = await contents.methods.activateContent(contentId).send({from:owner, gas:'0x4bfd200'});
+    console.log("Activate Content tx hash : " + receipt.transactionHash);
+}
+
+
+async function payment(contentId, amount){
+    const receipt = await reward.methods.pay(contentId, amount).send({from:owner, gas:'0x4bfd200'});
+    console.log("Payment Content tx hash : " + receipt.transactionHash);
+}
+
+
+async function printPaymentHistory(contentId){
+    console.log("PaymentHistory of contentId : " + contentId);
+    const PaymentHistory = await reward.methods.paymentHistory(contentId).call();
+    console.log("\tContent# " + contentId + " : " + PaymentHistory);
+}
+
 async function latestContentId() {
     const contentId = ((new BN(await contents.methods.getContentCounter().call())).subn(1)).toNumber();
     return contentId;
 }
 
+async function printLatestContentId() {
+    const contentId = await latestContentId();
+    console.log(contentId);
+}
+
+async function printReward(contentId) {
+    const holderLength = (await contents.methods.getHolderNum(contentId).call());
+    console.log("reward of holder : " + holderAddress);
+    for(let i = 0; i < holderLength; i++) {
+        const Reward = await reward.methods.getRrewards(i).call();
+        console.log("\tHolder#" + i + ": " + Reward);
+    }
+}
+async function withdrawal(holderAddress){
+    const receipt = await reward.methods.withdraw(holderAddress).send({from:owner, gas:'0x4bfd200'});
+    console.log("Withdrawal tx hash : " + receipt.transactionHash);
+}
+
+async function printWithdrawalHistory(holderAddress){
+    console.log("WithdrawalHistory of withdrawer : " + holderAddress);
+    const WithdrawalHistory = await reward.methods.withdrawalHistory(holderAddress).call();
+    console.log("\tWithdrawer" + holderAddress + ": " + WithdrawalHistory);
+}
+
+async function approve(address, amount) {
+    const receipt = await token.methods.approve(address, amount).send({from:owner, gas:'0x4bfd200'});
+    console.log("Approve tx hash : " + receipt.transactionHash);
+}
 
 async function main() {
     await createContentTest("Content####");
@@ -68,6 +135,12 @@ async function main() {
     await printHolders(contentId);
     await updateHolders(contentId, holderNames, addresses, [3,7]);
     await printHolders(contentId);
+
+}
+
+function getEscrowAddress() {
+    const address = escrowAddress;
+    return address;
 }
 
 function getAddresses() {
@@ -75,14 +148,32 @@ function getAddresses() {
     return addresses;
 }
 
+function getOwner() {
+    const address = owner;
+    return address;
+}
+
 const keyring = caver.wallet.keyring.createFromPrivateKey(privateKey_Owner);
 caver.wallet.add(keyring);
 
 module.exports = {
-  createContent,
-  getAddresses,
-  updateHolders,
-  addHolders,
-  printHolders,
-  latestContentId,
+    createContent,
+    getAddresses,
+    updateHolders,
+    addHolders,
+    printHolders,
+    deactivateContent,
+    activateContent,
+    latestContentId,
+    payment,
+    printPaymentHistory,
+    printReward,
+    withdrawal,
+    printWithdrawalHistory,
+    printLatestContentId,
+    mint,
+    getOwner,
+    getEscrowAddress,
+    approve,
+    printContent
 };
