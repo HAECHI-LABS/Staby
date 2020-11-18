@@ -122,11 +122,9 @@
 
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  length  | `uint256` |
-
-_paymentsHistory[_contentId].length : 컨텐츼 ID에 해당하는 컨텐츠의 수익배분 기록의 길이
+| Name | Type | Description |
+|:-:|:-:|---|
+|  length  | `uint256` | 컨텐츠 ID에 해당하는 컨텐츠의 수익배분 기록의 길이 |
 
 </dd>
 <dt> <h3> paymentsHistory(uint256,uint256) <a name="IRewardEscrow--function--paymentsHistory(uint256,uint256)"></a> </h3> </dt>
@@ -144,11 +142,9 @@ _paymentsHistory[_contentId].length : 컨텐츼 ID에 해당하는 컨텐츠의 
 
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  hitory  | `uint256` |
-
-_paymentsHistory[_contentId][_idx] : 컨텐츼 ID와 index에 해당하는 컨텐츠의 수익배분 기록
+| Name | Type | Description |
+|:-:|:-:|---|
+|  hitory  | `uint256` | 컨텐츠 ID와 index에 해당하는 컨텐츠의 수익배분 기록 |
 
 </dd>
 <dt> <h3> withdrawalHistoryLength(address) <a name="IRewardEscrow--function--withdrawalHistoryLength(address)"></a> </h3> </dt>
@@ -166,11 +162,9 @@ _paymentsHistory[_contentId][_idx] : 컨텐츼 ID와 index에 해당하는 컨�
 
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  length  | `uint256` |
-
-_withdrawalHistory[_withdrawer].length : 사용자의 주소에 해당하는 토큰 출금 기록의 길이
+| Name | Type | Description |
+|:-:|:-:|---|
+|  length  | `uint256` | 사용자의 주소에 해당하는 토큰 출금 기록의 길이 |
 
 </dd>
 <dt> <h3> withdrawalHistory(address) <a name="IRewardEscrow--function--withdrawalHistory(address)"></a> </h3> </dt>
@@ -189,11 +183,9 @@ _withdrawalHistory[_withdrawer].length : 사용자의 주소에 해당하는 토
 
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  histories  | `uint256[]` |
-
-_withdrawalHistory[_withdrawer][_idx] : 사용자의 주소와 index에 해당하는 토큰 출금 기록
+| Name | Type | Description |
+|:-:|:-:|---|
+|  histories  | `uint256[]` | 사용자의 주소와 index에 해당하는 토큰 출금 기록 |
 
 </dd>
 <dt> <h3> getRewards(address) <a name="IRewardEscrow--function--getRewards(address)"></a> </h3> </dt>
@@ -211,11 +203,9 @@ _withdrawalHistory[_withdrawer][_idx] : 사용자의 주소와 index에 해당�
 
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  reward  | `uint256` |
-
-_rewrads[_holder] : 홀더가 받을 수익
+| Name | Type | Description |
+|:-:|:-:|---|
+|  reward  | `uint256` | 홀더가 받을 수익 |
 
 </dd>
 </dl>

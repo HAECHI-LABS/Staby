@@ -4,9 +4,9 @@ const web3 = require('web3');
 const { expect } = require('chai');
 const { constants, expectEvent, expectRevert, BN, ether, time } = require('@openzeppelin/test-helpers');
 
-const contentsAddress = "0x29580d2C69A78D07fd849D973ec14e393cc5088E";
-const tokenAddress = "0x88Bbe7a007Cf185575994c855CEDbd13bcc32213";
-const escrowAddress = "0xE000cE22D0BF35666ae3C23Ca011dBd750214149";
+const contentsAddress = "0x690Dbf2747E3CF56EF38acc27151dB85C882A3EE";
+const tokenAddress = "0xD8e53f0C9c4211635fE725c2805ee724DBbCCe9b";
+const escrowAddress = "0x94F58b24d1bd53b0b6Ee0ADdD5b142a24117CF50";
 
 const contentsABI = require('./build/contracts/Contents.json').abi;
 const tokenABI = require('./build/contracts/RewardToken.json').abi;
@@ -16,10 +16,9 @@ const owner = "0x2e3d7182b4d59a295c023C99F41c79BEbae76302";
 const privateKey_Owner = '0xe0e14d1353877d5fe0b906b8fc2e7808db69a899683eddd59bd1feb44800038f';
 
 const user_1 = '0x93c5a511b41a5b2d69ecbad4ae98680a5571e8a8';
-const privateKey_User = '0xabeaec9f2fd1c7793681c395d176a0bbe3617e3427fbd922b08ff665e8b1b9ae';
-
 const user_2 = '0x180c82da2bbe4196d9d13b3e69baaae4fa9435bf';
-const privateKey_User2 = '0xabb811917f85e69f1e8420e85affe82f651bca934ca4ab2beaeb36c2d97c2d13';
+const user_3 = '0x70e180b5a1556d509edc0ff013dd63434f4d5174';
+const user_4 = '0x79fc12ba37bfb3c88510923a0917aed53d551b57';
 
 const contents = new caver.contract(contentsABI,contentsAddress);
 const token = new caver.contract(tokenABI,tokenAddress);
@@ -52,7 +51,7 @@ async function printContent(contentId) {
     const contentInfo = await contents.methods.getContentInfo(contentId).call();
     console.log("\tName : " + contentInfo.name);
     console.log("\tID : " + contentInfo.contentId);
-    console.log("\tActive : " + contentInfo.active);
+    console.log("\tDisabled : " + contentInfo.disabled);
 }
 
 async function mint(address, amount) {
@@ -93,7 +92,7 @@ async function printPaymentHistory(contentId){
 
 
 async function latestContentId() {
-    const contentId = ((new BN(await contents.methods.getContentCounter().call())).subn(1)).toNumber();
+    const contentId = ((new BN(await contents.methods.contentCounter().call())).subn(1)).toNumber();
     console.log("Latest Content ID : ", contentId);
     return contentId;
 }
@@ -127,17 +126,23 @@ async function approve(address, amount) {
 async function main() {
     await createContent("Content");
     const contentId = await latestContentId();
-    const holderNames = ["Supervisor", "Actor"];
-    const addresses = [user_1, user_2];
+    const holderNames_1 = ["supervisor", "author", "actor"];
+    const holderNames_2 = ["supervisor", "author", "actress"];
+
+    const addresses_1 = [user_1, user_2, user_3];
+    const addresses_2 = [user_1, user_2, user_4];
+
     const contentProfit_1 = 100000
     const contentProfit_2 = 150000
+    await printContent(contentId);
 
-    await addHolders(contentId, holderNames, addresses, [4,6]);
+    await addHolders(contentId, holderNames_1, addresses_1, [1,3, 6]);
     await printHolders(contentId);
     
-    await updateHolders(contentId, holderNames, addresses, [3,7]);
+    await updateHolders(contentId, holderNames_1, addresses_1, [3,2, 5]);
     await printHolders(contentId);
 
+    await activateContent(contentId);
     await deactivateContent(contentId);
     await activateContent(contentId);
 

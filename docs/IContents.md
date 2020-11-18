@@ -139,7 +139,15 @@
 
 >컨텐츠 생성 / 컨텐츠 ID : 0 부터 하나씩 증가 / 활성상태 : 0
 
-🔨`@param _name : 컨텐츠 이름` |  👀 `nonpayable`
+👀 `nonpayable`
+
+#### ⚙️ Parameters
+
+| Name  |   Type   | Description |
+| :---: | :------: | ----------- |
+| _name | `string` | 컨텐츠 이름 |
+
+
 
 
 </dd>
@@ -148,13 +156,13 @@
 
 >컨텐츠 ID에 해당하는 홀더 정보 (name, address, portion) 기록
 
-🔨`@param _contentId : 정보 기록할 컨텐츠 ID` |  👀 `nonpayable`
+👀 `nonpayable`
 
 #### ⚙️ Parameters
 
 | Name | Type | Description |
 |:-:|:-:| - |
-| _contentId | `uint256` | undefined |
+| _contentId | `uint256` | 정보 기록할 컨텐츠 ID |
 | _holderName | `bytes32[]` | : 홀더 닉네임 (array) |
 | _holderAddress | `address[]` | : 홀더 address (array) |
 | _holderPortion | `uint256[]` | : 홀더 portion (array) / 0 ~ 10 / portion의 합 = 10 |
@@ -167,7 +175,7 @@
 
 >컨텐츠 ID에 해당하는 홀더 정보 삭제
 
-🔨`@param _contentId : 정보 삭제할 컨텐츠 ID` |  👀 `nonpayable`
+👀 `nonpayable`
 
 
 </dd>
@@ -176,13 +184,13 @@
 
 >컨텐츠 ID에 해당하는 홀더 정보 업테이트
 
-🔨`@param _contentId : 정보 업데이트 할 컨텐츠 ID` |  👀 `nonpayable`
+👀 `nonpayable`
 
 #### ⚙️ Parameters
 
 | Name | Type | Description |
 |:-:|:-:| - |
-| _contentId | `uint256` | undefined |
+| _contentId | `uint256` | 정보 삭제할 컨텐츠 ID |
 | _holderName | `bytes32[]` | : 홀더 닉네임 (array) |
 | _holderAddress | `address[]` | : 홀더 address (array) |
 | _holderPortion | `uint256[]` | : 홀더 portion (array) / 0 ~ 10 / portion의 합 = 10 |
@@ -195,8 +203,13 @@
 
 >ID에 해당하는 컨텐츠를 활성화
 
-🔨`@param contentId : 활성화 할 컨텐츠의 ID` |  👀 `nonpayable`
+👀 `nonpayable`
 
+#### ⚙️ Parameters
+
+|   Name    |   Type    | Description           |
+| :-------: | :-------: | --------------------- |
+| contentId | `uint256` | 활성화 할 컨텐츠의 ID |
 
 </dd>
 <dt> <h3> deactivateContent(uint256) <a name="IContents--function--deactivateContent(uint256)"></a> </h3> </dt>
@@ -204,8 +217,13 @@
 
 >ID에 해당하는 컨텐츠를 비활성화
 
-🔨`@param contentId : 비활성화 할 컨텐츠의 ID` |  👀 `nonpayable`
+👀 `nonpayable`
 
+#### ⚙️ Parameters
+
+|   Name    |   Type    | Description             |
+| :-------: | :-------: | ----------------------- |
+| contentId | `uint256` | 비활성화 할 컨텐츠의 ID |
 
 </dd>
 <dt> <h3> getContentInfo(uint256) <a name="IContents--function--getContentInfo(uint256)"></a> </h3> </dt>
@@ -213,16 +231,20 @@
 
 >컨텐츠 ID에 해당하는 컨텐츠의 정보를 불러옴
 
-🔨`@param contentId : 정보를 불러올 컨텐츠의 ID` |  👀 `view`
+👀 `view`
+
+#### ⚙️ Parameters
+
+|   Name    |   Type    | Description                |
+| :-------: | :-------: | -------------------------- |
+| contentId | `uint256` | 정보를 불러올 컨텐츠의 ID` |
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  Not specified  | `string` |
-|  Not specified  | `uint256` |
-|  Not specified  | `bool` |
-
-name : 컨텐츠의 이름contentId : 컨텐츠의 IDactive : 컨텐츠의 활성상태
+| Name | Type | Description |
+|:-:|:-:|---|
+|  name  | `string` | 컨텐츠의 이름 |
+|  contentId  | `uint256` | 컨텐츠의 ID |
+|  Disabled  | `bool | 컨텐츠의 활성상태 |
 
 </dd>
 <dt> <h3> getHolderInfo(uint256,uint256) <a name="IContents--function--getHolderInfo(uint256,uint256)"></a> </h3> </dt>
@@ -230,24 +252,22 @@ name : 컨텐츠의 이름contentId : 컨텐츠의 IDactive : 컨텐츠의 활�
 
 >컨텐츠 ID에 해당하는 홀더 정보를 불러옴
 
-🔨`@param contentId : 홀더 정보를 불러올 컨텐츠의 ID` |  👀 `view`
+👀 `view`
 
 #### ⚙️ Parameters
 
 | Name | Type | Description |
 |:-:|:-:| - |
-| _contentId | `uint256` | undefined |
-| _num | `uint256` | : 홀더의 index |
+| _contentId | `uint256` | 홀더 정보를 불러올 컨텐츠의 ID |
+| _num | `uint256` | 홀더의 index |
 
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  Not specified  | `bytes32` |
-|  Not specified  | `address` |
-|  Not specified  | `uint256` |
-
-holderName : index에 해당하는 홀더 nameholderAddress : index에 해당하는 홀더 addressholderPortion : index에 해당하는 홀더 portion
+| Name | Type | Description |
+|:-:|:-:|---|
+|  holderName  | `bytes32` | index에 해당하는 홀더 name |
+|  holderAddress  | `address` | index에 해당하는 홀더 address |
+|  holderPortion  | `uint256` | index에 해당하는 홀더 portion |
 
 </dd>
 <dt> <h3> getHolderNum(uint256) <a name="IContents--function--getHolderNum(uint256)"></a> </h3> </dt>
@@ -255,14 +275,18 @@ holderName : index에 해당하는 홀더 nameholderAddress : index에 해당하
 
 >컨텐츠 ID에 해당하는 홀더의 수를 불러옴
 
-🔨`@param contentId : 홀더의 수를 불러올 컨텐츠의 ID` |  👀 `view`
+👀 `view`
+
+#### ⚙️ Parameters
+
+|   Name    |   Type    | Description                    |
+| :-------: | :-------: | ------------------------------ |
+| contentId | `uint256` | 홀더의 수를 불러올 컨텐츠의 ID |
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  Not specified  | `uint256` |
-
-holderNum : 홀더의 수
+| Name | Type | Description |
+|:-:|:-:|---|
+|  holderNum  | `uint256` | 홀더의 수 |
 
 </dd>
 <dt> <h3> denominator() <a name="IContents--function--denominator()"></a> </h3> </dt>
@@ -273,11 +297,9 @@ holderNum : 홀더의 수
  👀 `view`
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  Not specified  | `uint256` |
-
-DENOMINATOR : 10
+| Name | Type | Description |
+|:-:|:-:|---|
+| DENOMINATOR | `uint256` | 10 |
 
 </dd>
 <dt> <h3> contentCounter() <a name="IContents--function--contentCounter()"></a> </h3> </dt>
@@ -288,11 +310,9 @@ DENOMINATOR : 10
  👀 `view`
 
 #### → Returns
-| Name | Type |
-|:-:|:-:|
-|  Not specified  | `uint256` |
-
-_contentCounter : 컨텐츠의  수
+| Name | Type | Description |
+|:-:|:-:|---|
+|  _contentCounter  | `uint256` | 컨텐츠의  수 |
 
 </dd>
 </dl>
