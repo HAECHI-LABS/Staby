@@ -56,7 +56,7 @@ interface IContents {
     * @param contentId : 정보를 불러올 컨텐츠의 ID
     * @return name : 컨텐츠의 이름
     * @return contentId : 컨텐츠의 ID
-    * @return active : 컨텐츠의 활성상태
+    * @return disabled : 컨텐츠의 활성상태
     */
     function getContentInfo(uint256 _contentId) external view returns(string memory, uint256, bool);
 
@@ -84,13 +84,13 @@ interface IContents {
     * @notice Denominator 반환.
     * @return DENOMINATOR : 10
     */
-    function getDenominator() external view returns(uint256);
+    function denominator() external view returns(uint256);
 
     /**
     * @notice 컨텐츠의 개수를 불러옴
     * @return _contentCounter : 컨텐츠의  수
     */
-    function getContentCounter() external view returns(uint256);
+    function contentCounter() external view returns(uint256);
 
     /**
     * @notice 컨텐츠 생성 이벤트

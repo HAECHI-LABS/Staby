@@ -69,10 +69,10 @@
   - [getHolderNum(uint256)](#Contents--function--getHolderNum(uint256))
 
 
-  - [getDenominator()](#Contents--function--getDenominator())
+  - [denominator()](#Contents--function--denominator())
 
 
-  - [getContentCounter()](#Contents--function--getContentCounter())
+  - [contentCounter()](#Contents--function--contentCounter())
 
 
 
@@ -283,7 +283,7 @@
 
 
 </dd>
-<dt> <h3> getDenominator() <a name="Contents--function--getDenominator()"></a> </h3> </dt>
+<dt> <h3> denominator() <a name="Contents--function--denominator()"></a> </h3> </dt>
 <dd>
 
  👀 `view`
@@ -296,7 +296,7 @@
 
 
 </dd>
-<dt> <h3> getContentCounter() <a name="Contents--function--getContentCounter()"></a> </h3> </dt>
+<dt> <h3> contentCounter() <a name="Contents--function--contentCounter()"></a> </h3> </dt>
 <dd>
 
  👀 `view`

@@ -19,7 +19,7 @@ contract Contents is IContents, Ownable {
     struct Contents {
         string name;  // 컨텐츠 이름
         uint256 contentId;  // 컨텐츠 ID
-        bool active;  // 컨텐츠 활성상태 (on : 0)
+        bool disabled;  // 컨텐츠 활성상태 (on : false)
     }
 
     // 지분에 대한 정보
@@ -58,12 +58,12 @@ contract Contents is IContents, Ownable {
         _deactivateContent(_contentId);
     }
 
-    function getContentInfo(uint256 _contentId) external view returns(string memory name, uint256 contentId, bool active) {
+    function getContentInfo(uint256 _contentId) external view returns(string memory name, uint256 contentId, bool disabled) {
         require(_contentId < _contentCounter, 'content is not exist');
         return(
             _contentList[_contentId].name,
             _contentList[_contentId].contentId,
-            _contentList[_contentId].active
+            _contentList[_contentId].disabled
         );
     }
 
@@ -81,11 +81,11 @@ contract Contents is IContents, Ownable {
         else return(_shareInfo[_contentId].holderAddress.length);
     }
 
-    function getDenominator() external view returns(uint256) {
+    function denominator() external view returns(uint256) {
         return DENOMINATOR;
     }
 
-    function getContentCounter() external view returns(uint256 contentCounter) {
+    function contentCounter() external view returns(uint256 contentCounter) {
         return(_contentCounter);
     }
 
@@ -93,7 +93,7 @@ contract Contents is IContents, Ownable {
         Contents memory Content = Contents({
             name : _name,
             contentId : _contentCounter,
-            active : false
+            disabled : true
         });
         _contentList[_contentCounter] = Content;
         emit ContentsCreation(_name, _contentCounter);
@@ -125,14 +125,14 @@ contract Contents is IContents, Ownable {
     }
 
     function _activateContent(uint256 _contentId) internal {
-        require(_contentList[_contentId].active, 'content is already activated');
-        _contentList[_contentId].active = false;
+        require(_contentList[_contentId].disabled, 'content is already activated');
+        _contentList[_contentId].disabled = false;
         emit ContentActivation(_contentId);
     }
 
     function _deactivateContent(uint256 _contentId) internal {
-        require(!_contentList[_contentId].active, 'content is already deactivated');
-        _contentList[_contentId].active = true;
+        require(!_contentList[_contentId].disabled, 'content is already deactivated');
+        _contentList[_contentId].disabled = true;
         emit ContentDeactivated(_contentId);
     }
 }

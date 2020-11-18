@@ -36,13 +36,13 @@ contract ('Contents', accounts  =>{
             ((await contents.getContentInfo(secondId)).contentId).should.be.bignumber.equal('1');
         });
 
-        it("Content's active should be equal false", async () => {
-            ((await contents.getContentInfo(firstId)).active).should.be.equal(false);
-            ((await contents.getContentInfo(secondId)).active).should.be.equal(false);
+        it("Content's disabled should be equal true", async () => {
+            ((await contents.getContentInfo(firstId)).disabled).should.be.equal(true);
+            ((await contents.getContentInfo(secondId)).disabled).should.be.equal(true);
         });
 
         it("Should increase _contentCounter", async () => {
-            (await contents.getContentCounter()).should.be.bignumber.equal('2');
+            (await contents.contentCounter()).should.be.bignumber.equal('2');
         });
     });
 
@@ -79,6 +79,11 @@ contract ('Contents', accounts  =>{
                 ((await contents.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('3'));
                 ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('5'));
             });
+
+            it("Content's disabled should be false", async () => {
+                (await contents.getContentInfo(firstId)).disabled.should.be.equal(true);
+                (await contents.getContentInfo(secondId)).disabled.should.be.equal(true);
+            })
         });
     });
 
@@ -119,7 +124,7 @@ contract ('Contents', accounts  =>{
                 ((await contents.getHolderInfo(firstId, new BN('2'))).holderAddress.should.be.equal(holder3));
             });
 
-           it("Holder Address should be equal holderAddress", async () => {
+            it("Holder Address should be equal holderAddress", async () => {
                 ((await contents.getHolderInfo(firstId, new BN('0'))).holderPortion.should.be.bignumber.equal(por1));
                 ((await contents.getHolderInfo(firstId, new BN('1'))).holderPortion.should.be.bignumber.equal(por3));
                 ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion.should.be.bignumber.equal(por2));
@@ -128,28 +133,27 @@ contract ('Contents', accounts  =>{
     });
 
     describe("#deactivateContent()", () => {
-        beforeEach(async () => {
-            await contents.deactivateContent(firstId, {from : owner});
-        });
 
         it("Should fail deactivation if content is already deactivated", async () => {
             await expectRevert.unspecified(contents.deactivateContent(firstId, {from : owner}));
         });
 
-        it("Content Active should be true after deactivation", async () => {
-            ((await contents.getContentInfo(firstId)).active).should.be.equal(true);
+        it("Content disabled should be true after deactivation", async () => {
+            await contents.activateContent(firstId, {from : owner});
+            await contents.deactivateContent(firstId, {from : owner});
+            ((await contents.getContentInfo(firstId)).disabled).should.be.equal(true);
         });
     });
 
     describe("#activateContent()", () => {
         it("Should fail activation if content is already activated", async () => {
+            await contents.activateContent(firstId, {from : owner});
             await expectRevert.unspecified(contents.activateContent(firstId, {from : owner}));
         });
 
-        it("Content Active should be false after activation",  async () => {
-            await contents.deactivateContent(firstId, {from : owner});
+        it("Content disabled should be false after activation",  async () => {
             await contents.activateContent(firstId, {from : owner});
-            ((await contents.getContentInfo(firstId)).active.should.be.equal(false));
+            ((await contents.getContentInfo(firstId)).disabled.should.be.equal(false));
         });
     });
 
@@ -189,29 +193,29 @@ contract ('Contents', accounts  =>{
         });
 
         describe("Valid Case", () => {
-            it("Should return appropriate contentName", async () => {
+            it("Should return appropriate content Name", async () => {
                 ((await contents.getContentInfo(firstId)).name).should.be.equal("CONTENT1");
             });
 
-            it("Should return appropriate contentId", async () => {
+            it("Should return appropriate content ID", async () => {
                 ((await contents.getContentInfo(firstId)).contentId).should.be.bignumber.equal('0');
             });
 
-            it("Should return appropriate contentActive", async () => {
-                ((await contents.getContentInfo(firstId)).active).should.be.equal(false);
+            it("Should return appropriate content disabled", async () => {
+                ((await contents.getContentInfo(firstId)).disabled).should.be.equal(true);
             });
         });
     });
 
-    describe("#getContentCounter()", () =>{
+    describe("#contentCounter()", () =>{
         it("Should return appropriate contentCounetr", async () => {
-            (await contents.getContentCounter()).should.be.bignumber.equal(new BN('2'));
+            (await contents.contentCounter()).should.be.bignumber.equal(new BN('2'));
         });
     });
 
-    describe("#getDenominator()", () => {
+    describe("#denominator()", () => {
         it("Should return appropriate denominator",  async () => {
-           (await contents.getDenominator()).should.be.bignumber.equal(new BN('10'));
+            (await contents.denominator()).should.be.bignumber.equal(new BN('10'));
         });
     });
 

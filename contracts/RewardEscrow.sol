@@ -30,11 +30,11 @@ contract RewardEscrow is IRewardEscrow {
     // 두번 호출 되면 이상할텐데 ?
     // 두번 호출됐는지 확인 할 수 있는 무언가가 필요하겠다!
     function pay(uint256 _contentId, uint256 _amount) external {
-        (/*contentName*/, /*contentId*/, bool activ) = _contents.getContentInfo(_contentId);
-        require(activ == false, "Content should activated first");
+        (/*contentName*/, /*contentId*/, bool disabled) = _contents.getContentInfo(_contentId);
+        require(disabled != true, "Content should activated first");
         _rewardToken.transferFrom(msg.sender, address(this), _amount);
         uint256 length = _contents.getHolderNum(_contentId);
-        uint256 den = _contents.getDenominator();
+        uint256 den = _contents.denominator();
         for(uint256 i = 0; i < length; i++){
             (/*holderName*/,address holder, uint256 portion) = _contents.getHolderInfo(_contentId, i);
             _rewards[holder] = _rewards[holder].add(_amount.mul(portion).div(den));

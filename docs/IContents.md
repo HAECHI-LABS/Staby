@@ -57,10 +57,10 @@
   - [getHolderNum(uint256)](#IContents--function--getHolderNum(uint256))
 
 
-  - [getDenominator()](#IContents--function--getDenominator())
+  - [denominator()](#IContents--function--denominator())
 
 
-  - [getContentCounter()](#IContents--function--getContentCounter())
+  - [contentCounter()](#IContents--function--contentCounter())
 
 
 
@@ -265,7 +265,7 @@ holderName : index에 해당하는 홀더 nameholderAddress : index에 해당하
 holderNum : 홀더의 수
 
 </dd>
-<dt> <h3> getDenominator() <a name="IContents--function--getDenominator()"></a> </h3> </dt>
+<dt> <h3> denominator() <a name="IContents--function--denominator()"></a> </h3> </dt>
 <dd>
 
 >Denominator 반환.
@@ -280,7 +280,7 @@ holderNum : 홀더의 수
 DENOMINATOR : 10
 
 </dd>
-<dt> <h3> getContentCounter() <a name="IContents--function--getContentCounter()"></a> </h3> </dt>
+<dt> <h3> contentCounter() <a name="IContents--function--contentCounter()"></a> </h3> </dt>
 <dd>
 
 >컨텐츠의 개수를 불러옴
