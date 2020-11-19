@@ -12,6 +12,8 @@ let token;
 let reward;
 
 contract('RewardGateway', accounts  =>{
+    const balanceOfReceiver = new BN('2000000');
+    const balanceOfSender = new BN('6000000');
     const firstId = new BN('0');
     const secondId = new BN('1');
     const por1 = new BN('2');
