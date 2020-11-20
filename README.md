@@ -122,7 +122,7 @@ Created: Nov 18, 2020 3:00 PM
 
     Contents.sol에서 구현된 함수들의 documentation
 
-    [https://github.com/HAECHI-LABS/audit-Staby/blob/master/docs/IContents.md](https://github.com/HAECHI-LABS/audit-Staby/blob/master/docs/IContents.md)
+    https://github.com/HAECHI-LABS/Staby/blob/revision/docs/IContents.md
 
 ### RewardToken.sol
 >>>>>>> readme
@@ -184,7 +184,7 @@ Created: Nov 18, 2020 3:00 PM
 
     RewardGatewaysol에서 구현된 함수들의 documentation
 
-    [https://github.com/HAECHI-LABS/audit-Staby/blob/master/docs/IRewardEscrow.md](https://github.com/HAECHI-LABS/audit-Staby/blob/master/docs/IRewardEscrow.md)
+    https://github.com/HAECHI-LABS/Staby/blob/revision/docs/IRewardGateway.md
 
 ## 주요 기능 상세 설명
 
