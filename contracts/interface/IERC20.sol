@@ -60,6 +60,7 @@ interface IERC20 {
      */
     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
 
+    function mint(address beneficiary, uint256 amount) external returns(bool);
     function burn(uint256 amount) external returns(bool);
 
     /**

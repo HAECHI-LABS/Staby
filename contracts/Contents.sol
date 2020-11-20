@@ -2,7 +2,7 @@ pragma solidity ^0.5.17;
 
 import "./interface/IContents.sol";
 import "./library/SafeMath.sol";
-import "./library/Ownable.sol";
+import "./role/Ownable.sol";
 
 
 contract Contents is IContents, Ownable {

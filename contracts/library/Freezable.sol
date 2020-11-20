@@ -1,6 +1,6 @@
 pragma solidity 0.5.17;
 
-import "./Ownable.sol";
+import "../role/Ownable.sol";
 
 contract Freezable is Ownable {
     mapping(address => bool) private _frozen;

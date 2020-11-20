@@ -2,7 +2,9 @@ const { constants, expectEvent, expectRevert, BN, ether, time } = require('@open
 const { expect } = require('chai');
 const web3 = require('web3');
 
-const tokenFactory = artifacts.require('RewardToken');
+const ERC20Factory = artifacts.require('RewardToken');
+const RewardFactory = artifacts.require('RewardGateway');
+const ContentsFactory = artifacts.require('Contents');
 
 const ERC20 = require('./erc20/ERC20.behavior');
 const ERC20Lockable = require('./erc20/ERC20Lockable.behavior');
@@ -18,11 +20,15 @@ contract('RewardToken', function(account)  {
   const symbol = 'REW';
   const decimals = new BN('18');
   const INITIAL_SUPPLY = new BN('0');
-  const [owner, sender, recipient, spender, ...others] = account;
+  const [owner, sender, recipient, spender, withdrawer, ...others] = account;
   const amount = new BN('100');
 
-  beforeEach(async function()  {
-    this.token = await tokenFactory.new({ from: owner });
+  beforeEach(async function() {
+    this.contents = await ContentsFactory.new({from : owner});
+    this.token = await ERC20Factory.new({from : owner});
+    this.reward = await RewardFactory.new(this.contents.address, this.token.address,{from : owner});
+    await this.token.setGateway(this.reward.address, {from : owner});
+    await this.token.addMinter(owner, {from : owner});
     this.contract = this.token;
     this.owner = owner;
   });
@@ -42,7 +48,7 @@ contract('RewardToken', function(account)  {
     ERC20.approve(sender, spender, amount);
   });
 
-  describe('ERC20Lockable Spec', function(){
+  describe('ERC20Lockable Spec', function() {
     beforeEach(async function() {
       await this.token.mint(owner, new BN('1000000'), {from : owner});
       await this.token.transfer(sender, amount, {from : owner});
@@ -62,7 +68,7 @@ contract('RewardToken', function(account)  {
   });
 
   describe('ERC20Burnable Spec', function(){
-     beforeEach(async function() {
+    beforeEach(async function() {
       await this.token.mint(owner, new BN('100000'), {from : owner});
       await this.token.transfer(sender, amount, {from : owner});
     });
@@ -70,5 +76,31 @@ contract('RewardToken', function(account)  {
     ERC20Burnable.burn(owner, amount, [Pausable.whenNotPaused]);
 
     ERC20Burnable.burnFrom(owner, spender, amount, [Pausable.whenNotPaused]);
+  });
+
+  describe('#approveAndExit()', function() {
+    beforeEach(async function() {
+      await this.token.mint(withdrawer, new BN('1000000'), {from : owner});
+      await this.token.approveAndExit({from : withdrawer});
+    });
+
+    //this
+    it('allowance should set appropriately', async function() {
+      var amount = await this.token.balanceOf(withdrawer);
+      (await this.token.allowance(withdrawer, this.reward.address)).should.be.bignumber.equal(amount);
+    });
+
+    it("Appropriate token been erased", async function() {
+      (await this.token.balanceOf(withdrawer)).should.be.bignumber.equal(new BN("0"));
+    });
+
+    it("total supply should decrease", async function() {
+      (await this.token.totalSupply()).should.be.bignumber.equal(new BN("0"));
+    });
+
+    it("Appropriate value should be stored in exitHistory", async function() {
+        ((await this.reward.exitHistory(withdrawer))[0]).should.be.bignumber.equal(new BN('1000000'));
+        (await this.reward.exitHistoryLength(withdrawer)).should.be.bignumber.equal(new BN('1'));
+    });
   });
 });

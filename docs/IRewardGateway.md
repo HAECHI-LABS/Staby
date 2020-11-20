@@ -1,4 +1,4 @@
-# <span id="IRewardEscrow"></span> IRewardEscrow
+# <span id="IRewardGateway"></span> IRewardGateway
 > 
 
 
@@ -8,42 +8,42 @@
 ## Contents
 
 
-- [Events](#IRewardEscrow--Events)
+- [Events](#IRewardGateway--Events)
 
 
-  - [Payment](#IRewardEscrow--event--Payment)
+  - [Payment](#IRewardGateway--event--Payment)
 
 
-  - [Withdraw](#IRewardEscrow--event--Withdraw)
-
-
-
-- [Functions](#IRewardEscrow--Functions)
-
-
-  - [pay(uint256,uint256)](#IRewardEscrow--function--pay(uint256,uint256))
-
-
-  - [withdraw(address)](#IRewardEscrow--function--withdraw(address))
-
-
-  - [paymentsHistoryLength(uint256)](#IRewardEscrow--function--paymentsHistoryLength(uint256))
-
-
-  - [paymentsHistory(uint256,uint256)](#IRewardEscrow--function--paymentsHistory(uint256,uint256))
-
-
-  - [withdrawalHistoryLength(address)](#IRewardEscrow--function--withdrawalHistoryLength(address))
-
-
-  - [withdrawalHistory(address)](#IRewardEscrow--function--withdrawalHistory(address))
-
-
-  - [getRewards(address)](#IRewardEscrow--function--getRewards(address))
+  - [Exit](#IRewardGateway--event--Exit)
 
 
 
-## 🦄Events <a name="IRewardEscrow--Events"></a>
+- [Functions](#IRewardGateway--Functions)
+
+
+  - [pay(uint256,uint256)](#IRewardGateway--function--pay(uint256,uint256))
+
+
+  - [exit(address)](#IRewardGateway--function--exit(address))
+
+
+  - [paymentsHistoryLength(uint256)](#IRewardGateway--function--paymentsHistoryLength(uint256))
+
+
+  - [paymentsHistory(uint256,uint256)](#IRewardGateway--function--paymentsHistory(uint256,uint256))
+
+
+  - [exitHistoryLength(address)](#IRewardGateway--function--exitalHistoryLength(address))
+
+
+  - [exitalHistory(address)](#IRewardGateway--function--exitalHistory(address))
+
+
+  - [getRewards(address)](#IRewardGateway--function--getRewards(address))
+
+
+
+## 🦄Events <a name="IRewardGateway--Events"></a>
 
 
 <details><summary><strong>Payment <a name="IRewardEscrow--event--Payment"></a></strong></summary>
@@ -58,9 +58,9 @@
 
 </details>
 
-
-<details><summary><strong>Withdraw <a name="IRewardEscrow--event--Withdraw"></a></strong></summary>
+<details><summary><strong>Exit <a name="IRewardEscrow--event--Exit"></a></strong></summary>
 <p>
+
 
 | Name | Indexed | Type |
 |:-:|:-:|:-:|
@@ -72,7 +72,7 @@
 
 
 
-## 🚀Functions <a name="IRewardEscrow--Functions"></a>
+## 🚀Functions <a name="IRewardGateway--Functions"></a>
 <dl>
 <dt> <h3> pay(uint256,uint256) <a name="IRewardEscrow--function--pay(uint256,uint256)"></a> </h3> </dt>
 <dd>
@@ -91,7 +91,7 @@
 
 
 </dd>
-<dt> <h3> withdraw(address) <a name="IRewardEscrow--function--withdraw(address)"></a> </h3> </dt>
+<dt> <h3> exit(address) <a name="IRewardGateway--function--exit(address)"></a> </h3> </dt>
 <dd>
 
 >사용자의 토큰 출금
@@ -107,7 +107,7 @@
 
 
 </dd>
-<dt> <h3> paymentsHistoryLength(uint256) <a name="IRewardEscrow--function--paymentsHistoryLength(uint256)"></a> </h3> </dt>
+<dt> <h3> paymentsHistoryLength(uint256) <a name="IRewardGateway--function--paymentsHistoryLength(uint256)"></a> </h3> </dt>
 <dd>
 
 >컨텐츠 ID에 해당하는 컨텐츠의 수익배분 기록의 길이 불러옴
@@ -127,7 +127,7 @@
 |  length  | `uint256` | 컨텐츠 ID에 해당하는 컨텐츠의 수익배분 기록의 길이 |
 
 </dd>
-<dt> <h3> paymentsHistory(uint256,uint256) <a name="IRewardEscrow--function--paymentsHistory(uint256,uint256)"></a> </h3> </dt>
+<dt> <h3> paymentsHistory(uint256,uint256) <a name="IRewardGateway--function--paymentsHistory(uint256,uint256)"></a> </h3> </dt>
 <dd>
 
 >컨텐츠 ID와 index에 해당하는 컨텐츠의 수익배분 기록 불러옴
@@ -147,7 +147,7 @@
 |  hitory  | `uint256` | 컨텐츠 ID와 index에 해당하는 컨텐츠의 수익배분 기록 |
 
 </dd>
-<dt> <h3> withdrawalHistoryLength(address) <a name="IRewardEscrow--function--withdrawalHistoryLength(address)"></a> </h3> </dt>
+<dt> <h3> exitHistoryLength(address) <a name="IRewardGateway--function--exitalHistoryLength(address)"></a> </h3> </dt>
 <dd>
 
 >사용자의 주소에 해당하는 토큰 출금 기록의 길이 불러옴
@@ -167,7 +167,7 @@
 |  length  | `uint256` | 사용자의 주소에 해당하는 토큰 출금 기록의 길이 |
 
 </dd>
-<dt> <h3> withdrawalHistory(address) <a name="IRewardEscrow--function--withdrawalHistory(address)"></a> </h3> </dt>
+<dt> <h3> exitHistory(address) <a name="IRewardGateway--function--exitHistory(address)"></a> </h3> </dt>
 <dd>
 
 >사용자의 주소와 index에 해당하는 토큰 출금 기록 불러옴
@@ -188,7 +188,7 @@
 |  histories  | `uint256[]` | 사용자의 주소와 index에 해당하는 토큰 출금 기록 |
 
 </dd>
-<dt> <h3> getRewards(address) <a name="IRewardEscrow--function--getRewards(address)"></a> </h3> </dt>
+<dt> <h3> getRewards(address) <a name="IRewardGateway--function--getRewards(address)"></a> </h3> </dt>
 <dd>
 
 >홀더가 받을 수익 불러옴

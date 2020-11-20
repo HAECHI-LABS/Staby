@@ -1,6 +1,6 @@
 pragma solidity 0.5.17;
 
-import "./Ownable.sol";
+import "../role/Ownable.sol";
 
 contract Pausable is Ownable {
     bool internal _paused;
