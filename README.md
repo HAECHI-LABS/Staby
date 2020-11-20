@@ -7,7 +7,7 @@
 - Github
     - [https://github.com/HAECHI-LABS/Staby](https://github.com/HAECHI-LABS/Staby)
 
-![GO__](/Users/wookyang/Development/haechilabs/Staby/Readme/Readme_Staby 9546d3ad6cbb4804ab47590b52595d2e/GO__.png)
+![GO__](https://user-images.githubusercontent.com/55428342/99773929-7d083500-2b50-11eb-96a2-09a052611fd4.png)
 
 전체 시스템 아키텍쳐
 
@@ -21,7 +21,7 @@
 
 ---
 
-![Untitled](/Users/wookyang/Development/haechilabs/Staby/Readme/Readme_Staby 9546d3ad6cbb4804ab47590b52595d2e/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/55428342/99774028-a1641180-2b50-11eb-8b43-14134bb905c4.png)
 
 ### 구성
 
