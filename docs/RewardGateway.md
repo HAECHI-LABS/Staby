@@ -14,7 +14,7 @@
   - [Payment](#RewardEscrow--event--Payment)
 
 
-  - [Withdraw](#RewardEscrow--event--Withdraw)
+  - [Exit](#RewardEscrow--event--Exit)
 
 
 
@@ -24,7 +24,7 @@
   - [pay(uint256,uint256)](#RewardEscrow--function--pay(uint256,uint256))
 
 
-  - [withdraw(address)](#RewardEscrow--function--withdraw(address))
+  - [exit(address)](#RewardEscrow--function--exit(address))
 
 
   - [getRewards(address)](#RewardEscrow--function--getRewards(address))
@@ -36,10 +36,10 @@
   - [paymentsHistory(uint256,uint256)](#RewardEscrow--function--paymentsHistory(uint256,uint256))
 
 
-  - [withdrawalHistoryLength(address)](#RewardEscrow--function--withdrawalHistoryLength(address))
+  - [exitHistoryLength(address)](#RewardEscrow--function--exitHistoryLength(address))
 
 
-  - [withdrawalHistory(address)](#RewardEscrow--function--withdrawalHistory(address))
+  - [exitHistory(address)](#RewardEscrow--function--exitHistory(address))
 
 
 
@@ -58,9 +58,9 @@
 
 </details>
 
-
-<details><summary><strong>Withdraw <a name="RewardEscrow--event--Withdraw"></a></strong></summary>
+<details><summary><strong>Exit <a name="RewardEscrow--event--Exit"></a></strong></summary>
 <p>
+
 
 | Name | Indexed | Type |
 |:-:|:-:|:-:|
@@ -81,7 +81,7 @@
 
 
 </dd>
-<dt> <h3> withdraw(address) <a name="RewardEscrow--function--withdraw(address)"></a> </h3> </dt>
+<dt> <h3> exit(address) <a name="RewardEscrow--function--exit(address)"></a> </h3> </dt>
 <dd>
 
  👀 `nonpayable`
@@ -127,7 +127,7 @@
 
 
 </dd>
-<dt> <h3> withdrawalHistoryLength(address) <a name="RewardEscrow--function--withdrawalHistoryLength(address)"></a> </h3> </dt>
+<dt> <h3> exitHistoryLength(address) <a name="RewardEscrow--function--exitHistoryLength(address)"></a> </h3> </dt>
 <dd>
 
  👀 `view`
@@ -140,7 +140,7 @@
 
 
 </dd>
-<dt> <h3> withdrawalHistory(address) <a name="RewardEscrow--function--withdrawalHistory(address)"></a> </h3> </dt>
+<dt> <h3> exitHistory(address) <a name="RewardEscrow--function--exitHistory(address)"></a> </h3> </dt>
 <dd>
 
  👀 `view`

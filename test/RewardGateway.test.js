@@ -39,6 +39,11 @@ contract('RewardGateway', accounts  =>{
         it("Should fail if content is deactivated", async () => {
             await expectRevert.unspecified(reward.pay(firstId, contentFee1,  {from : owner}));
         });
+
+        if("Should fail is msg.sender is not owner", async () => {
+            await expectRevert.unspecified(reward.pay(firstId, contentFee1, {from : holder1}));
+        });
+        
         describe("Valid case", () => {
             beforeEach(async () => {
                 await contents.activateContent(firstId, {from : owner});

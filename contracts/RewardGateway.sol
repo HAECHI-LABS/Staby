@@ -27,7 +27,7 @@ contract RewardGateway is IRewardGateway {
 
     // 두번 호출 되면 이상할텐데 ?
     // 두번 호출됐는지 확인 할 수 있는 무언가가 필요하겠다!
-    function pay(uint256 _contentId, uint256 _amount) external {
+    function pay(uint256 _contentId, uint256 _amount) onlyOwner external {
         (/*contentName*/, /*contentId*/, bool disabled) = _contents.getContentInfo(_contentId);
         require(disabled != true, "Content should activated first");
         _rewardToken.mint(address(this), _amount);
