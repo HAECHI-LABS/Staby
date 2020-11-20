@@ -182,7 +182,7 @@ Created: Nov 18, 2020 3:00 PM
 - 컨텐트 생성 및 지분 등록 절차
 =======
 
-    RewardGatewaysol에서 구현된 함수들의 documentation
+    RewardGateway.sol에서 구현된 함수들의 documentation
 
     https://github.com/HAECHI-LABS/Staby/blob/revision/docs/IRewardGateway.md
 
@@ -409,7 +409,7 @@ Created: Nov 18, 2020 3:00 PM
 =======
         사용자의 REW 토큰을 RewardGateway contract에 `balanceOf("0xa..")` 만큼 `trasnfer`
 
-        RewardGatewat contract의 REW 토큰을 `burn`
+        RewardGateway contract의 REW 토큰을 `burn`
 
         tx를 하나만 생성시키기 위해 `RewardToken#approveAndExit()`을 이용하여 `RewardGateway#exit()`호출
 
