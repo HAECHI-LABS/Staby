@@ -121,7 +121,7 @@
     - `paymentsHistory()`: 컨텐츠의 수익배분(정산) 기록을 불러옴
     - `exitHistory()`: 사용자의 인출 기록을 불러옴
 
-    RewardGatewaysol에서 구현된 함수들의 documentation
+    RewardGateway.sol에서 구현된 함수들의 documentation
 
     https://github.com/HAECHI-LABS/Staby/blob/revision/docs/IRewardGateway.md
 
@@ -259,7 +259,7 @@
 
         사용자의 REW 토큰을 RewardGateway contract에 `balanceOf("0xa..")` 만큼 `trasnfer`
 
-        RewardGatewat contract의 REW 토큰을 `burn`
+        RewardGateway contract의 REW 토큰을 `burn`
 
         tx를 하나만 생성시키기 위해 `RewardToken#approveAndExit()`을 이용하여 `RewardGateway#exit()`호출
 
