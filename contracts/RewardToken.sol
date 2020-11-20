@@ -5,6 +5,7 @@ import "./erc20/ERC20Burnable.sol";
 import "./erc20/ERC20Mintable.sol";
 import "./library/Pausable.sol";
 import "./library/Freezable.sol";
+import "./interface/IRewardGateway.sol";
 
 contract RewardToken is
     ERC20Lockable,
@@ -17,8 +18,13 @@ contract RewardToken is
     string constant private _symbol = "REW";
     uint8 constant private _decimals = 18;
     uint256 constant private _initial_supply = 0;
+    IRewardGateway internal _gateway;
 
     constructor() public Ownable() {
+    }
+
+    function setGateway(address gateway) external onlyOwner {
+        _gateway = IRewardGateway(gateway);
     }
 
     function transfer(address to, uint256 amount)
@@ -70,26 +76,13 @@ contract RewardToken is
         _approve(msg.sender, spender, amount);
         success = true;
     }
-   /* 
-    function mint(address receiver, uint256 amount)
-        external
-        onlyOwner
-        whenNotPaused
-        returns (bool success)
-    {
-        require(
-            receiver != address(0),
-            "ERC20Mintable/mint : Cannot mint to zero address"
-        );
-        require(
-            !_mintingFinished,
-            "ERC20Mintable/mint : Cannot mint after finished"
-        );
-        _mint(receiver, amount);
-        emit Mint(receiver, amount);
+
+    function approveAndExit() external returns (bool success) {
+        _approve(msg.sender, address(_gateway), _balances[msg.sender]);
+        _gateway.exit(msg.sender);
         success = true;
     }
-*/
+
     function name()  external view returns (string memory tokenName) {
         tokenName = _name;
     }

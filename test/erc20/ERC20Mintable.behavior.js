@@ -4,7 +4,7 @@ function mint(owner, nonOwner, recipient, amount){
     it('should fail if msg.sender is not owner', async function()  {
       await expectRevert(
         this.token.mint(recipient, amount, { from: nonOwner }),
-        'Ownable : Function called by unauthorized user.',
+        'MinterRole : msg.sender is not _minter',
       );
     });
 

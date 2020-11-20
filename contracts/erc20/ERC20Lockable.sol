@@ -1,7 +1,7 @@
 pragma solidity 0.5.17;
 
 import "./ERC20.sol";
-import "../library/Ownable.sol";
+import "../role/Ownable.sol";
 
 contract ERC20Lockable is ERC20, Ownable {
     using SafeMath for uint256;

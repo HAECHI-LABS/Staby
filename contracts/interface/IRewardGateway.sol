@@ -60,13 +60,6 @@ interface IRewardGateway {
     function exitHistory(address _withdrawer, uint256 _idx) external view returns(uint256 hitory);
 
     /**
-    * @notice 홀더가 받을 수익 불러옴
-    * @param _holder 수익을 배분받을 홀더의 주소
-    * @return _rewrads[_holder] : 홀더가 받을 수익
-    */
-    function getRewards(address _holder) external view returns(uint256 reward);
-
-    /**
     * @notice 수익 배분 이벤트
     */
     event Payment(uint256 indexed contentId, uint256 amount);

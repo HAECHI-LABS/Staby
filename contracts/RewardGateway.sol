@@ -12,8 +12,6 @@ contract RewardGateway is IRewardGateway {
     IContents internal _contents;
     IERC20 internal _rewardToken;
 
-    mapping(address=>uint256) internal _rewards;
-
     // payment 히스토리 확인용
     // contentId => history(array)
     mapping(uint256=>uint256[]) internal _paymentsHistory;
@@ -51,13 +49,8 @@ contract RewardGateway is IRewardGateway {
         uint256 amount = _rewardToken.balanceOf(_withdrawer);
         _rewardToken.transferFrom(_withdrawer, address(this), amount); 
         _rewardToken.burn(amount);
-        _rewards[_withdrawer] = 0;
         _exitHistory[_withdrawer].push(amount);
         emit Exit(_withdrawer, amount);
-    }
-
-    function getRewards(address _holder) external view returns(uint256 balance){
-        return(_rewards[_holder]);
     }
 
     function paymentsHistory(uint256 _contentId) external view returns(uint256[] memory){

@@ -3,19 +3,20 @@ pragma solidity 0.5.17;
 import "../library/SafeMath.sol";
 import "./ERC20.sol";
 import "../library/Pausable.sol";
+import "../role/MinterRole.sol";
 
-
-contract ERC20Mintable is ERC20, Pausable {
+contract ERC20Mintable is ERC20, Pausable, MinterRole {
     event Mint(address indexed receiver, uint256 amount);
     event MintFinished();
 
     using SafeMath for uint256;
     bool internal _mintingFinished;
+    
     ///@notice mint token
-    ///@dev only owner can call this function
+    ///@dev only minter can call this function
     function mint(address receiver, uint256 amount)
         public
-        onlyOwner
+        onlyMinter
         whenNotPaused
         returns (bool success)
     {
