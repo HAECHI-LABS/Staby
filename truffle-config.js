@@ -2,7 +2,7 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 const KlaytnWalletProvider = require('truffle-hdwallet-provider-klaytn');
 
 const mnemonic = 'hello hello';
-const privateKey = '<YOUR PRIVATE KEY HERE>"';
+const privateKey = '<YOUR PRIVATE KEY HERE>';
 const infuraKey = '';
 const solc = require('./solc.json');
 module.exports = {

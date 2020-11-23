@@ -149,7 +149,7 @@ Created: Nov 18, 2020 3:00 PM
 - 상세 문서
 >>>>>>> README
 
-    [HAECHI-LABS/Staby](https://github.com/HAECHI-LABS/Staby/blob/revision/docs/IContents.md)
+    [HAECHI-LABS/Staby](https://github.com/HAECHI-LABS/Staby/tree/main/docs/IContents.md)
 
 <<<<<<< HEAD
 ### RewardToken.sol
@@ -221,7 +221,7 @@ Created: Nov 18, 2020 3:00 PM
 - 상세 문서
 >>>>>>> README
 
-    [HAECHI-LABS/Staby](https://github.com/HAECHI-LABS/Staby/blob/revision/docs/IRewardEscrow.md)
+    [HAECHI-LABS/Staby](https://github.com/HAECHI-LABS/Staby/tree/main/docs/IRewardGateway.md)
 
 ## 2. 주요 기능 상세 설명
 
@@ -462,7 +462,7 @@ Created: Nov 18, 2020 3:00 PM
 >>>>>>> README
 
 - 절차
-    
+  
     1. 사용자의 수익 인출 (RewardGateway#exit)
 - 실행 과정
 
