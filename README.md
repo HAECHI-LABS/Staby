@@ -83,7 +83,7 @@ Created: Nov 18, 2020 3:00 PM
     - `getContentInfo()` : 컨텐츠 정보를 불러옴
 - 상세 문서
 
-    [HAECHI-LABS/StreamProtocol](./docs/IContents.md)
+    [IContents](./docs/IContents.md)
 
 ### 1-2) RewardToken.sol
 
@@ -126,7 +126,7 @@ Created: Nov 18, 2020 3:00 PM
     - `exitHistory()`: 사용자의 인출 기록을 불러옴
 - 상세 문서
 
-    [HAECHI-LABS/StreamProtocol](./docs/IRewardEscrow.md)
+    [IRewardGateway](./docs/IRewardGateway.md)
 
 ## 2. 주요 기능 상세 설명
 
