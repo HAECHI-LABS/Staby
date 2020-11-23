@@ -4,25 +4,27 @@ const web3 = require('web3');
 const { expect } = require('chai');
 const { constants, expectEvent, expectRevert, BN, ether, time } = require('@openzeppelin/test-helpers');
 
-const contentsAddress = "0x690Dbf2747E3CF56EF38acc27151dB85C882A3EE";
-const tokenAddress = "0xD8e53f0C9c4211635fE725c2805ee724DBbCCe9b";
-const escrowAddress = "0x94F58b24d1bd53b0b6Ee0ADdD5b142a24117CF50";
+const contentsAddress = "<contract address of Contents>";
+const tokenAddress = "<contract address of RewardToken>";
+const gatewayAddress = "<contract address of RewardGateway>";
 
 const contentsABI = require('./build/contracts/Contents.json').abi;
 const tokenABI = require('./build/contracts/RewardToken.json').abi;
-const escrowABI = require('./build/contracts/RewardEscrow.json').abi;
+const gatewayABI = require('./build/contracts/RewardGateway.json').abi;
 
-const owner = "0x2e3d7182b4d59a295c023C99F41c79BEbae76302";
-const privateKey_Owner = '0xe0e14d1353877d5fe0b906b8fc2e7808db69a899683eddd59bd1feb44800038f';
+const owner = "<WALLET ADDRESS>";
+const privateKey_Owner = '<WALLET PRIVATE_KEY>';
 
-const user_1 = '0x93c5a511b41a5b2d69ecbad4ae98680a5571e8a8';
+const user_1 = '0xd3d46e5fad1d359d143e8b1d554c0fce083fa4e7';
 const user_2 = '0x180c82da2bbe4196d9d13b3e69baaae4fa9435bf';
 const user_3 = '0x70e180b5a1556d509edc0ff013dd63434f4d5174';
 const user_4 = '0x79fc12ba37bfb3c88510923a0917aed53d551b57';
 
+const user_1_privatekey = '0xc00e89efc609c2a03d7971a187e6dc6ed60f7b1c326f00488f7da46730500109';
+
 const contents = new caver.contract(contentsABI,contentsAddress);
 const token = new caver.contract(tokenABI,tokenAddress);
-const reward = new caver.contract(escrowABI,escrowAddress);
+const reward = new caver.contract(gatewayABI,gatewayAddress);
 
 async function createContent(contentName) {
     const receipt = await contents.methods.createContent(contentName).send({from:owner, gas:'0x4bfd200'});
@@ -54,11 +56,6 @@ async function printContent(contentId) {
     console.log("\tDisabled : " + contentInfo.disabled);
 }
 
-async function mint(address, amount) {
-    const receipt = await token.methods.mint(address, amount).send({from:owner, gas:'0x4bfd200'});
-    console.log("Mint tx hash : " + receipt.transactionHash);
-}
-
 async function updateHolders(contentId, names, addresses, portions){
     const byteNames = names.map(x => web3.utils.toHex(x).padEnd(66, '0'));
     const receipt = await contents.methods.updateHolders(contentId, byteNames, addresses, portions).send({from:owner, gas:'0x4bfd200'});
@@ -79,6 +76,7 @@ async function activateContent(contentId){
 
 
 async function payment(contentId, amount){
+    await token.methods.addMinter(gatewayAddress).send({from:owner, gas:'0x4bfd200'});
     const receipt = await reward.methods.pay(contentId, amount).send({from:owner, gas:'0x4bfd200'});
     console.log("Payment Content tx hash : " + receipt.transactionHash);
 }
@@ -98,32 +96,26 @@ async function latestContentId() {
 }
 
 
-async function printReward(contentId) {
-    const holderLength = (await contents.methods.getHolderNum(contentId).call());
-    console.log("Reward of holder");
-    for(let i = 0; i < holderLength; i++) {
-        const holderInfo = await contents.methods.getHolderInfo(contentId,i).call();
-        const Reward = await reward.methods.getRewards(holderInfo.holderAddress).call();
-        console.log("\tHolder#" + i + ": " + Reward);
-    }
-}
-async function withdrawal(holderAddress){
-    const receipt = await reward.methods.withdraw(holderAddress).send({from:owner, gas:'0x4bfd200'});
-    console.log("Withdrawal tx hash : " + receipt.transactionHash);
+async function printExitHistory(holderAddress){
+    console.log("exitHistory of exiter : " + holderAddress);
+    const exitHistory = await reward.methods["exitHistory(address)"](holderAddress).call();
+    console.log("\tHistory : " + exitHistory);
 }
 
-async function printWithdrawalHistory(holderAddress){
-    console.log("WithdrawalHistory of withdrawer : " + holderAddress);
-    const WithdrawalHistory = await reward.methods.withdrawalHistory(holderAddress).call();
-    console.log("\tHistory : " + WithdrawalHistory);
+
+async function approveAndExit(holderAddress) {
+    const receipt = await token.methods.approveAndExit().send({from:holderAddress, gas:'0x4bfd200'});
+    console.log("Approve and Exit tx hash : " + receipt.transactionHash);
 }
 
-async function approve(address, amount) {
-    const receipt = await token.methods.approve(address, amount).send({from:owner, gas:'0x4bfd200'});
-    console.log("Approve tx hash : " + receipt.transactionHash);
+async function getBalance(holderAddress) {
+    console.log("Balance of address : " + holderAddress);
+    const balance = await token.methods.balanceOf(holderAddress).call();
+    console.log("\tBalance : " + balance);
 }
 
 async function main() {
+    //await token.methods.setGateway(gatewayAddress).send({from : owner, gas:'0x4bfd200'});
     await createContent("Content");
     const contentId = await latestContentId();
     const holderNames_1 = ["supervisor", "author", "actor"];
@@ -139,66 +131,32 @@ async function main() {
     await addHolders(contentId, holderNames_1, addresses_1, [1,3, 6]);
     await printHolders(contentId);
     
-    await updateHolders(contentId, holderNames_1, addresses_1, [3,2, 5]);
+    await updateHolders(contentId, holderNames_2, addresses_2, [3,2, 5]);
     await printHolders(contentId);
 
     await activateContent(contentId);
     await deactivateContent(contentId);
     await activateContent(contentId);
 
-    await mint(owner, contentProfit_1);
-    await approve(escrowAddress, contentProfit_1);
-    await payment(contentId, contentProfit_1);
-
-    await mint(owner, contentProfit_2);
-    await approve(escrowAddress, contentProfit_2);
+    await payment(contentId, contentProfit_1); 
     await payment(contentId, contentProfit_2);
-
-    await printReward(contentId);
+    
+    await getBalance(user_1);
     await printPaymentHistory(contentId);
 
-    await withdrawal(user_1);
-
-    await printReward(contentId);
-    await printWithdrawalHistory(user_1);
-
+    await approveAndExit(user_1);
+   
+    await printExitHistory(user_1);
+    await getBalance(user_1);
 }
-
-/*
-function getEscrowAddress() {
-    const address = escrowAddress;
-    return address;
-}
-
-function getAddresses() {
-    const addresses = [user_1, user_2];
-    return addresses;
-}
-
-function getOwner() {
-    const address = owner;
-    return address;
-}
-*/ 
 
 const keyring = caver.wallet.keyring.createFromPrivateKey(privateKey_Owner);
+const keyring_user = caver.wallet.keyring.createFromPrivateKey(user_1_privatekey);
+
 caver.wallet.add(keyring);
+caver.wallet.add(keyring_user);
+
 main();
 
-module.exports = {
-    createContent,
-    updateHolders,
-    addHolders,
-    printHolders,
-    deactivateContent,
-    activateContent,
-    latestContentId,
-    payment,
-    printPaymentHistory,
-    printReward,
-    withdrawal,
-    printWithdrawalHistory,
-    mint,
-    approve,
-    printContent
-};
+
+

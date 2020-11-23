@@ -14133,12 +14133,13 @@
         }
       },
       "links": {},
-      "address": "0x690Dbf2747E3CF56EF38acc27151dB85C882A3EE",
-      "transactionHash": "0x5faab414774f762e50d6a93f482b2d38fc7be6c916042689af407224edcc90b2"
+      "address": "0xaf05e11Abe0053F9ba0e766014BC68Eb680e312f",
+      "transactionHash": "0xa9743863838f3ec03f5484d222928e4879031c64880dfbadaf9af77d12959854"
     }
   },
   "schemaVersion": "3.3.2",
-  "updatedAt": "2020-11-19T10:10:49.991Z",
+  "updatedAt": "2020-11-23T00:51:13.822Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },
