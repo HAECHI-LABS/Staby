@@ -4,8 +4,9 @@ import "./interface/IContents.sol";
 import "./interface/IERC20.sol";
 import "./interface/IRewardGateway.sol";
 import "./library/SafeMath.sol";
+import "./role/Ownable.sol";
 
-contract RewardGateway is IRewardGateway {
+contract RewardGateway is IRewardGateway , Ownable {
 
     using SafeMath for uint256;
 

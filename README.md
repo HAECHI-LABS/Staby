@@ -1,4 +1,4 @@
-# [공유] Stream Protocol 스마트 컨트랙트 결과물
+# [공유] Staby 스마트 컨트랙트 결과물
 
 Created: Nov 18, 2020 3:00 PM
 
@@ -14,7 +14,7 @@ Created: Nov 18, 2020 3:00 PM
 
 ### Github 링크
 
-[HAECHI-LABS/StreamProtocol](https://github.com/HAECHI-LABS/StreamProtocol)
+[HAECHI-LABS/Staby](https://github.com/HAECHI-LABS/Staby)
 
 ### 주요 기능
 
@@ -83,7 +83,7 @@ Created: Nov 18, 2020 3:00 PM
     - `getContentInfo()` : 컨텐츠 정보를 불러옴
 - 상세 문서
 
-    [IContents](./docs/IContents.md)
+    [HAECHI-LABS/Staby](https://github.com/HAECHI-LABS/Staby/tree/main/docs/IContents.md)
 
 ### 1-2) RewardToken.sol
 
@@ -126,7 +126,7 @@ Created: Nov 18, 2020 3:00 PM
     - `exitHistory()`: 사용자의 인출 기록을 불러옴
 - 상세 문서
 
-    [IRewardGateway](./docs/IRewardGateway.md)
+    [HAECHI-LABS/Staby](https://github.com/HAECHI-LABS/Staby/tree/main/docs/IRewardGateway.md)
 
 ## 2. 주요 기능 상세 설명
 
@@ -229,7 +229,7 @@ Created: Nov 18, 2020 3:00 PM
 ### 2-3) 정산 금액 인출
 
 - 절차
-    
+  
     1. 사용자의 수익 인출 (RewardGateway#exit)
 - 실행 과정
 
