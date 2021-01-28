@@ -4,9 +4,9 @@ const web3 = require('web3');
 const { expect } = require('chai');
 const { constants, expectEvent, expectRevert, BN, ether, time } = require('@openzeppelin/test-helpers');
 
-const contentsAddress = "0x37e07Ad8FD41B690724f1fB1F5E66e44f97b8845";
-const tokenAddress = "0xE179F7B138D7d0449002ac9f0149Dc5F6c8a145F";
-const gatewayAddress = "0xb453AaBFD51944067Fc1Eea4F58e19F6cEe7Fc7d";
+const contentsAddress = "0x82c6a58b5Aa2c85a90e4907075637Ea92056148e";
+const tokenAddress = "0x2908cc41Bc269A4A2Bef15753D65be67d2EA5905";
+const gatewayAddress = "0x6ca12cb7020752da02E60eFA79A479b10A8faFe7";
 
 const contentsABI = require('./build/contracts/Contents.json').abi;
 const tokenABI = require('./build/contracts/RewardToken.json').abi;
@@ -47,7 +47,7 @@ async function printHolders(contentId) {
         const holderInfo = await contents.methods.getHolderInfo(contentId,i).call();
         console.log("\tHolder #" + i + " : " + web3.utils.hexToUtf8(holderInfo.holderName));
         console.log("\tAddress : " + holderInfo.holderAddress);
-        console.log("\tPortion : " + (holderInfo.holderPortion/10000) + "0%");
+        console.log("\tPortion : " + (holderInfo.holderPortion*100/100000) + "%");
     }
 }
 
@@ -139,14 +139,14 @@ async function main() {
     const addresses_1 = [user_1, user_2, user_3];
     const addresses_2 = [user_1, user_2, user_4];
 
-    const contentProfit_1 = 100000
-    const contentProfit_2 = 150000
+    const contentProfit_1 = 400000
+    const contentProfit_2 = 600000
     await printContent(contentId);
 
-    await addHolders(contentId, holderNames_1, addresses_1, [30000,20000, 50000]);
+    await addHolders(contentId, holderNames_1, addresses_1, [10054, 30046, 59900]);
     await printHolders(contentId);
     
-    await updateHolders(contentId, holderNames_2, addresses_2, [10050,30050, 59900]);
+    await updateHolders(contentId, holderNames_2, addresses_2, [30025, 21764, 48211]);
     await printHolders(contentId);
 
     await activateContent(contentId);
