@@ -9,15 +9,17 @@ let contents;
 contract ('Contents', accounts  =>{
     const firstId = new BN('0');
     const secondId = new BN('1');
-    const por1 = new BN('2');
-    const por2 = new BN('3');
-    const por3 = new BN('5');
+    const por1 = new BN('20000');
+    const por2 = new BN('30000');
+    const por3 = new BN('50000');
     const contentFee1 = new BN('10000');
     const contentFee2 = new BN('30000');
     const supervisor = web3.utils.toHex("Supervisor");
     const actor = web3.utils.toHex("Actor");
     const author = web3.utils.toHex("Author");
-    const [owner, holder1, holder2, holder3, ...others] = accounts;
+    const actress = web3.utils.toHex("Actress");
+
+    const [owner, holder1, holder2, holder3, holder4, ...others] = accounts;
 
     beforeEach(async () => {
         contents = await ContentsFactory.new({from : owner});
@@ -56,6 +58,10 @@ contract ('Contents', accounts  =>{
             await expectRevert.unspecified(contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por1, por3], {from : owner}));
         });
 
+        it("Should fail if holder number over 100", async () => {
+            await expectRevert.unspecified(contents.addHolders(firstId, [supervisor, actor, author, actress], [holder1, holder2, holder3, holder4], [por1,por1, new BN('25000'), new BN('25000')], {from : owner}));
+        });
+
         describe("Vaild Case", () => {
             beforeEach(async () => {
                 await contents.addHolders(firstId, [supervisor, actor, author], [holder1,holder2,holder3], [por1,por2, por3], {from : owner});
@@ -75,9 +81,9 @@ contract ('Contents', accounts  =>{
             });
 
             it("Holder Portion should be equal holderPortion", async () => {
-                ((await contents.getHolderInfo(firstId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('2'));
-                ((await contents.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('3'));
-                ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('5'));
+                ((await contents.getHolderInfo(firstId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('20000'));
+                ((await contents.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('30000'));
+                ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('50000'));
             });
 
             it("Content's disabled should be false", async () => {
@@ -180,9 +186,9 @@ contract ('Contents', accounts  =>{
             });
 
             it("Should return appropriate holderPortion", async () => {
-                ((await contents.getHolderInfo(firstId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('2'));
-                ((await contents.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('3'));
-                ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('5'));
+                ((await contents.getHolderInfo(firstId, new BN('0'))).holderPortion).should.be.bignumber.equal(new BN('20000'));
+                ((await contents.getHolderInfo(firstId, new BN('1'))).holderPortion).should.be.bignumber.equal(new BN('30000'));
+                ((await contents.getHolderInfo(firstId, new BN('2'))).holderPortion).should.be.bignumber.equal(new BN('50000'));
             });
         });
     });
@@ -215,7 +221,7 @@ contract ('Contents', accounts  =>{
 
     describe("#denominator()", () => {
         it("Should return appropriate denominator",  async () => {
-            (await contents.denominator()).should.be.bignumber.equal(new BN('10'));
+            (await contents.denominator()).should.be.bignumber.equal(new BN('100000'));
         });
     });
 

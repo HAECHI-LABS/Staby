@@ -13,7 +13,7 @@ contract Contents is IContents, Ownable {
     using SafeMath for uint256;
 
     uint256 internal _contentCounter = 0;
-    uint256 constant private DENOMINATOR = 10;
+    uint256 constant private DENOMINATOR = 100000;
 
     // 컨텐츠에 대한 정보
     struct Contents {
@@ -103,6 +103,7 @@ contract Contents is IContents, Ownable {
     function _addHolders(uint256 _contentId, bytes32[] memory _holderName, address[] memory _holderAddress, uint256[] memory _holderPortion) internal {
         require(_holderAddress.length == _holderPortion.length, '#Address != #Portion');
         require(_holderAddress.length == _holderName.length, '#Address != #Name');
+        require(_holderAddress.length <= 100, "#Holder should under 100");
         uint256 counter = 0;
         for(uint i = 0 ; i < _holderPortion.length ; i++) counter = _holderPortion[i].add(counter);
         require(counter == DENOMINATOR , 'portion sum is not equal to denominator');

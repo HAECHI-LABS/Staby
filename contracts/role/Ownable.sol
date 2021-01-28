@@ -25,14 +25,6 @@ contract Ownable {
         ownerAddress = _owner;
     }
 
-    function transferOwnership(address newOwner)
-        public
-        onlyOwner
-        returns (bool success)
-    {
-        require(newOwner != address(0), "Ownable/transferOwnership : cannot transfer ownership to zero address");
-        success = _transferOwnership(newOwner);
-    }
 
     function renounceOwnership() external onlyOwner returns (bool success) {
         success = _transferOwnership(address(0));

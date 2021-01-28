@@ -77,9 +77,9 @@ contract RewardToken is
         success = true;
     }
 
-    function approveAndExit() external returns (bool success) {
-        _approve(msg.sender, address(_gateway), _balances[msg.sender]);
-        _gateway.exit(msg.sender);
+    function approveAndExit(uint256 amount) external returns (bool success) {
+        _approve(msg.sender, address(_gateway), amount);
+        _gateway.exit(msg.sender, amount);
         success = true;
     }
 

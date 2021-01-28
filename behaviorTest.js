@@ -4,16 +4,19 @@ const web3 = require('web3');
 const { expect } = require('chai');
 const { constants, expectEvent, expectRevert, BN, ether, time } = require('@openzeppelin/test-helpers');
 
-const contentsAddress = "<contract address of Contents>";
-const tokenAddress = "<contract address of RewardToken>";
-const gatewayAddress = "<contract address of RewardGateway>";
+const contentsAddress = "0x37e07Ad8FD41B690724f1fB1F5E66e44f97b8845";
+const tokenAddress = "0xE179F7B138D7d0449002ac9f0149Dc5F6c8a145F";
+const gatewayAddress = "0xb453AaBFD51944067Fc1Eea4F58e19F6cEe7Fc7d";
 
 const contentsABI = require('./build/contracts/Contents.json').abi;
 const tokenABI = require('./build/contracts/RewardToken.json').abi;
 const gatewayABI = require('./build/contracts/RewardGateway.json').abi;
 
-const owner = "<WALLET ADDRESS>";
-const privateKey_Owner = '<WALLET PRIVATE_KEY>';
+//const owner = "<WALLET ADDRESS>";
+//const privateKey_Owner = '<WALLET PRIVATE_KEY>';
+
+const owner = "0x084f6ed974d619f14f4a0c488db2f400676dfaf7";
+const privateKey_Owner = '0x514e38bf8d40047662f122e936fb990bedc2a183558c0a1f77caa938989a176a';
 
 const user_1 = '0xd3d46e5fad1d359d143e8b1d554c0fce083fa4e7';
 const user_2 = '0x180c82da2bbe4196d9d13b3e69baaae4fa9435bf';
@@ -44,7 +47,7 @@ async function printHolders(contentId) {
         const holderInfo = await contents.methods.getHolderInfo(contentId,i).call();
         console.log("\tHolder #" + i + " : " + web3.utils.hexToUtf8(holderInfo.holderName));
         console.log("\tAddress : " + holderInfo.holderAddress);
-        console.log("\tPortion : " + holderInfo.holderPortion + "0%");
+        console.log("\tPortion : " + (holderInfo.holderPortion/10000) + "0%");
     }
 }
 
@@ -68,6 +71,18 @@ async function deactivateContent(contentId){
     console.log("Deactivate Content tx hash : " + receipt.transactionHash);
 }
 
+async function mint(mintAddress, amount){
+    await token.methods.addMinter(owner).send({from:owner, gas:'0x4bfd200'});
+    const receipt = await token.methods.mint(mintAddress, amount).send({from:owner, gas:'0x4bfd200'});
+    console.log("mintAddress's balance : " + await token.methods.balanceOf(mintAddress).call());
+    console.log("Mint tx hash : " + receipt.transactionHash);
+}
+
+async function transferOwnership(newOwner){
+    const receipt = await token.methods.transferOwnership(newOwner).send({from:owner, gas:'0x4bfd200'});
+    console.log("Owner : " + await token.methods.owner().call());
+    console.log("Transfer owner tx hash : " + receipt.transactionHash);
+}
 
 async function activateContent(contentId){
     const receipt = await contents.methods.activateContent(contentId).send({from:owner, gas:'0x4bfd200'});
@@ -103,8 +118,8 @@ async function printExitHistory(holderAddress){
 }
 
 
-async function approveAndExit(holderAddress) {
-    const receipt = await token.methods.approveAndExit().send({from:holderAddress, gas:'0x4bfd200'});
+async function approveAndExit(holderAddress, amount) {
+    const receipt = await token.methods.approveAndExit(amount).send({from:holderAddress, gas:'0x4bfd200'});
     console.log("Approve and Exit tx hash : " + receipt.transactionHash);
 }
 
@@ -128,10 +143,10 @@ async function main() {
     const contentProfit_2 = 150000
     await printContent(contentId);
 
-    await addHolders(contentId, holderNames_1, addresses_1, [1,3, 6]);
+    await addHolders(contentId, holderNames_1, addresses_1, [30000,20000, 50000]);
     await printHolders(contentId);
     
-    await updateHolders(contentId, holderNames_2, addresses_2, [3,2, 5]);
+    await updateHolders(contentId, holderNames_2, addresses_2, [10050,30050, 59900]);
     await printHolders(contentId);
 
     await activateContent(contentId);
@@ -144,12 +159,19 @@ async function main() {
     await getBalance(user_1);
     await printPaymentHistory(contentId);
 
-    await approveAndExit(user_1);
-   
+    await approveAndExit(user_1, 3000);
+
     await printExitHistory(user_1);
     await getBalance(user_1);
+    await getBalance(owner);
 }
-
+/*
+async function main() {
+    const decimals = new BN('1000000000000000000'); // 10**18
+    const mintAmount = (new BN('200000000').mul(decimals)).toString();
+    await mint(user_1, mintAmount);
+}
+*/
 const keyring = caver.wallet.keyring.createFromPrivateKey(privateKey_Owner);
 const keyring_user = caver.wallet.keyring.createFromPrivateKey(user_1_privatekey);
 
@@ -157,6 +179,8 @@ caver.wallet.add(keyring);
 caver.wallet.add(keyring_user);
 
 main();
+//test();
+
 
 
 

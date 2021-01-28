@@ -12,8 +12,10 @@ interface IRewardGateway {
     /**
     * @notice 사용자의 토큰 출금
     * @param _withdrawer 토큰을 출금하는 사용자의 주소
+    * @param _withdrawer 출금하는 토큰의 수 
+
     */
-    function exit(address _withdrawer) external;
+    function exit(address _withdrawer, uint256 amount) external;
 
     /**
     * @notice 컨텐츠 ID에 해당하는 컨텐츠의 수익배분 기록 불러옴

@@ -21,9 +21,12 @@ contract RewardGateway is IRewardGateway , Ownable {
     // withdrawer => history(array)
     mapping(address=>uint256[]) internal _exitHistory;
 
+    address internal _contractCreator;
+
     constructor(address _contentsAddress, address _rewardAddress) public {
         _contents = IContents(_contentsAddress);
         _rewardToken = IERC20(_rewardAddress);
+        _contractCreator = msg.sender;
     }
 
     // 두번 호출 되면 이상할텐데 ?
@@ -46,10 +49,11 @@ contract RewardGateway is IRewardGateway , Ownable {
     // owner가 다 해도 돼?
     // 그게 진짜 디자인인가?
     // withdraw 호출한거 트래킹 실패했을 경우 어떻게 처리하나?
-    function exit(address _withdrawer) external {
-        uint256 amount = _rewardToken.balanceOf(_withdrawer);
+    function exit(address _withdrawer, uint256 amount) external {
+        uint256 tokenAmount = _rewardToken.balanceOf(_withdrawer);
+        require(amount <= tokenAmount, "Cannot exit more than balance");
         _rewardToken.transferFrom(_withdrawer, address(this), amount); 
-        _rewardToken.burn(amount);
+        _rewardToken.transfer(_contractCreator, amount);
         _exitHistory[_withdrawer].push(amount);
         emit Exit(_withdrawer, amount);
     }

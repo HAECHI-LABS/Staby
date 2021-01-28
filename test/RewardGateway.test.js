@@ -14,14 +14,15 @@ let reward;
 contract('RewardGateway', accounts  =>{
     const firstId = new BN('0');
     const secondId = new BN('1');
-    const por1 = new BN('2');
-    const por2 = new BN('3');
-    const por3 = new BN('5');
+    const por1 = new BN('20000');
+    const por2 = new BN('30000');
+    const por3 = new BN('50000');
     const contentFee1 = new BN('10000');
     const contentFee2 = new BN('40000');
     const supervisor = web3.utils.toHex("Supervisor");
     const actor = web3.utils.toHex("Actor");
     const author = web3.utils.toHex("Author");
+    const actress = web3.utils.toHex("Actress");
     const [owner, holder1, holder2, holder3, ...others] = accounts;
     beforeEach(async () => {
         contents = await ContentsFactory.new({from : owner});
@@ -80,29 +81,27 @@ contract('RewardGateway', accounts  =>{
             await reward.pay(secondId, contentFee2, {from : owner});
             await token.approve(reward.address, new BN("14000"), {from : holder1});
             await token.approve(reward.address, new BN("13000"), {from : holder3});
-            await reward.exit(holder1, {from : owner});
-            await reward.exit(holder3, {from : owner});
+            await reward.exit(holder1, new BN('5000'), {from : owner});
+            await reward.exit(holder3, new BN('1000'), {from : owner});
         });
 
         it("Appropriate token been erased", async () => {
-            (await token.balanceOf(holder1)).should.be.bignumber.equal(new BN("0"));
+            (await token.balanceOf(holder1)).should.be.bignumber.equal(new BN("9000"));
             (await token.balanceOf(holder2)).should.be.bignumber.equal(new BN("23000"));
-            (await token.balanceOf(holder3)).should.be.bignumber.equal(new BN("0"));
+            (await token.balanceOf(holder3)).should.be.bignumber.equal(new BN("12000"));
         });
 
-        it("total supply should decrease", async () => {
-            (await token.totalSupply()).should.be.bignumber.equal(contentFee1.add(contentFee2).sub(new BN('27000')));
+        it("Appropriate token been transferred to contractCreator", async () => {
+            (await token.balanceOf(owner)).should.be.bignumber.equal(new BN("6000"));
         });
 
         it("Appropriate value should be stored in exitHistory", async () => {
-            await reward.pay(firstId, contentFee2, {from : owner});
-            await token.approve(reward.address, new BN("8000"), {from : holder1});
-            await reward.exit(holder1, {from : owner});
-            ((await reward.exitHistory(holder1))[1]).should.be.bignumber.equal(new BN('8000'));
-            ((await reward.exitHistory(holder1))[0]).should.be.bignumber.equal(new BN('14000'));
+            await reward.exit(holder1, new BN('3000'), {from : owner});
+            ((await reward.exitHistory(holder1))[1]).should.be.bignumber.equal(new BN('3000'));
+            ((await reward.exitHistory(holder1))[0]).should.be.bignumber.equal(new BN('5000'));
             (await reward.exitHistoryLength(holder1)).should.be.bignumber.equal(new BN('2'));
-            (await reward.methods["exitHistory(address,uint256)"](holder1, new BN('1'))).should.be.bignumber.equal(new BN('8000'));
-            (await reward.methods["exitHistory(address,uint256)"](holder1, new BN('0'))).should.be.bignumber.equal(new BN('14000'));
+            (await reward.methods["exitHistory(address,uint256)"](holder1, new BN('1'))).should.be.bignumber.equal(new BN('3000'));
+            (await reward.methods["exitHistory(address,uint256)"](holder1, new BN('0'))).should.be.bignumber.equal(new BN('5000'));
         });
     });
 });

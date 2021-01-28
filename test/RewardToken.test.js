@@ -22,7 +22,7 @@ contract('RewardToken', function(account)  {
   const INITIAL_SUPPLY = new BN('0');
   const [owner, sender, recipient, spender, withdrawer, ...others] = account;
   const amount = new BN('100');
-
+  const exitAmount = new BN('40000');
   beforeEach(async function() {
     this.contents = await ContentsFactory.new({from : owner});
     this.token = await ERC20Factory.new({from : owner});
@@ -80,26 +80,26 @@ contract('RewardToken', function(account)  {
 
   describe('#approveAndExit()', function() {
     beforeEach(async function() {
-      await this.token.mint(withdrawer, new BN('1000000'), {from : owner});
-      await this.token.approveAndExit({from : withdrawer});
+      await this.token.mint(withdrawer, new BN('100000'), {from : owner});
+      await this.token.approveAndExit(exitAmount ,{from : withdrawer});
     });
 
-    //this
+    /*
     it('allowance should set appropriately', async function() {
-      var amount = await this.token.balanceOf(withdrawer);
-      (await this.token.allowance(withdrawer, this.reward.address)).should.be.bignumber.equal(amount);
+      (await this.token.allowance(withdrawer, this.reward.address)).should.be.bignumber.equal(exitAmount);
     });
-
+    */
+    
     it("Appropriate token been erased", async function() {
-      (await this.token.balanceOf(withdrawer)).should.be.bignumber.equal(new BN("0"));
+      (await this.token.balanceOf(withdrawer)).should.be.bignumber.equal(new BN("60000"));
     });
 
-    it("total supply should decrease", async function() {
-      (await this.token.totalSupply()).should.be.bignumber.equal(new BN("0"));
+    it("Appropriate token been transferred", async function() {
+      (await this.token.balanceOf(owner)).should.be.bignumber.equal(new BN('40000'));
     });
 
     it("Appropriate value should be stored in exitHistory", async function() {
-        ((await this.reward.exitHistory(withdrawer))[0]).should.be.bignumber.equal(new BN('1000000'));
+        ((await this.reward.exitHistory(withdrawer))[0]).should.be.bignumber.equal(new BN('40000'));
         (await this.reward.exitHistoryLength(withdrawer)).should.be.bignumber.equal(new BN('1'));
     });
   });
