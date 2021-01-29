@@ -121,7 +121,7 @@ Created: Nov 18, 2020 3:00 PM
 
 - 주요 함수
     - `pay()`: 컨텐츠에 해당하는 수익을 계산하고, 홀더들에게 수익 분배 (정산)
-    - `exit()`: 사용자가 소유한 Reward Token을 전부 인출 (인출)
+    - `exit()`: 사용자가 소유한 Reward Token을 인출 (인출)
     - `paymentsHistory()`: 컨텐츠의 수익배분(정산) 기록을 불러옴
     - `exitHistory()`: 사용자의 인출 기록을 불러옴
 - 상세 문서
@@ -206,25 +206,25 @@ Created: Nov 18, 2020 3:00 PM
 
     절차대로 시나리오를 실행하기위한 함수호출 방법
 
-    - 컨텐츠 수익 가져옴 (ex 수익 : 1000)
+    - 컨텐츠 수익 가져옴 (ex 수익 : 10000)
     - 정산 함수
 
         ```jsx
-        pay(0, 1000) // (contentId, profit)
+        pay(0, 10000) // (contentId, profit)
         ```
 
         - 결과: RewardGateway contract로 `10000 REW` 토큰이 `mint`됨
             - 홀더가 분배받을 수익이 `_rewards` 구조체에 저장됨
 
-                `balanceOf("0xa..")` = `300`
+                `balanceOf("0xa..")` = `3000`
 
-                `balanceOf("0xb..")` = `200`
+                `balanceOf("0xb..")` = `2000`
 
-                `balanceOf("0xd..")` = `500`
+                `balanceOf("0xd..")` = `5000`
 
             - 컨텐츠의 수익 배분 기록이 _paymentHistory 구조체에 저장됨
 
-                `_paymentHistory[0]` = `1000`
+                `_paymentHistory[0]` = `10000`
 
 ### 2-3) 정산 금액 인출
 
@@ -238,13 +238,13 @@ Created: Nov 18, 2020 3:00 PM
     - 인출 함수
 
         ```jsx
-        exit("0xa..")
+        exit("0xa..", 500)
         ```
 
-        - 결과: 사용자의 REW 토큰을 RewardGateway contract에 `balanceOf("0xa..")` 만큼 `trasnfer`
-            - RewardGateway contract의 REW 토큰을 `burn`
+        - 결과: 사용자의 REW 토큰을 RewardGateway contract에 `500` 만큼 `trasnfer`
+            - RewardGateway contract의 REW 토큰을 owner에게 transfer
             - tx를 하나만 생성시키기 위해 `RewardToken#approveAndExit()`을 이용하여 `RewardGateway#exit()`호출
-            - 사용자의 REW 토큰이 제거됨
-                - `balanceOf("0xa..")` = `0`
+            - 사용자의 REW 토큰이 감소됨
+                - `balanceOf("0xa..")` = `2500`
             - 홀더의 인출 기록이 _withdrawalHistory 구조체에 저장됨
-                - `_withdrawalHistory["0xa.."]` = `300`
+                - `_withdrawalHistory["0xa.."]` = `500`
